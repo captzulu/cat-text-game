@@ -1,14 +1,23 @@
 import constants
-from type import Type
+import importlib
 import json
 class dataFactory(object):
     def loadData(name):
         json_file = open(constants.DATA_PATH + '/' + name + '.json')
         return json.load(json_file)
+    
+    def dictFromJson(className):
+        jsonFileName = className + 's'
+        return dataFactory.loadData(jsonFileName)
+    
+    def initClass(className, obj):
+        module = importlib.import_module('dataObjects.' + className)
+        returnClass = getattr(module, className.capitalize())
+        return returnClass(**obj)
 
-    def loadTypes():
-        types_loaded = dataFactory.loadData('types')
-        types = []
-        for type in types_loaded:
-            types.append(Type(**type))
-        return types
+    def loadClassDict(className):
+        dict_loaded = dataFactory.dictFromJson(className)
+        classes_dict = {}
+        for key, item in dict_loaded.items():
+            classes_dict.update([(key,dataFactory.initClass(className, item))])
+        return classes_dict

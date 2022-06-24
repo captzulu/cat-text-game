@@ -1,1 +1,121 @@
-[{"name":"dark", "weaknesses":"", "resistances":""}]
+{
+    "nor": {
+        "name": "normal",
+        "weaknesses": "fig",
+        "resistances": "",
+        "immunities": "gho",
+        "acronym": "nor"
+    },
+    "fir": {
+        "name": "fire",
+        "weaknesses": "ele,gra",
+        "resistances": "fir,wat,ice,ste",
+        "immunities": "",
+        "acronym": "fir"
+    },
+    "ele": {
+        "name": "electric",
+        "weaknesses": "gro",
+        "resistances": "ele,fly,ste",
+        "immunities": "",
+        "acronym": "wat"
+    },
+    "gra": {
+        "name": "grass",
+        "weaknesses": "fir,ice,poi,fly,bug",
+        "resistances": "wat,ele,gra,gro",
+        "immunities": "",
+        "acronym": "gra"
+    },
+    "ice": {
+        "name": "ice",
+        "weaknesses": "fir,fig,roc,ste",
+        "resistances": "ice",
+        "immunities": "",
+        "acronym": "ice"
+    },
+    "fig": {
+        "name": "fighting",
+        "weaknesses": "fly,psy,fai",
+        "resistances": "bug,roc,dar",
+        "immunities": "",
+        "acronym": "fig"
+    },
+    "poi": {
+        "name": "poison",
+        "weaknesses": "gro,psy",
+        "resistances": "gra,fig,poi,bug,fai",
+        "immunities": "",
+        "acronym": "poi"
+    },
+    "gro": {
+        "name": "ground",
+        "weaknesses": "wat,gra,ice",
+        "resistances": "poi,roc",
+        "immunities": "ele",
+        "acronym": "gro"
+    },
+    "fly": {
+        "name": "flying",
+        "weaknesses": "ele,ice,roc",
+        "resistances": "gra,fig,bug",
+        "immunities": "gro",
+        "acronym": "fly"
+    },
+    "psy": {
+        "name": "psychic",
+        "weaknesses": "fig,psy",
+        "resistances": "gra,fig,bug",
+        "immunities": "",
+        "acronym": "psy"
+    },
+    "bug": {
+        "name": "bug",
+        "weaknesses": "fir,fly,roc",
+        "resistances": "gra,fig,gro",
+        "immunities": "",
+        "acronym": "bug"
+    },
+    "roc": {
+        "name": "rock",
+        "weaknesses": "wat,gra,fig,gro,ste",
+        "resistances": "nor,fir,poi,fly",
+        "immunities": "",
+        "acronym": "roc"
+    },
+    "gho": {
+        "name": "ghost",
+        "weaknesses": "gho,dar",
+        "resistances": "poi,bug",
+        "immunities": "nor,fig",
+        "acronym": "gho"
+    },
+    "dra": {
+        "name": "dragon",
+        "weaknesses": "ice,dra",
+        "resistances": "fir,wat,ele,gra",
+        "immunities": "nor,fig",
+        "acronym": "dra"
+    },
+    "dar": {
+        "name": "dark",
+        "weaknesses": "fig,bug,fai",
+        "resistances": "dar,gho",
+        "immunities": "psy",
+        "acronym": "dar"
+    },
+    "ste": {
+        "name": "steel",
+        "weaknesses": "fir,fig,gro",
+        "resistances": "nor,gra,ice,fly,psy,bug,roc,dra,ste,fai",
+        "immunities": "poi",
+        "acronym": "ste"
+    },
+    "fai": {
+        "name": "fairy",
+        "weaknesses": "poi,ste",
+        "resistances": "fig,bug,dar",
+        "immunities": "dra",
+        "acronym": "fai"
+    }
+}

@@ -1,30 +1,34 @@
-from dataFactory import dataFactory 
-def main():
-    MODE_1_KEY = 'mode_1'
-    MODE_2_KEY = 'mode_2'
-    modes = {MODE_1_KEY: 'mode 1', MODE_2_KEY: 'mode 2'}
+from dataFactory import dataFactory
+from globals import _GLOBALS
 
-    player_name = input("What's your name? > ")
-    print(f'Your name is {player_name.upper()}')
+def loadData():
+    _GLOBALS['types'] = dataFactory.loadClassDict('type') 
+    _GLOBALS['cats'] = dataFactory.loadClassDict('cat')
+
+def main():
+    MODE_1_KEY = 'fight'
+    MODE_2_KEY = 'cats'
+    modes = {mode1: MODE_1_KEY, mode2: MODE_2_KEY}
+
+    playerName = _GLOBALS['playerName'] = input("What's your name? > ").capitalize()
+    print(f'Your name is {playerName}')
 
     print('Choose a mode : ')
     
     modePicked = input_dict(modes)
-
-    if modePicked == MODE_1_KEY:
-        mode1()
-    elif modePicked == MODE_2_KEY:
-        mode2()
+    modePicked()
 
 def mode1():
-    cats = ['yuki', 'jari', 'néné', 'lolo']
-    print('Choose a cat :')
-    catPicked = input_list(cats)
-    types = dataFactory.loadTypes()
-    print(types)
+    monster1 = _GLOBALS['cats'][1]
+    monster1 = _GLOBALS['cats'][2]
+
+    While()
     return
 
 def mode2():
+    cats = dataFactory.loadClassDict('cat')
+    print('Choose a cat :')
+    catPicked = input_dict(cats)
     return
 
 def input_list(list):
@@ -33,14 +37,31 @@ def input_list(list):
     return input('> ')
 
 def input_dict(dict):
-    for key, text in dict.items():
-        print(text)
-    textSelected = input('> ')
-    if textSelected in dict.values():
-        for key, text in dict.items():
-            if text == textSelected:
-                return key
+    valuesList = list(dict.values())
+    choices = makeOrderedChoices(valuesList)
+    for i, text in choices.items():
+        print(str(i) + '. ' + str(text))
+
+    while(True):
+        textInputted = input('> ')
+        if textInputted.isnumeric() and int(textInputted) in choices.keys():
+            textInputted = choices[int(textInputted)]
+
+        if textInputted in choices.values():
+            for key, text in dict.items():
+                if text == textInputted:
+                    return key
+        print(f"'{textInputted}' is not a valid choice. Pick again :")
+    
+
+def makeOrderedChoices(dict_values):
+    choices = {
+        i : dict_values[i - 1]
+        for i in range(1, len(dict_values) + 1)
+        }
+    return choices
         
 
 if __name__ == '__main__':
+    loadData()
     main()
