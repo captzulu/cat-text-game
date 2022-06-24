@@ -3,7 +3,7 @@ import importlib
 import json
 class dataFactory(object):
     def loadData(name):
-        json_file = open(constants.DATA_PATH + '/' + name + '.json')
+        json_file = open(constants.DATA_PATH + '/' + name + '.json', encoding='utf-8')
         return json.load(json_file)
     
     def dictFromJson(className):

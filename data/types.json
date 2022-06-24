@@ -64,8 +64,8 @@
     },
     "psy": {
         "name": "psychic",
-        "weaknesses": "fig,psy",
-        "resistances": "gra,fig,bug",
+        "weaknesses": "bug,gho,dar",
+        "resistances": "fig,psy",
         "immunities": "",
         "acronym": "psy"
     },

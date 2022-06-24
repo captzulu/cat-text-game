@@ -1,26 +1,23 @@
 {
     "0": {
         "name": "Jari",
-        "type1_text": "nor",
-        "type2_text": "gro",
+        "typeText": "gro,nor",
         "speed": 100,
         "attack": 100,
         "health": 100
     },
     "1": {
         "name": "Yuki",
-        "type1_text": "nor",
-        "type2_text": "dar",
+        "typeText": "dar,nor",
         "speed": 100,
         "attack": 100,
         "health": 100
     },
     "2": {
         "name": "Néné",
-        "type1_text": "fai",
-        "type2_text": "gho",
+        "typeText": "psy",
         "speed": 100,
         "attack": 100,
         "health": 100
-    },
+    }
 }
