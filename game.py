@@ -7,7 +7,8 @@ from screenObjects.menu import Menu
 from screenObjects.textBox import TextBox
 from screenObjects.screenObject import ScreenObject
 from gameObjects.battle import Battle
-from typing import Callable
+from gameObjects.specificMon import SpecificMon
+from gameObjects.side import Side
 
 class Game:
     def __init__(self) -> None:
@@ -21,7 +22,7 @@ class Game:
     def run(self):
         #self.mainScreen.fill(Colors.BLACK.value)
         self.handleEvents()
-        options = dict({0 : (f"fight", self.enterfight), 1 : (f"quit", lambda:None)})
+        options = dict({0 : (f"fight", self.enterFight), 1 : (f"quit", lambda : None)})
         self.objects['menu'] = Menu(options, self.font, self.mainTextBox.getInnerPosition())
         self.update()
         pygame.time.Clock().tick(60)
@@ -50,7 +51,7 @@ class Game:
                     if obj.getRect().collidepoint(pos):
                         obj.click()
                         
-    def enterfight():
+    def enterFight(self):
         monster1 = SpecificMon(_globals.genericMons['1'], 10)
         monster2 = SpecificMon(_globals.genericMons['2'], 10)
         side1 = Side([monster1], monster1, _globals.playerName)
