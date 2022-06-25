@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-import _globals  
+from dataclasses import dataclass  
 @dataclass
 class Type:
     name: str
@@ -8,14 +7,14 @@ class Type:
     immunities: str
     acronym: str
 
-    def checkTypeModifier(self, incomingType:str):
-        damageMultiplier = 1
+    def checkTypeModifier(self, incomingType:str) -> float:
+        damageMultiplier = 1.0
         if incomingType in self.weaknesses.split(','):
             damageMultiplier *= 2
         if incomingType in self.resistances.split(','):
             damageMultiplier /= 2
         if incomingType in self.immunities.split(','):
-            damageMultiplier = 0
+            damageMultiplier = 0.0
         
         return damageMultiplier
     

@@ -2,22 +2,27 @@ import constants
 import importlib
 import json
 class dataFactory(object):
-    def loadData(name):
+    @staticmethod
+    def loadData(name : str):
         json_file = open(constants.DATA_PATH + '/' + name + '.json', encoding='utf-8')
         return json.load(json_file)
     
-    def dictFromJson(className):
+    @staticmethod
+    def dictFromJson(className : str) -> dict[str, object]:
         jsonFileName = className + 's'
         return dataFactory.loadData(jsonFileName)
     
-    def initClass(className, obj):
+    @staticmethod
+    def initClass(className : str, obj : object):
         module = importlib.import_module('dataObjects.' + className)
-        returnClass = getattr(module, className.capitalize())
+        className = className[0].capitalize() + className[1:]
+        returnClass = getattr(module, className)
         return returnClass(**obj)
 
-    def loadClassDict(className):
+    @staticmethod
+    def loadClassDict(className : str) -> dict[str, object]:
         dict_loaded = dataFactory.dictFromJson(className)
-        classes_dict = {}
+        classes_dict : dict[str, object] = {}
         for key, item in dict_loaded.items():
-            classes_dict.update([(key,dataFactory.initClass(className, item))])
+            classes_dict.update([(key, dataFactory.initClass(className, item))])
         return classes_dict

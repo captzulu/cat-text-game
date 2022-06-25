@@ -19,7 +19,7 @@ class Battle:
         return
     
     def attack(self, attacker:SpecificMon, defender:SpecificMon, attackType:Type):
-        damage = attacker.attack * defender.weakTo(attackType)
+        damage = int(attacker.attack * defender.weakTo(attackType))
         defender.loseHealth(damage)
         print(f"{attacker.nickname} dealt {damage} to {defender.nickname}")
         return
@@ -49,7 +49,7 @@ class Battle:
         if self.hasCompleted() == False:
             self.sideTurn(secondSide, firstSide)
 
-    def sideTurn(self, side:Side, oppositeSide:Side):
+    def sideTurn(self, side : Side, oppositeSide : Side):
         oppositeMon = oppositeSide.activeMon
         self.attack(side.activeMon, oppositeMon, side.activeMon.genericMon.type1)
         if oppositeSide.isDefeated():
