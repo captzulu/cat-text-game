@@ -6,7 +6,6 @@ from screenObjects.screenObject import ScreenObject
 from dataObjects.enums.colors import Colors
 from dataObjects.position import Position
 from typing import Callable
-from inspect import signature
 
 @dataclass
 class TextBox(ScreenObject):
@@ -30,7 +29,8 @@ class TextBox(ScreenObject):
                         self.position.h - self.border * 2)
         
     def click(self):
-        self.onClick(self) if len(signature(self.onClick).parameters) == 1 else None
+        self.onClick()
+    
     
     def setClickEvent(self, callback : Callable[..., None]):
         self.onClick : Callable[..., None] = callback

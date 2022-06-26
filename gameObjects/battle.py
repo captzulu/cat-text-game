@@ -26,15 +26,19 @@ class Battle:
 
     def executeIntro(self):
         print(f"=== Battle ! {self.side1.name} Vs {self.side2.name} ===")
-
-        self.attackPhase()
+        print(f"{self.side1.activeMon.genericMon}")
+        print(f"{self.side2.activeMon.genericMon}")
         self.turn += 1
+        self.attackPhase()
 
     def executeTurn(self):
         print(f"=== New turn ({self.turn}) ===")
 
         self.attackPhase()
         self.turn += 1
+        if self.turn >= 100:
+            winner = self.side1.activeMon if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2.activeMon
+            self.completeBattle(f'{winner.nickname} has stalled out the win !')
 
     def attackPhase(self):
         side1Speed = self.side1.activeMon.speed

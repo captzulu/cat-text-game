@@ -1,7 +1,7 @@
 {
     "0": {
         "name": "Jari",
-        "typeText": "gro,nor",
+        "typeText": "nor,gro",
         "speed": 100,
         "attack": 100,
         "health": 100
@@ -15,7 +15,21 @@
     },
     "2": {
         "name": "Néné",
-        "typeText": "psy",
+        "typeText": "gho",
+        "speed": 100,
+        "attack": 100,
+        "health": 100
+    },
+    "3": {
+        "name": "Lolo",
+        "typeText": "psy,nor",
+        "speed": 100,
+        "attack": 100,
+        "health": 100
+    },
+    "4": {
+        "name": "Pikku",
+        "typeText": "psy,nor",
         "speed": 100,
         "attack": 100,
         "health": 100

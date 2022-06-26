@@ -20,9 +20,10 @@ class dataFactory(object):
         return returnClass(**obj)
 
     @staticmethod
-    def loadClassDict(className : str) -> dict[str, object]:
+    def loadClassDict(className : str) -> dict[str | int, object]:
         dict_loaded = dataFactory.dictFromJson(className)
-        classes_dict : dict[str, object] = {}
+        classes_dict : dict[str | int, object] = {}
         for key, item in dict_loaded.items():
+            key = int(key) if key.isnumeric() else key
             classes_dict.update([(key, dataFactory.initClass(className, item))])
         return classes_dict

@@ -44,5 +44,3 @@ class SpecificMon:
 
     def weakTo(self, incomingType:Type) -> float:
         return self.genericMon.weakTo(incomingType)
-
-    
