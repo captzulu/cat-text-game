@@ -9,7 +9,7 @@ from screenObjects.textBox import TextBox
 from gameObjects.battle import Battle
 from gameObjects.specificMon import SpecificMon
 from gameObjects.side import Side
-
+from dataObjects.fourSides import FourSides
 class Game:
     def __init__(self) -> None:
         self.mainScreen : pygame.surface.Surface = pygame.display.set_mode((_globals.X, _globals.Y))
@@ -33,7 +33,7 @@ class Game:
     def initMainTextbox(self) -> TextBox:
         pos = Position(y = int(_globals.Y / 1.35),  w =_globals.X)
         pos.h = _globals.Y - pos.y
-        _globals.objects['mainText'] = TextBox('', self.font, pos, border = 5)
+        _globals.objects['mainText'] = TextBox('', self.font, pos, FourSides.fromTuple((5,5,5,5)))
         return _globals.objects['mainText']
 
     def handleEvents(self):
@@ -58,14 +58,26 @@ class Game:
         side2 = Side([monster2], monster2)
         battle = Battle(side1, side2)
         battle.executeIntro()
-        while(True):
-            if battle.hasCompleted():
-                return
-
+        mainMenu = _globals.objects.pop('menu')
+        while battle.hasCompleted() == False:
+            self.mainTextBox.text = battle.getTurnLog()
+            self.update()
+            self.waitForClick()
             battle.executeTurn()
+        self.mainTextBox.text = battle.getTurnLog()
+        self.update()
+        self.waitForClick()
+        self.mainTextBox.text = ''
+        _globals.objects['menu'] = mainMenu
         return
     
     def quit(self):
         self.gameState = GameStates.ENDED
         return
-      
+    
+    def waitForClick(self):
+        pygame.event.clear()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP:
+                    return

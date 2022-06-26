@@ -21,7 +21,7 @@ class GenericMon:
     def __str__(self):
         edgeSymbol = '°'
         horizontalWidth = 50
-        string = "\n" + edgeSymbol + ('-' * horizontalWidth) + edgeSymbol + "\n   "
+        string = edgeSymbol + ('-' * horizontalWidth) + edgeSymbol + "\n   "
         
         string += self.name + ' || ' 
         string += (self.type1.acronym + (' / ' + self.type2.acronym if self.type2 != None else '')).upper()

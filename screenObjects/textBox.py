@@ -5,28 +5,31 @@ from dataclasses import dataclass
 from screenObjects.screenObject import ScreenObject
 from dataObjects.enums.colors import Colors
 from dataObjects.position import Position
+from dataObjects.fourSides import FourSides
 from typing import Callable
+import ext_modules.ptext as ptext
 
 @dataclass
 class TextBox(ScreenObject):
     text: str
     font: Font
     position: Position
-    border: int = 0
+    border: FourSides = FourSides.fromTuple((0,0,0,0))
+    margin: FourSides = FourSides.fromTuple((0,0,0,0))
     onClick: Callable[..., None] = lambda a: None
 
     def render(self,  screen : Surface):
-        printedText : Surface = self.font.render(self.text, True, Colors.WHITE.value, Colors.BLACK.value)
-        pygame.draw.rect(screen, Colors.WHITE.value, self.position.getTuple())
+        pygame.draw.rect(screen, Colors.DARK_GRAY.value, self.position.getTuple())
         innerRect = self.getInnerPosition()
-        rect = pygame.draw.rect(screen, Colors.GRAY.value, innerRect.getTuple())
-        screen.blit(printedText, rect)
+        pygame.draw.rect(screen, Colors.GRAY.value, innerRect.getTuple())
+        textSurf, pos = ptext.draw(self.text, (innerRect.x + self.margin.l, innerRect.y + self.margin.t))
+        screen.blit(textSurf, pos)
 
     def getInnerPosition(self) -> Position:
-        return Position(self.position.x + self.border,
-                        self.position.y + self.border,
-                        self.position.w - self.border * 2,
-                        self.position.h - self.border * 2)
+        return Position(self.position.x + self.border.l,
+                        self.position.y + self.border.t,
+                        self.position.w - (self.border.l + self.border.r),
+                        self.position.h - (self.border.t + self.border.b))
         
     def click(self):
         self.onClick()

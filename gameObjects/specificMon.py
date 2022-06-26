@@ -44,3 +44,6 @@ class SpecificMon:
 
     def weakTo(self, incomingType:Type) -> float:
         return self.genericMon.weakTo(incomingType)
+    
+    def getHealthPercent(self):
+        return self.maxHealth / self.currentHealth 

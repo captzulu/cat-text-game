@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from screenObjects.screenObject import ScreenObject
 from screenObjects.textBox import TextBox
 from dataObjects.position import Position
+from dataObjects.fourSides import FourSides
 from typing import Callable
 @dataclass
 class Menu(ScreenObject):
@@ -20,7 +21,11 @@ class Menu(ScreenObject):
         h = self.position.h // 2
         for i, option in self.options.items():
             mod = (i + 1) % 2
-            newOption = TextBox(option[0], self.font, Position.fromTuple((x, y, w, h)), border = 2)
+            botBorder = 5 if i < 2 else 0 
+            rightBorder = 5 if mod == 1 else 0 
+            border = FourSides.fromTuple((0, botBorder, 0 , rightBorder))
+            margin = FourSides.fromTuple((5, 5, 5, 5))
+            newOption = TextBox(option[0], self.font, Position.fromTuple((x, y, w, h)), border, margin)
             newOption.setClickEvent(option[1])
             self.renderedOption.append(newOption)
             _globals.clickables.append(newOption)
