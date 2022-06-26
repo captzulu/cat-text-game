@@ -32,7 +32,7 @@ class Battle:
         self.attackPhase()
 
     def executeTurn(self):
-        print(f"=== New turn ({self.turn}) ===")
+        print(f"\n=== New turn ({self.turn}) ===")
 
         self.attackPhase()
         self.turn += 1
@@ -43,12 +43,13 @@ class Battle:
     def attackPhase(self):
         side1Speed = self.side1.activeMon.speed
         side2Speed = self.side2.activeMon.speed
-        firstSide = self.side1 if side1Speed > side2Speed else self.side2
-        secondSide = self.side2 if side2Speed > side1Speed else self.side1
+        
         if side1Speed == side2Speed:
             firstSide = self.side1 if random.randint(0,1) == 1 else self.side2
             secondSide = self.side2 if firstSide == self.side1 else self.side1
-
+        else:
+            firstSide = self.side1 if side1Speed > side2Speed else self.side2
+            secondSide = self.side2 if side1Speed > side2Speed else self.side1
         self.sideTurn(firstSide, secondSide)
         if self.hasCompleted() == False:
             self.sideTurn(secondSide, firstSide)

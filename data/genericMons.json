@@ -1,37 +1,44 @@
 {
     "0": {
         "name": "Jari",
-        "typeText": "nor,gro",
-        "speed": 100,
-        "attack": 100,
-        "health": 100
+        "typeText": "gro,nor",
+        "speed": 105,
+        "attack": 115,
+        "health": 80
     },
     "1": {
         "name": "Yuki",
         "typeText": "dar,nor",
-        "speed": 100,
-        "attack": 100,
-        "health": 100
+        "speed": 110,
+        "attack": 85,
+        "health": 105
     },
     "2": {
         "name": "Néné",
         "typeText": "gho",
         "speed": 100,
-        "attack": 100,
-        "health": 100
+        "attack": 90,
+        "health": 90
     },
     "3": {
         "name": "Lolo",
         "typeText": "psy,nor",
-        "speed": 100,
-        "attack": 100,
-        "health": 100
+        "speed": 70,
+        "attack": 80,
+        "health": 130
     },
     "4": {
         "name": "Pikku",
-        "typeText": "psy,nor",
-        "speed": 100,
-        "attack": 100,
-        "health": 100
+        "typeText": "poi,nor",
+        "speed": 125,
+        "attack": 90,
+        "health": 85
+    },
+    "5": {
+        "name": "Sevvy",
+        "typeText": "poi,nor",
+        "speed": 130,
+        "attack": 80,
+        "health": 90
     }
 }
