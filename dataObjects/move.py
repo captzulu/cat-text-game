@@ -4,4 +4,4 @@ from dataObjects.type import Type
 class Attack:
     name: str
     power: int
-    type: Type
+    type1: Type
