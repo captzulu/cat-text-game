@@ -1,11 +1,10 @@
 import pygame
+import ext_modules.ptext as ptext
 from dataFactory import dataFactory
 import _globals  
 from game import Game
-from gameObjects.battle import Battle
-from gameObjects.specificMon import SpecificMon
-from gameObjects.side import Side
 from dataObjects.enums.gameStates import GameStates
+
 
 def loadData():
     _globals.types = dataFactory.loadClassDict('type') 
@@ -16,6 +15,8 @@ def main():
     #print(f'Your name is {playerName}')
     pygame.init()
     pygame.display.set_caption("Pokemon Clone")
+    #print(pygame.font.get_fonts())
+    ptext.DEFAULT_FONT_NAME = pygame.font.match_font('dejavusansmono')
     game = Game()
     while game.gameState == GameStates.RUNNING:
         game.run()

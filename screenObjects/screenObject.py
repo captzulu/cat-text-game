@@ -7,7 +7,7 @@ class ScreenObject(ABC):
         return self.position
 
     def setPosition(self, position : Position) -> None:
-        self.position : Position = position  
+        self.position : Position = position
         
     def getRect(self) -> Rect:
         return Rect(self.position.getTuple())

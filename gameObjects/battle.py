@@ -18,11 +18,18 @@ class Battle:
 
     def executeIntro(self):
         self.log = BattleLog()
-        
-        self.write(f"=== Battle ! {self.side1.name} Vs {self.side2.name} ===")
-        self.write(f"{self.side1.activeMon.genericMon}")
-        self.write(f"{self.side2.activeMon.genericMon}")
-        self.executeTurn()
+        mon1 = f"{self.side1.activeMon.genericMon}"
+        mon2 = f"{self.side2.activeMon.genericMon}"
+        horizontalWidth = (len(mon1) if len(mon1) > len(mon2) else len(mon2))
+        title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
+        titleLineHalf = '=' * ((horizontalWidth  - len(title)) // 2)
+        edgeSymbol = '°'
+        string = edgeSymbol + titleLineHalf + title + titleLineHalf + edgeSymbol
+        self.write(string)
+        self.write(mon1)
+        self.write(' ' * (horizontalWidth // 2) + 'VS' + (' ' * (horizontalWidth // 2)))
+        self.write(mon2)
+        self.write(edgeSymbol + ('=' * horizontalWidth) + edgeSymbol)
 
     def executeTurn(self):
         self.turn += 1

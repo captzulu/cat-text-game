@@ -19,17 +19,11 @@ class GenericMon:
         self.type2 = _globals.types[types[1]] if len(types) == 2 else None
 
     def __str__(self):
-        edgeSymbol = '°'
-        horizontalWidth = 50
-        string = edgeSymbol + ('-' * horizontalWidth) + edgeSymbol + "\n   "
-        
-        string += self.name + ' || ' 
-        string += (self.type1.acronym + (' / ' + self.type2.acronym if self.type2 != None else '')).upper()
-        string += '\n   HP: ' + str(self.health)
-        string += '\n   ATK: ' + str(self.attack)
-        string += '\n   SPD: ' + str(self.speed)
-        string += "\n" + edgeSymbol + ('-' * horizontalWidth) + edgeSymbol + "\n"
-        return string
+        return (self.name + ' || ' + self.printTypeAcronyms() + 
+            ' || HP: ' + str(self.health) + ' | ATK: ' + str(self.attack) + ' | SPD: ' + str(self.speed))
+    
+    def printTypeAcronyms(self) -> str:
+        return (self.type1.acronym + (' / ' + self.type2.acronym if self.type2 != None else '')).upper()
 
     def weakTo(self, incomingType:Type) -> float:
         damageMultiplierType1 = self.type1.checkTypeModifier(incomingType.acronym)
