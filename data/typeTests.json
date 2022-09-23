@@ -1,0 +1,58 @@
+{
+    "1": {
+        "name": "1",
+        "weaknesses": "4",
+        "resistances": "2",
+        "immunities": "3",
+        "acronym": "1"
+    },
+    "2": {
+        "name": "2",
+        "weaknesses": "1",
+        "resistances": "3",
+        "immunities": "4",
+        "acronym": "2"
+    },
+    "3": {
+        "name": "3",
+        "weaknesses": "2",
+        "resistances": "4",
+        "immunities": "1",
+        "acronym": "3"
+    },
+    "4": {
+        "name": "4",
+        "weaknesses": "3",
+        "resistances": "1",
+        "immunities": "2",
+        "acronym": "4"
+    },
+    "a1": {
+        "name": "a1",
+        "weaknesses": "4",
+        "resistances": "2",
+        "immunities": "3",
+        "acronym": "a1"
+    },
+    "a2": {
+        "name": "a2",
+        "weaknesses": "1",
+        "resistances": "3",
+        "immunities": "4",
+        "acronym": "a2"
+    },
+    "a3": {
+        "name": "a3",
+        "weaknesses": "2",
+        "resistances": "4",
+        "immunities": "1",
+        "acronym": "a3"
+    },
+    "a4": {
+        "name": "a4",
+        "weaknesses": "3",
+        "resistances": "1",
+        "immunities": "2",
+        "acronym": "a4"
+    }
+}
