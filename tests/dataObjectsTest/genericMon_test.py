@@ -1,7 +1,6 @@
 import unittest
 import _globals
 from dataObjects.genericMon import GenericMon
-from dataObjects.type import Type
 from dataFactory import dataFactory
 
 class genericMonTest(unittest.TestCase):
