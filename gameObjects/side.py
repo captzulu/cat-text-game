@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from gameObjects.specificMon import SpecificMon
+from dataObjects.genericMon import GenericMon
 @dataclass
 class Side:
     mons: list[SpecificMon]
@@ -17,5 +18,5 @@ class Side:
 
         return True
     
-    def getActiveMonSpecies(self) -> str:
-        return str(self.activeMon.genericMon)
+    def getActiveMonSpecies(self) -> GenericMon:
+        return self.activeMon.genericMon
