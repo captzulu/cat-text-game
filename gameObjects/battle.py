@@ -11,6 +11,8 @@ class Battle:
     turn: int = 0
     log: BattleLog = field(init=False)
     completed: bool = False
+    edgeSymbol: str = '°'
+    Filler: str = '='
 
     def write(self, text : str):
         self.log.addExplicitLine(self.turn, text)
@@ -18,18 +20,27 @@ class Battle:
 
     def executeIntro(self):
         self.log = BattleLog()
-        mon1 = f"{self.side1.activeMon.genericMon}"
-        mon2 = f"{self.side2.activeMon.genericMon}"
-        horizontalWidth = (len(mon1) if len(mon1) > len(mon2) else len(mon2))
+
         title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
-        titleLineHalf = '=' * ((horizontalWidth  - len(title)) // 2)
-        edgeSymbol = '°'
-        string = edgeSymbol + titleLineHalf + title + titleLineHalf + edgeSymbol
-        self.write(string)
-        self.write(mon1)
-        self.write(' ' * (horizontalWidth // 2) + 'VS' + (' ' * (horizontalWidth // 2)))
-        self.write(mon2)
-        self.write(edgeSymbol + ('=' * horizontalWidth) + edgeSymbol)
+        titleLine = self.edgeSymbol + self.fillTitleLine(title) + self.edgeSymbol
+        self.write(titleLine)
+        self.write(str(self.side1.getActiveMonSpecies()))
+        
+        longestMonNameLength = self.calculateLongestMonNameLength()
+        paddingLength = longestMonNameLength // 2
+        self.write(' ' * paddingLength + 'VS' + (' ' * paddingLength))
+        self.write(str(self.side2.getActiveMonSpecies()))
+        self.write(self.edgeSymbol + (self.Filler * longestMonNameLength) + self.edgeSymbol)
+
+    def fillTitleLine(self, title:str) -> str:
+        longestMonNameLength = self.calculateLongestMonNameLength()
+        titleLineHalf : str = self.Filler * ((longestMonNameLength - len(title)) // 2)
+        return titleLineHalf + title + titleLineHalf
+    
+    def calculateLongestMonNameLength(self) -> int:
+        mon1Length = len(str(self.side1.getActiveMonSpecies()))
+        mon2Length = len(str(self.side2.getActiveMonSpecies()))
+        return mon1Length if mon1Length > mon2Length else mon2Length
 
     def executeTurn(self):
         self.turn += 1

@@ -56,8 +56,8 @@ class Game:
         pygame.display.flip()
                         
     def enterFight(self):
-        monNo1 = random.randint(0, len(_globals.genericMons) - 1)
-        monNo2 = random.randint(0, len(_globals.genericMons) - 1)
+        monNo1 = str(random.randint(0, len(_globals.genericMons) - 1))
+        monNo2 = str(random.randint(0, len(_globals.genericMons) - 1))
         monster1 = SpecificMon(_globals.genericMons[monNo1], 10)
         monster2 = SpecificMon(_globals.genericMons[monNo2], 10)
         side1 = Side([monster1], monster1, _globals.playerName)
