@@ -16,3 +16,6 @@ class Side:
                 return False
 
         return True
+    
+    def getActiveMonSpecies(self) -> str:
+        return str(self.activeMon.genericMon)
