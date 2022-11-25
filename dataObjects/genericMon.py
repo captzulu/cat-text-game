@@ -29,4 +29,3 @@ class GenericMon:
         damageMultiplierType1 = self.type1.checkTypeModifier(incomingType.acronym)
         damageMultiplierType2 = self.type2.checkTypeModifier(incomingType.acronym) if self.type2 != None else 1
         return damageMultiplierType1 * damageMultiplierType2
-

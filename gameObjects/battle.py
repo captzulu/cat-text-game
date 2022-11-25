@@ -1,3 +1,4 @@
+from ast import Not
 from dataclasses import dataclass, field
 from gameObjects.battleLog import BattleLog
 from gameObjects.specificMon import SpecificMon
@@ -15,12 +16,13 @@ class Battle:
     Filler: str = '='
 
     def write(self, text : str):
+        #self.log = BattleLog()
+        if hasattr(self, 'log') == False:
+            self.log = BattleLog()
         self.log.addExplicitLine(self.turn, text)
         self.log.addImplicitLine(self.turn, text)
 
     def executeIntro(self):
-        self.log = BattleLog()
-
         title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
         titleLine = self.edgeSymbol + self.fillTitleLine(title) + self.edgeSymbol
         self.write(titleLine)
