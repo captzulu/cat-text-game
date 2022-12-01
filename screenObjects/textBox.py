@@ -1,6 +1,6 @@
 import pygame.draw
 from pygame.surface import Surface
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from screenObjects.screenObject import ScreenObject
 from dataObjects.enums.colors import Colors
 from dataObjects.position import Position
@@ -12,8 +12,8 @@ import ext_modules.ptext as ptext
 class TextBox(ScreenObject):
     text: str
     position: Position
-    border: FourSides = FourSides.fromTuple((0,0,0,0))
-    margin: FourSides = FourSides.fromTuple((0,0,0,0))
+    border: FourSides = field(default_factory=FourSides)
+    margin: FourSides = field(default_factory=FourSides)
     onClick: Callable[..., None] = lambda a: None
 
     def render(self,  screen : Surface):
