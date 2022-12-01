@@ -21,7 +21,7 @@ def main():
     while game.gameState == GameStates.RUNNING:
         game.run()
 
-def input_dict(dict):
+def input_dict(dict : dict[int, str]):
     valuesList = list(dict.values())
     choices = makeOrderedChoices(valuesList)
     for i, text in choices.items():
@@ -38,10 +38,10 @@ def input_dict(dict):
                     return key
         print(f"'{textInputted}' is not a valid choice. Pick again :")
 
-def makeOrderedChoices(dict_values):
+def makeOrderedChoices(values : list[str]):
     choices = {
-        i : dict_values[i - 1]
-        for i in range(1, len(dict_values) + 1)
+        i : values[i - 1]
+        for i in range(1, len(values) + 1)
         }
     return choices
 
