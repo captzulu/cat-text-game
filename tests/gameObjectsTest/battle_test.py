@@ -2,9 +2,9 @@ import unittest
 import _globals
 from dataObjects.genericMon import GenericMon
 from dataFactory import dataFactory
-from gameObjects.side import Side
+from gameObjects.sections.battle.side import Side
 from gameObjects.specificMon import SpecificMon
-from gameObjects.battle import Battle
+from gameObjects.sections.battle.battle import Battle
 
 class battleTest(unittest.TestCase):
     TEST_MON_1_NB : str = '1'

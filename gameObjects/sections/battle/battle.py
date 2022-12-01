@@ -1,8 +1,8 @@
 from ast import Not
 from dataclasses import dataclass, field
-from gameObjects.battleLog import BattleLog
+from gameObjects.sections.battle.battleLog import BattleLog
 from gameObjects.specificMon import SpecificMon
-from gameObjects.side import Side
+from gameObjects.sections.battle.side import Side
 from dataObjects.type import Type
 import random
 @dataclass

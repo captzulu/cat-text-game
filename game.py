@@ -6,9 +6,9 @@ from dataObjects.enums.gameStates import GameStates
 from dataObjects.enums.colors import Colors
 from screenObjects.menu import Menu
 from screenObjects.textBox import TextBox
-from gameObjects.battle import Battle
+from gameObjects.sections.battle.battle import Battle
 from gameObjects.specificMon import SpecificMon
-from gameObjects.side import Side
+from gameObjects.sections.battle.side import Side
 from dataObjects.fourSides import FourSides
 class Game:
     def __init__(self) -> None:
@@ -63,7 +63,7 @@ class Game:
         side1 = Side([monster1], monster1, _globals.playerName)
         side2 = Side([monster2], monster2)
         battle = Battle(side1, side2)
-        mainMenu = _globals.objects.pop('menu')
+        mainMenu : Menu = _globals.objects.pop('menu')
         mainMenu.removeClickables()
         battle.executeIntro()
         self.displayTurnLog(battle)
