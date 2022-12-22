@@ -1,6 +1,5 @@
 import unittest
 from gameObjects.sections.map.map import Map
-from gameObjects.sections.map.node import Node
 
 class mapTest(unittest.TestCase):
 
