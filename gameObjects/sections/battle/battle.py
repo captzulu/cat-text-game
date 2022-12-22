@@ -1,4 +1,3 @@
-from ast import Not
 from dataclasses import dataclass, field
 from gameObjects.sections.battle.battleLog import BattleLog
 from gameObjects.specificMon import SpecificMon
