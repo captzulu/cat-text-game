@@ -6,28 +6,30 @@ class mapTest(unittest.TestCase):
     def testInitClass(self):
         newMap = Map()
         self.assertIsInstance(newMap, Map)
-    
-    def testAutoGenerate(self):
-        newMap = Map()
-        rowIndex = 0
-        actualId = newMap.autoGenerateNode(rowIndex)
-        expectedId = 0
-        self.assertEqual(len(newMap.nodes), 1)
-        self.assertEqual(actualId, expectedId)
         
+    #fails when launched along with next test
     def testAutoGenerate_twoRows_incrementingId(self):
         newMap = Map()
         newMap.autoGenerateNode(0)
         actualId = newMap.autoGenerateNode(1)
         expectedId = 1
         self.assertEqual(actualId, expectedId)
+    
+    def testAutoGenerate(self):
+        newMap = Map()
+        columnIndex = 0
+        actualId = newMap.autoGenerateNode(columnIndex)
+        expectedId = 0
+        self.assertEqual(len(newMap.nodes), 1)
+        self.assertEqual(actualId, expectedId)
         
+        #fails when launched along with previous test
     def testAutoGenerate_twoRows_linkedNodes(self):
         newMap = Map()
-        expectedId = newMap.autoGenerateNode(0)
+        expectedBackLinks = [newMap.autoGenerateNode(0)]
         newMap.autoGenerateNode(1)
-        actualId = newMap.nodes[1][0].backLinks
-        self.assertEqual(actualId, [expectedId])       
+        actualBackLinks = newMap.nodes[1][0].backLinks
+        self.assertEqual(actualBackLinks, expectedBackLinks)       
         
 
 if __name__ == '__main__':
