@@ -5,12 +5,12 @@ class Node():
     uniqueId = itertools.count()
     NAME_LIST = ['city', 'market', 'fight', 'chickens', 'rest']
     
-    def __init__(self, id : int, name : str, rowIndex : int, backLinks : list[int], forwardLinks : list[int]=list()):
+    def __init__(self, id : int, name : str, columnIndex : int, backLinks : list[int], forwardLinks : list[int]=list()):
         self.id = id
         self.name = name 
         self.backLinks = backLinks 
         self.forwardLinks = forwardLinks
-        self.rowIndex = rowIndex
+        self.columnIndex = columnIndex
     
     @staticmethod
     def randomName() -> str:

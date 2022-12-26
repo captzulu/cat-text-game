@@ -8,7 +8,7 @@ class mapTest(unittest.TestCase):
         self.assertIsInstance(newMap, Map)
         
     #fails when launched along with next test
-    def testAutoGenerate_twoRows_incrementingId(self):
+    def testAutoGenerate_twoColumns_incrementingId(self):
         newMap = Map()
         newMap.autoGenerateNode(0)
         actualId = newMap.autoGenerateNode(1)
@@ -24,7 +24,7 @@ class mapTest(unittest.TestCase):
         self.assertEqual(actualId, expectedId)
         
         #fails when launched along with previous test
-    def testAutoGenerate_twoRows_linkedNodes(self):
+    def testAutoGenerate_twoColumns_linkedNodes(self):
         newMap = Map()
         expectedBackLinks = [newMap.autoGenerateNode(0)]
         newMap.autoGenerateNode(1)
