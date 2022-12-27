@@ -1,4 +1,5 @@
 from gameObjects.sections.map.node import Node
+from gameObjects.sections.map.autoGenerator import AutoGenerator
 import itertools
 
 class Map():
@@ -6,18 +7,6 @@ class Map():
     
     def __init__(self):
         self.nodeIdGenerator = itertools.count()
-    
-    def autoGenerateNode(self, columnIndex : int) -> int:
-        name = Node.randomName()
-        previousRow = self.getRowAtIndex(columnIndex - 1)
-        backLinks = Node.randomBackLinks(self.getRowIds(previousRow))
-        
-        if columnIndex not in self.nodes:
-            self.nodes[columnIndex] = list()
-
-        newNode = Node(next(self.nodeIdGenerator), name, columnIndex, backLinks)
-        self.nodes[columnIndex].append(newNode)
-        return newNode.id
     
     def getRowAtIndex(self, columnIndex : int) -> list[Node]:
         if columnIndex < 0 or columnIndex not in self.nodes:
@@ -29,3 +18,13 @@ class Map():
         for node in row:
             ids.append(node.id)
         return ids
+    
+    def autoGenerateNode(self, columnIndex : int) -> int:
+        previousColumn = self.getRowAtIndex(columnIndex - 1)
+        previousColumnIds = self.getRowIds(previousColumn)
+        autoGenerator = AutoGenerator()
+
+        newNode = autoGenerator.autoGenerateNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
+        
+        self.nodes[columnIndex].append(newNode)
+        return newNode.id

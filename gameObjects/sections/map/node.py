@@ -1,8 +1,6 @@
 import random
-import itertools
 
 class Node():
-    uniqueId = itertools.count()
     NAME_LIST = ['city', 'market', 'fight', 'chickens', 'rest']
     
     def __init__(self, id : int, name : str, rowIndex : int, backLinks : list[int], forwardLinks : list[int]=list()):
