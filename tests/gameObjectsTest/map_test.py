@@ -15,14 +15,14 @@ class mapTest(unittest.TestCase):
         self.assertEqual(len(newMap.nodes), 1)
         self.assertEqual(actualId, expectedId)
         
-    def testAutoGenerate_twoRows_linkedNodes(self):
+    def testAutoGenerate_twoColumns_linkedNodes(self):
         newMap = Map()
         expectedBackLinks = [newMap.autoGenerateNode(0)]
         newMap.autoGenerateNode(1)
         actualBackLinks = newMap.nodes[1][0].backLinks
         self.assertEqual(actualBackLinks, expectedBackLinks)
-    
-    def testAutoGenerate_twoRows_incrementingId(self):
+
+    def testAutoGenerate_twoColumns_incrementingId(self):
         newMap = Map()
         newMap.autoGenerateNode(0)
         actualId = newMap.autoGenerateNode(1)

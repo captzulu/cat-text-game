@@ -13,9 +13,9 @@ class Map():
             return []
         return self.nodes[columnIndex]
     
-    def getRowIds(self, row : list[Node]) -> list[int]:
+    def getColumnIds(self, column : list[Node]) -> list[int]:
         ids : list[int] = list()
-        for node in row:
+        for node in column:
             ids.append(node.id)
         return ids
     
