@@ -1,5 +1,5 @@
 from gameObjects.sections.map.node import Node
-from gameObjects.sections.map.autoGenerator import AutoGenerator
+from gameObjects.sections.map.randomGenerator import RandomGenerator
 import itertools
 
 class Map():
@@ -22,11 +22,11 @@ class Map():
     def autoGenerateNode(self, columnIndex : int) -> int:
         previousColumn = self.getColumnAtIndex(columnIndex - 1)
         previousColumnIds = self.getColumnIds(previousColumn)
-        autoGenerator = AutoGenerator()
+        randomGenerator = RandomGenerator()
 
         if columnIndex not in self.nodes:
             self.nodes[columnIndex] = list()
             
-        newNode = autoGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
+        newNode = randomGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
         self.nodes[columnIndex].append(newNode)
         return newNode.id
