@@ -8,7 +8,7 @@ class Map():
     def __init__(self):
         self.nodeIdGenerator = itertools.count()
     
-    def getRowAtIndex(self, columnIndex : int) -> list[Node]:
+    def getColumnAtIndex(self, columnIndex : int) -> list[Node]:
         if columnIndex < 0 or columnIndex not in self.nodes:
             return []
         return self.nodes[columnIndex]
@@ -20,11 +20,11 @@ class Map():
         return ids
     
     def autoGenerateNode(self, columnIndex : int) -> int:
-        previousColumn = self.getRowAtIndex(columnIndex - 1)
-        previousColumnIds = self.getRowIds(previousColumn)
+        previousColumn = self.getColumnAtIndex(columnIndex - 1)
+        previousColumnIds = self.getColumnIds(previousColumn)
         autoGenerator = AutoGenerator()
 
-        newNode = autoGenerator.autoGenerateNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
+        newNode = autoGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
         
         self.nodes[columnIndex].append(newNode)
         return newNode.id
