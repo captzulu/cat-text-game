@@ -24,7 +24,9 @@ class Map():
         previousColumnIds = self.getColumnIds(previousColumn)
         autoGenerator = AutoGenerator()
 
+        if columnIndex not in self.nodes:
+            self.nodes[columnIndex] = list()
+            
         newNode = autoGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
-        
         self.nodes[columnIndex].append(newNode)
         return newNode.id
