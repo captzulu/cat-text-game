@@ -27,6 +27,22 @@ class mapTest(unittest.TestCase):
         newMap.randomColumn(0, 1)
         
         self.assertIsInstance(newMap.nodes[0][0], Node)
+        
+    def testRandomColumn_multipleColumns_success(self):
+        newMap = Map()
+        maxLength = 4
+        newMap.randomColumn(0, 1)
+        newMap.randomColumn(1, maxLength)
+        newMap.randomColumn(2, maxLength)
+        
+        self.assertTrue(len(newMap.nodes[1]) <= maxLength and len(newMap.nodes[1]) != 0)
+        self.assertTrue(len(newMap.nodes[2]) <= maxLength and len(newMap.nodes[2]) != 0)
+        
+    def testGenerateRandomMap_success(self):
+        newMap = Map.generateRandomMap(4)
+        
+        self.assertEqual(len(newMap.nodes[0]), 1)
+        self.assertEqual(len(newMap.nodes), 4)
 
 if __name__ == '__main__':
     unittest.main()

@@ -37,7 +37,7 @@ class Map():
         newMap = cls()
         i = 0 
         while i < length:
-            newMap.randomColumn(i, 4)
+            newMap.randomColumn(i, 1 if i == 0 else 4)
             i += 1
         return newMap
     
