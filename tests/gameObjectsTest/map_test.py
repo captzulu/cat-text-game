@@ -1,5 +1,6 @@
 import unittest
 from gameObjects.sections.map.map import Map
+from gameObjects.sections.map.node import Node
 
 class mapTest(unittest.TestCase):
 
@@ -20,6 +21,12 @@ class mapTest(unittest.TestCase):
         actualId = newMap.autoGenerateNode(1)
         expectedId = 1
         self.assertEqual(actualId, expectedId)
+        
+    def testRandomColumn_firstColumn_success(self):
+        newMap = Map()
+        newMap.randomColumn(0, 1)
+        
+        self.assertIsInstance(newMap.nodes[0][0], Node)
 
 if __name__ == '__main__':
     unittest.main()

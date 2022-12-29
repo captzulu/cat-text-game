@@ -1,5 +1,6 @@
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.map.randomGenerator import RandomGenerator
+import random
 import itertools
 
 class Map():
@@ -30,3 +31,19 @@ class Map():
         newNode = randomGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
         self.nodes[columnIndex].append(newNode)
         return newNode.id
+      
+    @classmethod
+    def generateRandomMap(cls, length: int):
+        newMap = cls()
+        i = 0 
+        while i < length:
+            newMap.randomColumn(i, 4)
+            i += 1
+        return newMap
+    
+    def randomColumn(self, columnIndex: int, maxColumnLength: int) -> None:
+        columnLength = random.randint(1, maxColumnLength)
+        i = 0
+        while i < columnLength:
+            self.autoGenerateNode(columnIndex)
+            i += 1
