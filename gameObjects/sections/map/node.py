@@ -21,5 +21,10 @@ class Node():
             return []
 
         amount = random.choices([1, 2, 3], cum_weights=[2, 5, 3])[0]
-        results = random.choices(previousIds, k=amount)
+        results = list()
+        while amount > 0 and len(previousIds) > 0:
+            pickedId = random.choice(previousIds)
+            results.append(pickedId)
+            previousIds.remove(pickedId)
+            amount -= 1
         return results
