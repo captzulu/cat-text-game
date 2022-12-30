@@ -5,16 +5,16 @@ from screenObjects.screenObject import ScreenObject
 from dataObjects.enums.colors import Colors
 from dataObjects.position import Position
 from dataObjects.fourSides import FourSides
-from typing import Callable
+from screenObjects.textBox import TextBox
 import ext_modules.ptext as ptext
 import _globals
 
 @dataclass
 class Map(ScreenObject):
     title: str
-    titleBox: 
-    border: FourSides
-    margin: FourSides
+    titleBox: TextBox = field(init=False)
+    border: FourSides = field(default_factory=FourSides)
+    margin: FourSides = field(default_factory=FourSides)
     position: Position = field(default_factory=Position)
     
     def __post_init__(self):
@@ -34,3 +34,6 @@ class Map(ScreenObject):
                         self.position.y + self.border.t,
                         self.position.w - (self.border.l + self.border.r),
                         self.position.h - (self.border.t + self.border.b))
+        
+    def click(self):
+        return
