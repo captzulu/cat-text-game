@@ -11,14 +11,14 @@ import ext_modules.ptext as ptext
 @dataclass
 class TextBox(ScreenObject):
     text: str
-    position: Position
+    position: Position = field(default_factory=Position)
     border: FourSides = field(default_factory=FourSides)
     margin: FourSides = field(default_factory=FourSides)
     onClick: Callable[..., None] = lambda a: None
 
-    def render(self,  screen : Surface):
+    def render(self,  screen : Surface) -> None:
         pygame.draw.rect(screen, Colors.DARK_GRAY.value, self.position.getTuple())
-        innerRect = self.getInnerPosition()
+        innerRect: Position = self.getInnerPosition()
         pygame.draw.rect(screen, Colors.GRAY.value, innerRect.getTuple())
         textSurf, pos = ptext.draw(self.text, (innerRect.x + self.margin.l, innerRect.y + self.margin.t), fontsize = 14)
         screen.blit(textSurf, pos)
@@ -29,8 +29,8 @@ class TextBox(ScreenObject):
                         self.position.w - (self.border.l + self.border.r),
                         self.position.h - (self.border.t + self.border.b))
         
-    def click(self):
+    def click(self) -> None:
         self.onClick()
     
-    def setClickEvent(self, callback : Callable[..., None]):
+    def setClickEvent(self, callback : Callable[..., None]) -> None:
         self.onClick : Callable[..., None] = callback

@@ -17,7 +17,8 @@ class Map(ScreenObject):
     margin: FourSides = field(default_factory=FourSides)
     position: Position = field(default_factory=Position)
     
-    def __post_init__(self):
+    def __post_init__(self) -> None:
+        self.titleBox = TextBox(self.title)
         distanceFromLeftEdge : int = self.border.l + self.margin.l
         distanceFromRightEdge : int = self.border.r + self.margin.r
         distanceFromBottomEdge : int = self.border.b + self.margin.b
@@ -26,7 +27,7 @@ class Map(ScreenObject):
         height : int = _globals.Y - distanceFromTopEdge - distanceFromBottomEdge
         self.position = Position(distanceFromLeftEdge, distanceFromBottomEdge, width, height)
 
-    def render(self,  screen : Surface):
+    def render(self,  screen : Surface) -> None:
         pygame.draw.rect(screen, Colors.GRAY.value, self.position.getTuple())
 
     def getInnerPosition(self) -> Position:
@@ -35,5 +36,5 @@ class Map(ScreenObject):
                         self.position.w - (self.border.l + self.border.r),
                         self.position.h - (self.border.t + self.border.b))
         
-    def click(self):
+    def click(self) -> None:
         return
