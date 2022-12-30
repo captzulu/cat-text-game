@@ -7,15 +7,19 @@ class mapTest(unittest.TestCase):
     def testInitClass(self):
         newMap = Map()
         self.assertIsInstance(newMap, Map)
+
+    def testInitClass_withTitle_hasTitle(self):
+        newMap = Map("poulet")
+        self.assertEqual(newMap.title, "poulet")
         
-    def testAutoGenerate_twoColumns_linkedNodes(self):
+    def testAutoGenerateNode_twoColumns_linkedNodes(self):
         newMap = Map()
         expectedBackLinks = [newMap.autoGenerateNode(0)]
         newMap.autoGenerateNode(1)
         actualBackLinks = newMap.nodes[1][0].backLinks
         self.assertEqual(actualBackLinks, expectedBackLinks)
 
-    def testAutoGenerate_twoColumns_incrementingId(self):
+    def testAutoGenerateNode_twoColumns_incrementingId(self):
         newMap = Map()
         newMap.autoGenerateNode(0)
         actualId = newMap.autoGenerateNode(1)
@@ -35,8 +39,10 @@ class mapTest(unittest.TestCase):
         newMap.randomColumn(1, maxLength)
         newMap.randomColumn(2, maxLength)
         
-        self.assertTrue(len(newMap.nodes[1]) <= maxLength and len(newMap.nodes[1]) != 0)
-        self.assertTrue(len(newMap.nodes[2]) <= maxLength and len(newMap.nodes[2]) != 0)
+        self.assertTrue(len(newMap.nodes[1]) <= maxLength)
+        self.assertTrue(len(newMap.nodes[1]) != 0)
+        self.assertTrue(len(newMap.nodes[2]) <= maxLength)
+        self.assertTrue(len(newMap.nodes[2]) != 0)
         
     def testGenerateRandomMap_success(self):
         newMap = Map.generateRandomMap(4)

@@ -4,10 +4,13 @@ import random
 import itertools
 
 class Map():
-    nodes : dict[int, list[Node]] = dict()
+    nodes : dict[int, list[Node]]
+    title : str
     
-    def __init__(self):
+    def __init__(self, title : str = ""):
         self.nodeIdGenerator = itertools.count()
+        self.title = title
+        self.nodes = dict()
     
     def getColumnAtIndex(self, columnIndex : int) -> list[Node]:
         if columnIndex < 0 or columnIndex not in self.nodes:
@@ -33,8 +36,8 @@ class Map():
         return newNode.id
       
     @classmethod
-    def generateRandomMap(cls, length: int):
-        newMap = cls()
+    def generateRandomMap(cls, length: int, title: str = ""):
+        newMap = cls(title)
         i = 0 
         while i < length:
             newMap.randomColumn(i, 1 if i == 0 else 4)
