@@ -18,14 +18,10 @@ class Map(ScreenObject):
     position: Position = field(default_factory=Position)
     
     def __post_init__(self) -> None:
-        self.titleBox = TextBox(self.title)
-        distanceFromLeftEdge : int = self.border.l + self.margin.l
-        distanceFromRightEdge : int = self.border.r + self.margin.r
-        distanceFromBottomEdge : int = self.border.b + self.margin.b
-        distanceFromTopEdge : int = self.border.t + self.margin.t
-        width : int = _globals.X - distanceFromLeftEdge - distanceFromRightEdge
-        height : int = _globals.Y - distanceFromTopEdge - distanceFromBottomEdge
-        self.position = Position(distanceFromLeftEdge, distanceFromBottomEdge, width, height)
+        self.position = Position(0, 0, _globals.X, _globals.Y)
+        textBoxWidth : int = _globals.X // 3 
+        textBoxHeight : int = 10 
+        self.titleBox = TextBox(self.title, Position.fromTuple((self.position.getCenterX(), _globals.Y // 4, textBoxWidth, textBoxHeight)))
 
     def render(self,  screen : Surface) -> None:
         pygame.draw.rect(screen, Colors.GRAY.value, self.position.getTuple())

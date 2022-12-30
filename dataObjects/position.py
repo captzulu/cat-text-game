@@ -13,8 +13,11 @@ class Position:
     def getTuple(self) -> tuple[int, int, int, int]:
         return (self.x, self.y, self.w, self.h)
     
-    def modifyBy(self, mod : tuple[int, int, int, int]):
+    def modifyBy(self, mod : tuple[int, int, int, int]) -> None:
         self.x += mod[0]
         self.y += mod[1]
         self.w += mod[2]
         self.h += mod[3]
+        
+    def getCenterX(self) -> int:
+        return int(self.x + (self.w / 2))
