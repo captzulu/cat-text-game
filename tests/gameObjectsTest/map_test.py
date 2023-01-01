@@ -11,6 +11,10 @@ class mapTest(unittest.TestCase):
     def testInitClass_withTitle_hasTitle(self):
         newMap = Map("poulet")
         self.assertEqual(newMap.title, "poulet")
+
+    def testInitClass_withoutTitle_hasUntitled(self):
+        newMap = Map()
+        self.assertEqual(newMap.title, "untitled")
         
     def testAutoGenerateNode_twoColumns_linkedNodes(self):
         newMap = Map()

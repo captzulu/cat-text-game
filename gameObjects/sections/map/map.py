@@ -7,7 +7,7 @@ class Map():
     nodes : dict[int, list[Node]]
     title : str
     
-    def __init__(self, title : str = ""):
+    def __init__(self, title : str = "untitled"):
         self.nodeIdGenerator = itertools.count()
         self.title = title
         self.nodes = dict()
@@ -50,3 +50,9 @@ class Map():
         while i < columnLength:
             self.autoGenerateNode(columnIndex)
             i += 1
+            
+    def __str__(self) -> str:
+        toPrint : str = "Title : " + self.title + "\n"
+        for key, column in self.nodes.items():
+            toPrint += f"column {key} : " + ", ".join(map(str, column)) + "\n"
+        return toPrint
