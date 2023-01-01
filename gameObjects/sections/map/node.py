@@ -10,9 +10,12 @@ class Node():
         self.forwardLinks = forwardLinks
         self.columnIndex = columnIndex
     
+    def __str__(self) -> str:
+        return f"{{{self.id}:{self.name} {self.backLinks}}}"
+
     @staticmethod
     def randomName() -> str:
-        results  = random.choices(Node.NAME_LIST, cum_weights=[1, 1, 17, 1, 5])
+        results = random.choices(Node.NAME_LIST, weights=[1, 1, 8, 1, 5])
         return results[0]
 
     @staticmethod
@@ -20,7 +23,7 @@ class Node():
         if len(previousIds) == 0:
             return []
 
-        amount = random.choices([1, 2, 3], cum_weights=[2, 5, 3])[0]
+        amount = random.choices([1, 2, 3], weights=[2, 5, 3])[0]
         results = list()
         while amount > 0 and len(previousIds) > 0:
             pickedId = random.choice(previousIds)
@@ -28,3 +31,4 @@ class Node():
             previousIds.remove(pickedId)
             amount -= 1
         return results
+    
