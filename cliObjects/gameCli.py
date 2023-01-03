@@ -28,15 +28,16 @@ class GameCli:
         #battle menu
         battle.executeIntro()
         self.displayTurnLog(battle)
+        input("Hit a key to start the fight...")
         while battle.hasCompleted() == False:
             battle.executeTurn()
             self.displayTurnLog(battle)
+            if battle.hasCompleted() == False:
+                input("Hit a key to continue...")
         return
     
-    def displayTurnLog(self, battle : Battle):
-        #self.mainTextBox.text = battle.getTurnLog()
-        #self.__update()
-        #self.__waitForClick()
+    def displayTurnLog(self, battle : Battle) -> None:
+        print(battle.getTurnLog())
         return
     
     def mainMenu(self):
