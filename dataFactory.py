@@ -1,36 +1,29 @@
 import constants
 import importlib
 import json
+
 class dataFactory(object):
     @staticmethod
-    def loadData(name : str) -> dict[str, object]:
-        json_file = open(constants.DATA_PATH + '/' + name + '.json', encoding='utf-8')
-        return json.load(json_file, parse_int=None)
+    def dictFromJson(name : str, className: object) -> dict[str, object]:
+        json_file = open(constants.DATA_PATH + '/' + name + "s" + '.json', encoding='utf-8')
+        return json.load(json_file, object_hook=lambda d: dataFactory.decoder(d, className))
     
     @staticmethod
-    def dictFromJson(className : str) -> dict[str, object]:
-        jsonFileName = className + 's'
-        return dataFactory.loadData(jsonFileName)
+    def decoder(object : dict, className):
+        if isinstance(list(object.values())[0], className):
+            return object
+        return className(**object)
     
     @staticmethod
-    def initClass(className : str, obj : object):
+    def getClass(className) -> object:
         module = importlib.import_module('dataObjects.' + className)
-        className = className[0].capitalize() + className[1:]
-        returnClass = getattr(module, className)
-        return returnClass(**obj)
-
-    @staticmethod
-    def loadClassDict(className : str) -> dict[str, object]:
-        dict_loaded = dataFactory.dictFromJson(className)
-        classes_dict : dict[str, object] = {}
-        for key, item in dict_loaded.items():
-            classes_dict.update([(key, dataFactory.initClass(className, item))])
-        return classes_dict
+        cls = className[0].capitalize() + className[1:]
+        return getattr(module, cls)
     
     @staticmethod
     def loadClassDictTest(className : str) -> dict[str, object]:
-        dict_loaded = dataFactory.dictFromJson(className + 'Test')
-        classes_dict : dict[str, object] = {}
-        for key, item in dict_loaded.items():
-            classes_dict.update([(key, dataFactory.initClass(className, item))])
-        return classes_dict
+        return dataFactory.dictFromJson(className + "Test", dataFactory.getClass(className))
+
+    @staticmethod
+    def loadClassDict(className : str) -> dict[str, object]:
+        return dataFactory.dictFromJson(className, dataFactory.getClass(className))
