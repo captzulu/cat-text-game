@@ -24,20 +24,9 @@ class GameCli:
         monster2 = SpecificMon(_globals.genericMons[monNo2], 10)
         side1 = Side([monster1], monster1, _globals.playerName)
         side2 = Side([monster2], monster2)
-        battle = Battle(side1, side2)
+        battle: Battle = Battle(side1, side2)
         #battle menu
-        battle.executeIntro()
-        self.displayTurnLog(battle)
-        input("Hit a key to start the fight...")
-        while battle.hasCompleted() == False:
-            battle.executeTurn()
-            self.displayTurnLog(battle)
-            if battle.hasCompleted() == False:
-                input("Hit a key to continue...")
-        return
-    
-    def displayTurnLog(self, battle : Battle) -> None:
-        print(battle.getTurnLog())
+        battle.executeBattle()
         return
     
     def mainMenu(self):
