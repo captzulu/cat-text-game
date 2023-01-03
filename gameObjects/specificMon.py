@@ -15,10 +15,10 @@ class SpecificMon:
     def __post_init__(self):
         if self.nickname == '':
             self.nickname = self.genericMon.name
-        self.maxHealth = int(self.genericMon.health/25 * self.level)
-        self.currentHealth = int(self.genericMon.health/25 * self.level)
-        self.attack = int(self.genericMon.attack/62.5 * self.level)
-        self.speed = int(self.genericMon.speed/62.5 * self.level)
+        self.maxHealth = int(self.genericMon.health/5 * self.level)
+        self.currentHealth = int(self.genericMon.health/5 * self.level)
+        self.attack = int(self.genericMon.attack/13 * self.level)
+        self.speed = int(self.genericMon.speed/13 * self.level)
 
     def loseHealth(self, hitpointLoss:int):
         self.currentHealth -= hitpointLoss
