@@ -47,7 +47,6 @@ class Battle:
         self.turn += 1
         self.write(f"=== New turn ({self.turn}) ===")
         self.__attackPhase()
-        self.write("\n")
         if self.turn >= 100:
             winner = self.side1.activeMon if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2.activeMon
             self.completeBattle(f'{winner.nickname} has stalled out the win !')
