@@ -1,9 +1,12 @@
 from dataclasses import dataclass, field
 from gameObjects.sections.battle.battleLog import BattleLog
 from gameObjects.specificMon import SpecificMon
+from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
 from dataObjects.type import Type
 import random
+from cliObjects.menuFunctions import menuFunctions
+import _globals
 @dataclass
 class Battle:
     side1: Side
@@ -57,6 +60,7 @@ class Battle:
         if self.turn >= 100:
             winner = self.side1.activeMon if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2.activeMon
             self.__completeBattle(f'{winner.nickname} has stalled out the win !')
+    
             
     def __attackPhase(self):
         side1Speed = self.side1.activeMon.speed
@@ -68,13 +72,35 @@ class Battle:
         else:
             firstSide = self.side1 if side1Speed > side2Speed else self.side2
             secondSide = self.side2 if side1Speed > side2Speed else self.side1
-        self.__sideTurn(firstSide, secondSide)
+            
+        pickedTypeFirst : Type = self.__pickTypeAi(firstSide.getActiveMonSpecies()) if firstSide.isAi else self.__takeTurn()
+        self.__sideTurn(firstSide, secondSide, pickedTypeFirst)
         if self.__hasCompleted() == False:
-            self.__sideTurn(secondSide, firstSide)
+            pickedTypeSecond : Type = self.__pickTypeAi(secondSide.getActiveMonSpecies()) if secondSide.isAi else self.__takeTurn()
+            self.__sideTurn(secondSide, firstSide, pickedTypeSecond)
+    
+    def __pickTypeAi(self, pokemonSpecies : GenericMon) -> Type:
+        if pokemonSpecies.type2 != None:
+            pickedType = random.choice([1,2])
+            return pokemonSpecies.type1 if pickedType == 1 else pokemonSpecies.type2
 
-    def __sideTurn(self, side : Side, oppositeSide : Side):
+        return pokemonSpecies.type1
+        
+    def __takeTurn(self) -> Type:
+        return self.__pickAttackType() if self.side1.getActiveMonSpecies().type2 != None else self.side1.getActiveMonSpecies().type1
+
+    def __pickAttackType(self) -> Type:
+        types : dict[int, str] = dict()
+        i : int = 1
+        types[1] = self.side1.getActiveMonSpecies().type1.acronym
+        if self.side1.getActiveMonSpecies().type2 != None:
+            types[2] = self.side1.getActiveMonSpecies().type2.acronym
+        pickedTypeAccr : str = types[menuFunctions.input_dict(types)]
+        return _globals.types[pickedTypeAccr]
+
+    def __sideTurn(self, side : Side, oppositeSide : Side, attackType : Type):
         oppositeMon = oppositeSide.activeMon
-        self.attack(side.activeMon, oppositeMon, side.activeMon.genericMon.type1)
+        self.attack(side.activeMon, oppositeMon, attackType)
         if oppositeSide.isDefeated():
             self.__completeBattle(f'{oppositeMon.nickname} has fainted !')
         else:
