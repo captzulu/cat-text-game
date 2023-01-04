@@ -2,29 +2,29 @@
     "1": {
         "name": "1",
         "typeText": "1",
-        "speed": 1,
-        "attack": 1,
-        "health": 100
+        "speed": 10,
+        "attack": 10,
+        "health": 1000
     },
     "2": {
         "name": "22",
         "typeText": "2",
-        "speed": 2,
-        "attack": 2,
-        "health": 100
+        "speed": 20,
+        "attack": 20,
+        "health": 1000
     },
     "3": {
         "name": "333",
         "typeText": "3",
-        "speed": 3,
-        "attack": 3,
-        "health": 100
+        "speed": 30,
+        "attack": 30,
+        "health": 1000
     },
     "4": {
         "name": "4444",
         "typeText": "4",
-        "speed": 4,
-        "attack": 4,
+        "speed": 40,
+        "attack": 40,
         "health": 10
     }
 }
