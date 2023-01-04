@@ -25,12 +25,12 @@ class Battle:
         title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
         titleLine = self.edgeSymbol + self.fillTitleLine(title) + self.edgeSymbol
         self.write(titleLine)
-        self.write(str(self.side1.getActiveMonSpecies()))
+        self.write(str(self.side1.activeMon))
         
         longestMonNameLength = self.calculateLongestMonNameLength()
         paddingLength = longestMonNameLength // 2
         self.write(' ' * paddingLength + 'VS' + (' ' * paddingLength))
-        self.write(str(self.side2.getActiveMonSpecies()))
+        self.write(str(self.side2.activeMon))
         self.write(self.edgeSymbol + (self.Filler * longestMonNameLength) + self.edgeSymbol)
         print(self.__getTurnLog())
 
@@ -46,8 +46,8 @@ class Battle:
         self.log.addImplicitLine(self.turn, text)
     
     def calculateLongestMonNameLength(self) -> int:
-        mon1Length = len(str(self.side1.getActiveMonSpecies()))
-        mon2Length = len(str(self.side2.getActiveMonSpecies()))
+        mon1Length = len(str(self.side1.activeMon))
+        mon2Length = len(str(self.side2.activeMon))
         return mon1Length if mon1Length > mon2Length else mon2Length
 
     def __executeTurn(self):

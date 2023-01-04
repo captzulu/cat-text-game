@@ -15,12 +15,12 @@ class SpecificMon:
     def __post_init__(self):
         if self.nickname == '':
             self.nickname = self.genericMon.name
-        self.maxHealth = int(self.genericMon.health/5 * self.level)
-        self.currentHealth = int(self.genericMon.health/5 * self.level)
-        baseAttack = self.genericMon.attack/13
-        self.attack = int(baseAttack if baseAttack >= 0 else 1) * self.level
-        baseSpeed = self.genericMon.speed/13
-        self.speed = int(baseSpeed if baseSpeed >= 0 else 1) * self.level
+        self.maxHealth = int(self.genericMon.health/3 * self.level)
+        self.currentHealth = int(self.genericMon.health/3 * self.level)
+        baseAttack = self.genericMon.attack/8
+        self.attack = int((baseAttack if baseAttack >= 0 else 1) * self.level)
+        baseSpeed = self.genericMon.speed/8
+        self.speed = int((baseSpeed if baseSpeed >= 0 else 1) * self.level)
 
     def loseHealth(self, hitPointLoss : int):
         self.currentHealth -= hitPointLoss
@@ -48,4 +48,10 @@ class SpecificMon:
         return self.genericMon.weakTo(incomingType)
     
     def getHealthPercent(self):
-        return self.maxHealth / self.currentHealth 
+        return self.maxHealth / self.currentHealth
+    
+    def __str__(self):
+        return (
+            self.nickname + " || lvl:" + str(self.level) + " || " + self.genericMon.printTypeAcronyms() + " || HP:" + str(self.maxHealth) +
+            ' | ATK: ' + str(self.attack) + ' | SPD:' + str(self.speed)
+            )
