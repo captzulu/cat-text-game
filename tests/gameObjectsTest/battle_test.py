@@ -1,3 +1,4 @@
+from tkinter import TRUE
 import unittest
 import _globals
 from dataObjects.genericMon import GenericMon
@@ -21,22 +22,24 @@ class battleTest(unittest.TestCase):
         
     def InitClass(self):
         newSpecificMon1 = SpecificMon(_globals.genericMons[self.TEST_MON_1_NB], 10)
-        side1 = Side([newSpecificMon1], newSpecificMon1)
+        side1 = Side([newSpecificMon1], newSpecificMon1, False)
         
         newSpecificMon2 = SpecificMon(_globals.genericMons[self.TEST_MON_2_NB], 10)
-        side2 = Side([newSpecificMon2], newSpecificMon2)
+        side2 = Side([newSpecificMon2], newSpecificMon2, True)
         
         return Battle(side1, side2)
         
     def testCalculateLongestMonNameLength(self):
         longestMonNameLength = self.battle.calculateLongestMonNameLength()
-        expectedText = len(str(_globals.genericMons[self.TEST_MON_1_NB]))
-        self.assertEqual(longestMonNameLength, expectedText)
+        testMon1 = SpecificMon(_globals.genericMons[self.TEST_MON_1_NB], 10)
+        testMon1.nickname = 'Wild ' + testMon1.nickname
+        expectedText1 = len(str(testMon1))
+        self.assertEqual(longestMonNameLength, expectedText1)
 
     def testFillTitleLine(self):
         title = f"Battle ! {self.battle.side1.name} Vs {self.battle.side2.name}"
         filledTitle = self.battle.fillTitleLine(title)
-        lineFiller = self.battle.Filler * ((len(str(self.battle.side1.getActiveMonSpecies())) - len(title)) // 2)
+        lineFiller = self.battle.Filler * ((self.battle.calculateLongestMonNameLength() - len(title)) // 2)
         expectedText = lineFiller + title + lineFiller
         self.assertEqual(filledTitle, expectedText)
         
