@@ -20,10 +20,10 @@ class battleTest(unittest.TestCase):
         _globals.genericMons = dataFactory.loadClassDictTest('genericMon')
         
     def InitClass(self):
-        newSpecificMon1 = SpecificMon(_globals.genericMons[self.TEST_MON_1_NB], 1)
+        newSpecificMon1 = SpecificMon(_globals.genericMons[self.TEST_MON_1_NB], 10)
         side1 = Side([newSpecificMon1], newSpecificMon1)
         
-        newSpecificMon2 = SpecificMon(_globals.genericMons[self.TEST_MON_2_NB], 1)
+        newSpecificMon2 = SpecificMon(_globals.genericMons[self.TEST_MON_2_NB], 10)
         side2 = Side([newSpecificMon2], newSpecificMon2)
         
         return Battle(side1, side2)
@@ -52,6 +52,16 @@ class battleTest(unittest.TestCase):
         self.battle.write(' ' * paddingLength + 'VS' + (' ' * paddingLength))
         self.battle.write(str(self.battle.side2.getActiveMonSpecies()))
         self.battle.write(self.battle.edgeSymbol + (self.battle.Filler * longestMonNameLength) + self.battle.edgeSymbol)
+    
+    def testAttack(self):
+        expectedModifier = 1 * self.battle.side2.activeMon.weakTo(self.battle.side1.getActiveMonSpecies().type1)
+        ExpectedDamage = int(expectedModifier * self.battle.side1.activeMon.attack)
+        ExpectedMinDamage = ExpectedDamage * self.battle.DAMAGE_VARIATION_MIN
+        ExpectedMaxDamage = ExpectedDamage * self.battle.DAMAGE_VARIATION_MAX
+        self.battle.attack(self.battle.side1.activeMon, self.battle.side2.activeMon, self.battle.side1.getActiveMonSpecies().type1)
+        actualDamage = self.battle.side2.activeMon.maxHealth - self.battle.side2.activeMon.currentHealth
+        
+        self.assertTrue(ExpectedMinDamage <= actualDamage <= ExpectedMaxDamage)
         
 
     
