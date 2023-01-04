@@ -18,9 +18,9 @@ class SpecificMon:
         self.maxHealth = int(self.genericMon.health/5 * self.level)
         self.currentHealth = int(self.genericMon.health/5 * self.level)
         baseAttack = self.genericMon.attack/13
-        self.attack = int(baseAttack if baseAttack <= 0 else 1) * self.level
+        self.attack = int(baseAttack if baseAttack >= 0 else 1) * self.level
         baseSpeed = self.genericMon.speed/13
-        self.speed = int(baseSpeed if baseSpeed <= 0 else 1) * self.level
+        self.speed = int(baseSpeed if baseSpeed >= 0 else 1) * self.level
 
     def loseHealth(self, hitPointLoss : int):
         self.currentHealth -= hitPointLoss
