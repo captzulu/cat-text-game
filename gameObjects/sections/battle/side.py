@@ -5,6 +5,7 @@ from dataObjects.genericMon import GenericMon
 class Side:
     mons: list[SpecificMon]
     activeMon: SpecificMon
+    isAi: bool
     name: str = ''
 
     def __post_init__(self):
