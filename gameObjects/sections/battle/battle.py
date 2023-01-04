@@ -13,6 +13,8 @@ class Battle:
     completed: bool = False
     edgeSymbol: str = '°'
     Filler: str = '='
+    DAMAGE_VARIATION_MIN : float = 0.85
+    DAMAGE_VARIATION_MAX : float = 1.15
     
     def executeBattle(self):
         self.__executeIntro()
@@ -72,7 +74,7 @@ class Battle:
 
     def __sideTurn(self, side : Side, oppositeSide : Side):
         oppositeMon = oppositeSide.activeMon
-        self.__attack(side.activeMon, oppositeMon, side.activeMon.genericMon.type1)
+        self.attack(side.activeMon, oppositeMon, side.activeMon.genericMon.type1)
         if oppositeSide.isDefeated():
             self.__completeBattle(f'{oppositeMon.nickname} has fainted !')
         else:
@@ -94,11 +96,14 @@ class Battle:
         self.completed = True
         return
     
-    def __attack(self, attacker:SpecificMon, defender:SpecificMon, attackType:Type):
-        damage = int(attacker.attack * defender.weakTo(attackType))
+    def attack(self, attacker:SpecificMon, defender:SpecificMon, attackType:Type):
+        damage = int(self.__damageVariation(attacker.attack * defender.weakTo(attackType)))
         defender.loseHealth(damage)
         self.write(f"{attacker.nickname} dealt {damage} to {defender.nickname}")
         return
+    
+    def __damageVariation(self, damage : float):
+        return damage * random.uniform(self.DAMAGE_VARIATION_MIN, self.DAMAGE_VARIATION_MAX)
         
     def writeImplicit(self, text : str):
         self.log.addImplicitLine(self.turn, text)
