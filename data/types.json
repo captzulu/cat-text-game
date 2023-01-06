@@ -8,17 +8,24 @@
     },
     "fir": {
         "name": "fire",
-        "weaknesses": "ele,gra",
-        "resistances": "fir,wat,ice,ste",
+        "weaknesses": "wat,roc,gro",
+        "resistances": "fir,gra,ice,bug,ste,fai",
         "immunities": "",
         "acronym": "fir"
+    },
+    "wat": {
+        "name": "water",
+        "weaknesses": "gra,ele",
+        "resistances": "wat,fir,ste,ice",
+        "immunities": "",
+        "acronym": "wat"
     },
     "ele": {
         "name": "electric",
         "weaknesses": "gro",
         "resistances": "ele,fly,ste",
         "immunities": "",
-        "acronym": "wat"
+        "acronym": "ele"
     },
     "gra": {
         "name": "grass",
