@@ -1,7 +1,12 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from dataObjects.type import Type 
+import _globals
 @dataclass
 class Attack:
     name: str
     power: int
-    type1: Type
+    typeText: str = ''
+    type: Type = field(init=False, repr=False)
+    
+    def __post_init__(self):
+        self.type = _globals.types[self.typeText]
