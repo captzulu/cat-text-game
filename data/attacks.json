@@ -1,0 +1,92 @@
+{
+    "0": {
+        "name": "Slash",
+        "typeText": "nor",
+        "power": 80
+    },
+    "1": {
+        "name": "Crunch",
+        "typeText": "dar",
+        "power": 80
+    },
+    "2": {
+        "name": "Lick",
+        "typeText": "gho",
+        "power": 80
+    },
+    "3": {
+        "name": "Zen Headbutt",
+        "typeText": "psy",
+        "power": 80
+    },
+    "4": {
+        "name": "Poison Fang",
+        "typeText": "poi",
+        "power": 80
+    },
+    "5": {
+        "name": "Cuddle",
+        "typeText": "fai",
+        "power": 80
+    },
+    "6": {
+        "name": "Dig",
+        "typeText": "gro",
+        "power": 80
+    },
+    "7": {
+        "name": "Rock Throw",
+        "typeText": "roc",
+        "power": 80
+    },
+    "8": {
+        "name": "Blazing Stare",
+        "typeText": "fir",
+        "power": 80
+    },
+    "9": {
+        "name": "Spit",
+        "typeText": "wat",
+        "power": 80
+    },
+    "10": {
+        "name": "Olive",
+        "typeText": "gra",
+        "power": 80
+    },
+    "11": {
+        "name": "Frigid Nose",
+        "typeText": "ice",
+        "power": 80
+    },
+    "12": {
+        "name": "Sting",
+        "typeText": "bug",
+        "power": 80
+    },
+    "13": {
+        "name": "Bounce",
+        "typeText": "fly",
+        "power": 80
+    },
+    "14": {
+        "name": "Static",
+        "typeText": "ele",
+        "power": 80
+    },
+    "15": {
+        "name": "Wrestle",
+        "typeText": "fig",
+        "power": 80
+    },
+    "16": {
+        "name": "Tail Swipe",
+        "typeText": "dra",
+        "power": 80
+    },
+    "17": {
+        "name": "Iron Claw",
+        "typeText": "ste",
+        "power": 80
+    }
+}
