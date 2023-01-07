@@ -74,9 +74,9 @@ class Battle:
             secondSide = self.side2 if side1Speed > side2Speed else self.side1
             
         pickedTypeFirst : Type = self.__pickTypeAi(firstSide.getActiveMonSpecies()) if firstSide.isAi else self.__takeTurn()
+        pickedTypeSecond : Type = self.__pickTypeAi(secondSide.getActiveMonSpecies()) if secondSide.isAi else self.__takeTurn()
         self.__sideTurn(firstSide, secondSide, pickedTypeFirst)
         if self.__hasCompleted() == False:
-            pickedTypeSecond : Type = self.__pickTypeAi(secondSide.getActiveMonSpecies()) if secondSide.isAi else self.__takeTurn()
             self.__sideTurn(secondSide, firstSide, pickedTypeSecond)
     
     def __pickTypeAi(self, pokemonSpecies : GenericMon) -> Type:
