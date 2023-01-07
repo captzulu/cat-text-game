@@ -135,12 +135,12 @@ class Battle:
         return
     
     def __getEffectivenessMessage(self, damageEffectiveness : float) -> str:
-        if damageEffectiveness == 1:
-            return ""
-        elif damageEffectiveness >= 2 :
-            return "It was super effective !"
+        effectivenessMessage = ""
+        if damageEffectiveness >= 2 :
+            effectivenessMessage =  "It was super effective !"
         elif damageEffectiveness == 0.5:
-            return"It was not very effective"
+            effectivenessMessage = "It was not very effective"
+        return effectivenessMessage
     
     def __damageVariation(self, damage : float):
         return damage * random.uniform(self.DAMAGE_VARIATION_MIN, self.DAMAGE_VARIATION_MAX)
