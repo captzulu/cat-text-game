@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from dataObjects.type import Type 
 import _globals
 @dataclass
-class Attack:
+class Move:
     name: str
     power: int
     typeText: str = ''
