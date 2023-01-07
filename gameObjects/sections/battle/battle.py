@@ -35,7 +35,7 @@ class Battle:
         self.write(' ' * paddingLength + 'VS' + (' ' * paddingLength))
         self.write(str(self.side2.activeMon))
         self.write(self.edgeSymbol + (self.Filler * longestMonNameLength) + self.edgeSymbol)
-        print(self.__getTurnLog())
+        print(self.getTurnLog())
 
     def fillTitleLine(self, title:str) -> str:
         longestMonNameLength = self.calculateLongestMonNameLength()
@@ -95,8 +95,8 @@ class Battle:
         types[1] = self.side1.getActiveMonSpecies().type1.acronym
         if self.side1.getActiveMonSpecies().type2 != None:
             types[2] = self.side1.getActiveMonSpecies().type2.acronym
-        pickedTypeAccr : str = types[menuFunctions.input_dict(types)]
-        return _globals.types[pickedTypeAccr]
+        pickedTypeAcr : str = types[menuFunctions.input_dict(types)]
+        return _globals.types[pickedTypeAcr]
 
     def __sideTurn(self, side : Side, oppositeSide : Side, attackType : Type):
         oppositeMon = oppositeSide.activeMon
@@ -109,7 +109,7 @@ class Battle:
     def __battleLoop(self) -> None:
         while self.__hasCompleted() == False:
             self.__executeTurn()
-            print(self.__getTurnLog())
+            print(self.getTurnLog())
             if self.__hasCompleted() == False:
                 input("Hit a key to continue...")
         return
@@ -123,10 +123,24 @@ class Battle:
         return
     
     def attack(self, attacker:SpecificMon, defender:SpecificMon, attackType:Type):
-        damage = int(self.__damageVariation(attacker.attack * defender.weakTo(attackType)))
+        damageEffectiveness : float = defender.weakTo(attackType)
+        damage = int(self.__damageVariation(attacker.attack * damageEffectiveness))
         defender.loseHealth(damage)
-        self.write(f"{attacker.nickname} dealt {damage} to {defender.nickname}")
+        
+        if damageEffectiveness == 0:
+            self.write(f"{defender.nickname} is immune to {attackType.name} !")
+        else :
+            effectivenessMessage : str = self.__getEffectivenessMessage(damageEffectiveness)
+            self.write(f"{attacker.nickname} dealt {damage} to {defender.nickname}. {effectivenessMessage}")
         return
+    
+    def __getEffectivenessMessage(self, damageEffectiveness : float) -> str:
+        if damageEffectiveness == 1:
+            return ""
+        elif damageEffectiveness >= 2 :
+            return "It was super effective !"
+        elif damageEffectiveness == 0.5:
+            return"It was not very effective"
     
     def __damageVariation(self, damage : float):
         return damage * random.uniform(self.DAMAGE_VARIATION_MIN, self.DAMAGE_VARIATION_MAX)
@@ -134,6 +148,6 @@ class Battle:
     def writeImplicit(self, text : str):
         self.log.addImplicitLine(self.turn, text)
         
-    def __getTurnLog(self):
+    def getTurnLog(self) -> str:
         return self.log.getFormattedLine(self.turn)
     
