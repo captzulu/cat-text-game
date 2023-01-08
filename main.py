@@ -9,13 +9,15 @@ from cliObjects.gameCli import GameCli
 
 
 def loadData():
-    _globals.types = dataFactory.loadClassDict('type') 
+    _globals.types = dataFactory.loadClassDict('type')
+    _globals.moves = dataFactory.loadClassDict('move')
     _globals.genericMons = dataFactory.loadClassDict('genericMon')
 
 def main():
     #playerName = _globals.playerName = input("What's your name? > ").capitalize()
     #print(f'Your name is {playerName}')
-    menuFunctions.menuCallable({1 : ("Pygame", withPygame), 2 : ("CLI", withCli)})
+    withCli()
+    #menuFunctions.menuCallable({1 : ("Pygame", withPygame), 2 : ("CLI", withCli)})
 
 def withPygame():
     pygame.init()
