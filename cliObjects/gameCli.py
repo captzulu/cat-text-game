@@ -21,7 +21,7 @@ class GameCli:
         mons : dict[int, str] = dict()
         for no, mon in _globals.genericMons.items():
             mons[int(no)] = str(mon)
-        return menuFunctions.input_dict(mons)
+        return menuFunctions.menuInt(mons)
                         
     def enterFight(self):
         monNo1 = str(self.pickMon())

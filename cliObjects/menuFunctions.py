@@ -5,16 +5,14 @@ class menuFunctions():
     def menuCallable(dict : dict[int, tuple[str, Callable]]):
         valuesList = list(dict.values())
         choices = menuFunctions.makeOrderedChoices(valuesList)
-        for i, item in choices.items():
-            text: str = item[0]
-            print(str(i) + '. ' + text)
+        menuFunctions.printTupleChoices(choices)
 
         while(True):
             textInputted = input('> ')
             if textInputted.isnumeric() and int(textInputted) in choices.keys():
                 textInputted: str = choices[int(textInputted)][0]
 
-            for key, item in dict.items():
+            for item in dict.values():
                 text = item[0]
                 if text == textInputted:
                     item[1]()
@@ -30,7 +28,13 @@ class menuFunctions():
         return choices
 
     @staticmethod
-    def input_dict(dict : dict[int, str]):
+    def printTupleChoices(choices):
+        for i, item in choices.items():
+            text: str = item[0]
+            print(str(i) + '. ' + text)
+
+    @staticmethod
+    def menuInt(dict : dict[int, str]):
         valuesList = list(dict.values())
         choices = menuFunctions.makeOrderedChoices(valuesList)
         for i, text in choices.items():
@@ -45,4 +49,21 @@ class menuFunctions():
                 for key, text in dict.items():
                     if text == textInputted:
                         return key
+            print(f"'{textInputted}' is not a valid choice. Pick again :")
+    
+    @staticmethod
+    def menuObject(dict : dict[int, tuple[str, object]]):
+        valuesList = list(dict.values())
+        choices = menuFunctions.makeOrderedChoices(valuesList)
+        menuFunctions.printTupleChoices(choices)
+
+        while(True):
+            textInputted = input('> ')
+            if textInputted.isnumeric() and int(textInputted) in choices.keys():
+                textInputted: str = choices[int(textInputted)][0]
+
+            for item in dict.values():
+                text = item[0]
+                if text == textInputted:
+                    return item[1]
             print(f"'{textInputted}' is not a valid choice. Pick again :")
