@@ -4,6 +4,7 @@ from gameObjects.specificMon import SpecificMon
 from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
 from dataObjects.type import Type
+from dataObjects.move import Move
 import random
 from cliObjects.menuFunctions import menuFunctions
 import _globals
@@ -87,15 +88,13 @@ class Battle:
         return pokemonSpecies.type1
         
     def __takeTurn(self) -> Type:
-        return self.__pickAttackType() if self.side1.getActiveMonSpecies().type2 != None else self.side1.getActiveMonSpecies().type1
+        return self.__pickMove()
 
-    def __pickAttackType(self) -> Type:
-        types : dict[int, str] = dict()
-        i : int = 1
-        types[1] = self.side1.getActiveMonSpecies().type1.acronym
-        if self.side1.getActiveMonSpecies().type2 != None:
-            types[2] = self.side1.getActiveMonSpecies().type2.acronym
-        pickedTypeAcr : str = types[menuFunctions.input_dict(types)]
+    def __pickMove(self) -> Type:
+        moves : dict[int, str] = dict()
+        for i, move in self.side1.getActiveMonSpecies().moves.items():
+            moves[i] = move.name
+        pickedTypeAcr : str = moves[menuFunctions.menuInt(moves)]
         return _globals.types[pickedTypeAcr]
 
     def __sideTurn(self, side : Side, oppositeSide : Side, attackType : Type):
