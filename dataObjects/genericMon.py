@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from dataObjects.type import Type
+from dataObjects.move import Move
 from typing import Optional
 import _globals  
 
@@ -12,11 +13,19 @@ class GenericMon:
     type1: Type = field(init=False, repr=False)
     type2: Optional[Type] = field(init=False, repr=False)
     typeText: str = ''
+    moves: dict[int, Move] = field(init=False)
+    movesText: str = ''
 
     def __post_init__(self):
-        types = self.typeText.split(',')
+        types : list[str] = self.typeText.split(',')
         self.type1 = _globals.types[types[0]]
         self.type2 = _globals.types[types[1]] if len(types) == 2 else None
+        
+        if self.movesText != "":
+            moves : dict[int, Move] = dict()
+            moveIdList : list[str] = self.movesText.split(',')
+            for i, id in enumerate(moveIdList):
+                moves[i] = _globals.moves[id]
 
     def __str__(self):
         return (self.name + ' || ' + self.printTypeAcronyms() + 

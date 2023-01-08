@@ -9,6 +9,7 @@ class genericMonTest(unittest.TestCase):
         
     def initTestTypes(self):
         _globals.types = dataFactory.loadClassDictTest('type')
+        #_globals.moves = dataFactory.loadClassDict('move')
 
     def testInitClass(self):
         newGenericMon = GenericMon('bob', 90, 90, 90, '1')
