@@ -21,11 +21,11 @@ class GenericMon:
         self.type1 = _globals.types[types[0]]
         self.type2 = _globals.types[types[1]] if len(types) == 2 else None
         
+        self.moves : dict[int, Move] = dict()
         if self.movesText != "":
-            moves : dict[int, Move] = dict()
             moveIdList : list[str] = self.movesText.split(',')
             for i, id in enumerate(moveIdList):
-                moves[i] = _globals.moves[id]
+                self.moves[i] = _globals.moves[id]
 
     def __str__(self):
         return (self.name + ' || ' + self.printTypeAcronyms() + 
