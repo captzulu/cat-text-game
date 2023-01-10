@@ -10,3 +10,6 @@ class Move:
     
     def __post_init__(self):
         self.type = _globals.types[self.typeText]
+        
+    def __str__(self):
+        return (self.name + f" [{self.type}]")

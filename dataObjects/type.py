@@ -18,3 +18,6 @@ class Type:
         
         return damageMultiplier
     
+    def __str__(self):
+        return (self.name.capitalize())
+    
