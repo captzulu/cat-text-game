@@ -73,33 +73,31 @@ class Battle:
         else:
             firstSide = self.side1 if side1Speed > side2Speed else self.side2
             secondSide = self.side2 if side1Speed > side2Speed else self.side1
-            
-        pickedTypeFirst : Type = self.__pickTypeAi(firstSide.getActiveMonSpecies()) if firstSide.isAi else self.__takeTurn()
-        pickedTypeSecond : Type = self.__pickTypeAi(secondSide.getActiveMonSpecies()) if secondSide.isAi else self.__takeTurn()
-        self.__sideTurn(firstSide, secondSide, pickedTypeFirst)
-        if self.__hasCompleted() == False:
-            self.__sideTurn(secondSide, firstSide, pickedTypeSecond)
-    
-    def __pickTypeAi(self, pokemonSpecies : GenericMon) -> Type:
-        if pokemonSpecies.type2 != None:
-            pickedType = random.choice([1,2])
-            return pokemonSpecies.type1 if pickedType == 1 else pokemonSpecies.type2
-
-        return pokemonSpecies.type1
         
-    def __takeTurn(self) -> Type:
-        return self.__pickMove()
+        self.__sideTurn(firstSide, secondSide)
+        if self.__hasCompleted() == False:
+            self.__sideTurn(secondSide, firstSide)
+        
+    def __takeTurn(self, side : Side) -> Move:
+        pickedMoveFirst : Move = self.__pickMoveAi(side.getActiveMonSpecies()) if side.isAi else self.__pickMove(side.getActiveMonSpecies())
+        return pickedMoveFirst 
 
-    def __pickMove(self) -> Type:
-        moves : dict[int, str] = dict()
-        for i, move in self.side1.getActiveMonSpecies().moves.items():
-            moves[i] = move.name
-        pickedTypeAcr : str = moves[menuFunctions.menuInt(moves)]
-        return _globals.types[pickedTypeAcr]
+    def __pickMove(self, pokemonSpecies : GenericMon) -> Move:
+        moves : dict[int, tuple[str, Move]] = dict()
+        for i, move in pokemonSpecies.moves.items():
+            moves[i] = (move.name, move) 
+        pickedMove : Move = menuFunctions.menuObject(moves)
+        return pickedMove
+    
+    def __pickMoveAi(self, pokemonSpecies : GenericMon) -> Move:
+        pickedMoveId = random.choice(range(0,len(_globals.moves)))
+        pickedMove : Move = pokemonSpecies.moves[pickedMoveId]
+        return pickedMove
 
-    def __sideTurn(self, side : Side, oppositeSide : Side, attackType : Type):
+    def __sideTurn(self, side : Side, oppositeSide : Side):
+        pickedMove: Move = self.__takeTurn(side)
         oppositeMon = oppositeSide.activeMon
-        self.attack(side.activeMon, oppositeMon, attackType)
+        self.attack(side.activeMon, oppositeMon, pickedMove)
         if oppositeSide.isDefeated():
             self.__completeBattle(f'{oppositeMon.nickname} has fainted !')
         else:
@@ -121,9 +119,11 @@ class Battle:
         self.completed = True
         return
     
-    def attack(self, attacker:SpecificMon, defender:SpecificMon, attackType:Type):
+    def attack(self, attacker:SpecificMon, defender:SpecificMon, move:Move):
+        attackType:Type = move.type
         damageEffectiveness : float = defender.weakTo(attackType)
-        damage = int(self.__damageVariation(attacker.attack * damageEffectiveness))
+        defense : int = 50
+        damage = int(self.__damageVariation((attacker.attack / defense) * move.power * damageEffectiveness))
         defender.loseHealth(damage)
         
         if damageEffectiveness == 0:
