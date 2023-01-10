@@ -1,5 +1,5 @@
-from typing import Callable
-
+from typing import Callable, TypeVar
+Obj = TypeVar('Obj')
 class menuFunctions():
     @staticmethod
     def menuCallable(dict : dict[int, tuple[str, Callable]]):
@@ -52,7 +52,7 @@ class menuFunctions():
             print(f"'{textInputted}' is not a valid choice. Pick again :")
     
     @staticmethod
-    def menuObject(dict : dict[int, tuple[str, object]]):
+    def menuObject(dict : dict[int, tuple[str, Obj]]) -> Obj:
         valuesList = list(dict.values())
         choices = menuFunctions.makeOrderedChoices(valuesList)
         menuFunctions.printTupleChoices(choices)
