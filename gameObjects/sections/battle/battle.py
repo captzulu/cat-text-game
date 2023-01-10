@@ -73,10 +73,11 @@ class Battle:
         else:
             firstSide = self.side1 if side1Speed > side2Speed else self.side2
             secondSide = self.side2 if side1Speed > side2Speed else self.side1
-        
-        self.__sideTurn(firstSide, secondSide)
+        firstSideMove = self.__takeTurn(firstSide)
+        secondSideMove = self.__takeTurn(secondSide)
+        self.__sideTurn(firstSide, secondSide, firstSideMove)
         if self.__hasCompleted() == False:
-            self.__sideTurn(secondSide, firstSide)
+            self.__sideTurn(secondSide, firstSide, secondSideMove)
         
     def __takeTurn(self, side : Side) -> Move:
         pickedMoveFirst : Move = self.__pickMoveAi(side.getActiveMonSpecies()) if side.isAi else self.__pickMove(side.getActiveMonSpecies())
@@ -90,12 +91,12 @@ class Battle:
         return pickedMove
     
     def __pickMoveAi(self, pokemonSpecies : GenericMon) -> Move:
-        pickedMoveId = random.choice(range(0,len(_globals.moves)))
-        pickedMove : Move = pokemonSpecies.moves[pickedMoveId]
+        maxMoveIndex : int = len(pokemonSpecies.moves) - 1
+        pickedMoveIndex = random.choice(range(0, maxMoveIndex))
+        pickedMove : Move = pokemonSpecies.moves[pickedMoveIndex]
         return pickedMove
 
-    def __sideTurn(self, side : Side, oppositeSide : Side):
-        pickedMove: Move = self.__takeTurn(side)
+    def __sideTurn(self, side : Side, oppositeSide : Side, pickedMove: Move):
         oppositeMon = oppositeSide.activeMon
         self.attack(side.activeMon, oppositeMon, pickedMove)
         if oppositeSide.isDefeated():
@@ -122,15 +123,15 @@ class Battle:
     def attack(self, attacker:SpecificMon, defender:SpecificMon, move:Move):
         attackType:Type = move.type
         damageEffectiveness : float = defender.weakTo(attackType)
-        defense : int = 50
+        defense : int = 80
         damage = int(self.__damageVariation((attacker.attack / defense) * move.power * damageEffectiveness))
         defender.loseHealth(damage)
         
         if damageEffectiveness == 0:
-            self.write(f"{defender.nickname} is immune to {attackType.name} !")
+            self.write(f"{defender.nickname} is immune to {attackType} !")
         else :
             effectivenessMessage : str = self.__getEffectivenessMessage(damageEffectiveness)
-            self.write(f"{attacker.nickname} dealt {damage} to {defender.nickname}. {effectivenessMessage}")
+            self.write(f"{attacker.nickname} used {move} to deal {damage} to {defender.nickname}. {effectivenessMessage}")
         return
     
     def __getEffectivenessMessage(self, damageEffectiveness : float) -> str:
