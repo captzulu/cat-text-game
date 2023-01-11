@@ -19,7 +19,7 @@ class GenericMon:
     def __post_init__(self):
         types : list[str] = self.typeText.split(',')
         self.type1 = _globals.types[types[0]]
-        self.type2 = _globals.types[types[1]] if len(types) == 2 else None
+        self.type2 = None if len(types) == 1 else _globals.types[types[1]]
         
         self.moves : dict[int, Move] = dict()
         if self.movesText != "":
