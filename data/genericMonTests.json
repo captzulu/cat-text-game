@@ -4,27 +4,31 @@
         "typeText": "1",
         "speed": 10,
         "attack": 10,
-        "health": 1000
+        "health": 1000,
+        "movesText": "1"
     },
     "2": {
         "name": "22",
         "typeText": "2",
         "speed": 20,
         "attack": 20,
-        "health": 1000
+        "health": 1000,
+        "movesText": "2"
     },
     "3": {
         "name": "333",
         "typeText": "3",
         "speed": 30,
         "attack": 30,
-        "health": 1000
+        "health": 1000,
+        "movesText": "3"
     },
     "4": {
         "name": "4444",
         "typeText": "4",
         "speed": 40,
         "attack": 40,
-        "health": 10
+        "health": 10,
+        "movesText": "4"
     }
 }

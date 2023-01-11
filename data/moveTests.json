@@ -1,0 +1,22 @@
+{
+    "1": {
+        "name": "1",
+        "typeText": "1",
+        "power": 80
+    },
+    "2": {
+        "name": "2",
+        "typeText": "2",
+        "power": 80
+    },
+    "3": {
+        "name": "3",
+        "typeText": "3",
+        "power": 80
+    },
+    "4": {
+        "name": "4",
+        "typeText": "4",
+        "power": 80
+    }
+}
