@@ -121,7 +121,7 @@ class Battle:
         return
     
     def attack(self, attacker:SpecificMon, defender:SpecificMon, move:Move):
-        attackType:Type = move.type
+        attackType : Type = move.type
         damageEffectiveness : float = defender.weakTo(attackType)
         defense : int = 80
         damage = int(self.__damageVariation((attacker.attack / defense) * move.power * damageEffectiveness))
