@@ -6,6 +6,7 @@ import itertools
 class Map():
     nodes : dict[int, list[Node]]
     title : str
+    activeNode : Node
     
     def __init__(self, title : str = "untitled"):
         self.nodeIdGenerator = itertools.count()
@@ -42,6 +43,8 @@ class Map():
         while i < length:
             newMap.randomColumn(i, 1 if i == 0 else 4)
             i += 1
+        if 0 in newMap.nodes and 0 in newMap.nodes[0]:
+            newMap.activeNode = newMap.nodes[0][0]
         return newMap
     
     def randomColumn(self, columnIndex: int, maxColumnLength: int) -> None:
