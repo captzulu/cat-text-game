@@ -7,6 +7,7 @@ from gameObjects.sections.battle.battle import Battle
 from gameObjects.specificMon import SpecificMon
 from gameObjects.sections.battle.side import Side
 from gameObjects.sections.map.map import Map
+from typing import Callable
 class GameCli:
     map : Map 
     def __init__(self) -> None:
@@ -36,7 +37,7 @@ class GameCli:
         return
     
     def mainMenu(self):
-        options = dict({
+        options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Fight", self.enterFight),
             1 : ("Map", self.mapView),
             2 : ("Quit", self.quit)
