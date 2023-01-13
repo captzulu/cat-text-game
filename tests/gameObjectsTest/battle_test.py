@@ -44,7 +44,6 @@ class battleTest(unittest.TestCase):
         expectedText = lineFiller + title + lineFiller
         self.assertEqual(filledTitle, expectedText)
         
-        
     def testExecuteIntro(self):
         title = f"Battle ! {self.battle.side1.name} Vs {self.battle.side2.name}"
         titleLine = self.battle.edgeSymbol + self.battle.fillTitleLine(title) + self.battle.edgeSymbol
@@ -77,9 +76,6 @@ class battleTest(unittest.TestCase):
     def testGetFastestSide(self):
         expectedFastestSide = self.battle.side1
         self.assertEqual(expectedFastestSide, self.battle.getFastestSide())
-        
-
     
 if __name__ == '__main__':
     unittest.main()
-
