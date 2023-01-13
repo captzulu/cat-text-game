@@ -73,6 +73,10 @@ class battleTest(unittest.TestCase):
         actualLine = self.battle.getTurnLog()
         
         self.assertTrue("not very effective" in actualLine)
+    
+    def testGetFastestSide(self):
+        expectedFastestSide = self.battle.side1
+        self.assertEqual(expectedFastestSide, self.battle.getFastestSide())
         
 
     

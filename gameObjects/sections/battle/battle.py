@@ -62,23 +62,25 @@ class Battle:
             winner = self.side1.activeMon if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2.activeMon
             self.__completeBattle(f'{winner.nickname} has stalled out the win !')
     
-            
     def __attackPhase(self):
+        firstSide : Side = self.getFastestSide()
+        secondSide : Side = self.side2 if firstSide == self.side1 else self.side1
+        firstSideMove : Move = self.__takeTurn(firstSide)
+        secondSideMove : Move = self.__takeTurn(secondSide)
+        self.__sideTurn(firstSide, secondSide, firstSideMove)
+        if self.__hasCompleted() == False:
+            self.__sideTurn(secondSide, firstSide, secondSideMove)
+        
+    def getFastestSide(self) -> Side:
         side1Speed = self.side1.activeMon.speed
         side2Speed = self.side2.activeMon.speed
 
         if side1Speed == side2Speed:
             firstSide = self.side1 if random.randint(0,1) == 1 else self.side2
-            secondSide = self.side2 if firstSide == self.side1 else self.side1
         else:
             firstSide = self.side1 if side1Speed > side2Speed else self.side2
-            secondSide = self.side2 if side1Speed > side2Speed else self.side1
-        firstSideMove = self.__takeTurn(firstSide)
-        secondSideMove = self.__takeTurn(secondSide)
-        self.__sideTurn(firstSide, secondSide, firstSideMove)
-        if self.__hasCompleted() == False:
-            self.__sideTurn(secondSide, firstSide, secondSideMove)
-        
+        return firstSide
+ 
     def __takeTurn(self, side : Side) -> Move:
         pickedMoveFirst : Move = self.__pickMoveAi(side.getActiveMonSpecies()) if side.isAi else self.__pickMove(side.getActiveMonSpecies())
         return pickedMoveFirst 
