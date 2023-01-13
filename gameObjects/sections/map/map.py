@@ -43,7 +43,7 @@ class Map():
         while i < length:
             newMap.randomColumn(i, 1 if i == 0 else 4)
             i += 1
-        if 0 in newMap.nodes and 0 in newMap.nodes[0]:
+        if 0 in newMap.nodes and len(newMap.nodes[0]) >= 1:
             newMap.activeNode = newMap.nodes[0][0]
         return newMap
     

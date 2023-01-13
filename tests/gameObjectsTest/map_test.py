@@ -54,13 +54,17 @@ class mapTest(unittest.TestCase):
         self.assertEqual(len(newMap.nodes[0]), 1)
         self.assertEqual(len(newMap.nodes), 4)
     
-    def testGenerateRandomEmptyMap_success(self):
+    def testGenerateRandomMap_LengthZero_success(self):
         newMap = Map.generateRandomMap(0)
         self.assertFalse(0 in newMap.nodes)
 
-    def testGenerateRandomEmptyMap_NoActiveNode(self):
+    def testGenerateRandomMap_LengthZero_NoActiveNode(self):
         newMap = Map.generateRandomMap(0)
         self.assertFalse(hasattr(newMap, 'activeNode'))
+
+    def testGenerateRandomMap_withLength_getFirstNodeAsActiveNode(self):
+        newMap = Map.generateRandomMap(3)
+        self.assertIsInstance(newMap.activeNode, Node)
 
 if __name__ == '__main__':
     unittest.main()
