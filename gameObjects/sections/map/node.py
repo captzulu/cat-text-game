@@ -32,3 +32,6 @@ class Node():
             amount -= 1
         return results
     
+    def executeNode(self):
+        if self.name == 'fight':
+            return

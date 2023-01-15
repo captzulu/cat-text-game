@@ -8,6 +8,7 @@ from gameObjects.specificMon import SpecificMon
 from gameObjects.sections.battle.side import Side
 from gameObjects.sections.map.map import Map
 from typing import Callable
+import sys
 class GameCli:
     map : Map 
     def __init__(self) -> None:
@@ -16,7 +17,7 @@ class GameCli:
 
     def quit(self):
         self.gameState = GameStates.ENDED
-        exit()
+        sys.exit()
         
     def pickMon(self) -> int:
         mons : dict[int, str] = dict()
