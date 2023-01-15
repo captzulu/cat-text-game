@@ -27,7 +27,7 @@ class mapTest(unittest.TestCase):
         newMap = Map()
         newMap.autoGenerateNode(0)
         actualId = newMap.autoGenerateNode(1)
-        expectedId = 1
+        expectedId = 2
         self.assertEqual(actualId, expectedId)
         
     def testRandomColumn_firstColumn_success(self):
@@ -92,6 +92,23 @@ class mapTest(unittest.TestCase):
         newMap.advance(0)
         newNode = newMap.activeNode
         self.assertEqual(oldNode, newNode)
+    
+    def testAdvance_NodesAreLinked_success(self):
+        newMap = Map()
+        newMap.autoGenerateNode(0)
+        newMap.activeNode = newMap.nodes[0][0]
+        nextNode : Node = Node(2, "linkedNode", 1, [1], [])
+        newMap.nodes[1] = [nextNode]
+        newMap.advance(0)
+
+    def testAdvance_NodesNotLinked_exception(self):
+        newMap = Map()
+        newMap.autoGenerateNode(0)
+        newMap.activeNode = newMap.nodes[0][0]
+        nextNode : Node = Node(2, "linkedNode", 1, [], [])
+        newMap.nodes[1] = [nextNode]
+        with self.assertRaises(Exception):
+            newMap.advance(10)
 
 if __name__ == '__main__':
     unittest.main()

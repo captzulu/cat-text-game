@@ -10,7 +10,7 @@ class Map():
     completed : bool
     
     def __init__(self, title : str = "untitled"):
-        self.nodeIdGenerator = itertools.count()
+        self.nodeIdGenerator = itertools.count(1)
         self.title = title
         self.nodes = dict()
         self.completed = False
@@ -61,9 +61,19 @@ class Map():
         if nextColumnIndex in self.nodes:
             column = self.nodes[nextColumnIndex]
             maxIndex = (len(column) - 1)
-            self.activeNode = column[0] if maxIndex < nodeIndex else column[nodeIndex]
+            newNode = column[0] if maxIndex < nodeIndex else column[nodeIndex]
+            if self.areLinked(self.activeNode, newNode):
+                self.activeNode = newNode
+            else:
+                raise Exception("Nodes_Not_Linked", "Given node is not linked to the previous node")
         else:
             self.completed = True
+    
+    def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
+            if firstNode.id in secondNode.backLinks:
+                return True
+            else:
+                return False
             
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"
