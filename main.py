@@ -1,4 +1,3 @@
-from cliObjects.menuFunctions import menuFunctions
 import pygame
 import ext_modules.ptext as ptext
 from dataFactory import dataFactory
