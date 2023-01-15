@@ -7,11 +7,13 @@ class Map():
     nodes : dict[int, list[Node]]
     title : str
     activeNode : Node
+    completed : bool
     
     def __init__(self, title : str = "untitled"):
         self.nodeIdGenerator = itertools.count()
         self.title = title
         self.nodes = dict()
+        self.completed = False
     
     def getColumnAtIndex(self, columnIndex : int) -> list[Node]:
         if columnIndex < 0 or columnIndex not in self.nodes:
@@ -53,6 +55,15 @@ class Map():
         while i < columnLength:
             self.autoGenerateNode(columnIndex)
             i += 1
+    
+    def advance(self, nodeIndex : int) -> None:
+        nextColumnIndex : int = self.activeNode.columnIndex + 1
+        if nextColumnIndex in self.nodes:
+            column = self.nodes[nextColumnIndex]
+            maxIndex = (len(column) - 1)
+            self.activeNode = column[0] if maxIndex < nodeIndex else column[nodeIndex]
+        else:
+            self.completed = True
             
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"

@@ -65,6 +65,33 @@ class mapTest(unittest.TestCase):
     def testGenerateRandomMap_withLength_getFirstNodeAsActiveNode(self):
         newMap = Map.generateRandomMap(3)
         self.assertIsInstance(newMap.activeNode, Node)
+    
+    def testAdvance_validNodeIndex_getDifferentNode(self):
+        newMap = Map.generateRandomMap(3)
+        oldNode = newMap.activeNode
+        newMap.advance(0)
+        newNode = newMap.activeNode
+        self.assertNotEqual(oldNode, newNode)
+
+    def testAdvance_invalidNodeIndex_getNodeAt0(self):
+        newMap = Map.generateRandomMap(3)
+        newMap.advance(100)
+        currentColumnIndex = newMap.activeNode.columnIndex
+        expectedNode = newMap.nodes[currentColumnIndex][0]
+        newNode = newMap.activeNode
+        self.assertEqual(expectedNode, newNode)
+
+    def testAdvance_mapLengthOne_mapGetsCompleted(self):
+        newMap = Map.generateRandomMap(1)
+        newMap.advance(0)
+        self.assertTrue(newMap.completed)
+
+    def testAdvance_mapLengthOne_activeNodeStaysSame(self):
+        newMap = Map.generateRandomMap(1)
+        oldNode = newMap.activeNode
+        newMap.advance(0)
+        newNode = newMap.activeNode
+        self.assertEqual(oldNode, newNode)
 
 if __name__ == '__main__':
     unittest.main()
