@@ -1,8 +1,7 @@
 import random
+from gameObjects.sections.map.nodeEvents import NodeEvents
 
 class Node():
-    NAME_LIST = ['city', 'market', 'fight', 'chickens', 'rest']
-    
     def __init__(self, id : int, name : str, columnIndex : int, backLinks : list[int], forwardLinks : list[int]=list()):
         self.id : int = id
         self.name : str = name 
@@ -15,7 +14,7 @@ class Node():
 
     @staticmethod
     def randomName() -> str:
-        results : list[str] = random.choices(Node.NAME_LIST, weights=[1, 1, 8, 1, 5])
+        results : list[str] = random.choices(NodeEvents.NAME_LIST, weights=[1, 1, 8, 1, 5])
         return results[0]
 
     @staticmethod
@@ -34,4 +33,5 @@ class Node():
     
     def executeNode(self):
         if self.name == 'fight':
+            NodeEvents.enterRandomFight()
             return
