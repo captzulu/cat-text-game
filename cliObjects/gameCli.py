@@ -18,12 +18,6 @@ class GameCli:
     def quit(self):
         self.gameState = GameStates.ENDED
         sys.exit()
-        
-    def pickMon(self) -> int:
-        mons : dict[int, str] = dict()
-        for no, mon in _globals.genericMons.items():
-            mons[int(no)] = str(mon)
-        return menuFunctions.menuInt(mons)
     
     def mainMenu(self):
         options : dict[int, tuple[str, Callable]] = dict({
@@ -36,3 +30,9 @@ class GameCli:
     
     def mapView(self):
         print(self.map)
+        options : dict[int, tuple[str, Callable]] = dict({
+            0 : ("Advance", NodeEvents.enterRandomFight),
+            1 : ("Back", self.mainMenu)
+        })
+        while self.gameState == GameStates.RUNNING:
+            menuFunctions.menuCallable(options)
