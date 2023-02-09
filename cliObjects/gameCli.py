@@ -2,6 +2,7 @@ import _globals
 import random
 from cliObjects.menuFunctions import menuFunctions
 from dataObjects.enums.gameStates import GameStates
+from gameObjects.sections.player.player import Player
 from gameObjects.sections.battle.battle import Battle
 from gameObjects.specificMon import SpecificMon
 from gameObjects.sections.battle.side import Side
@@ -27,6 +28,14 @@ class GameCli:
         })
         while self.gameState == GameStates.RUNNING:
             menuFunctions.menuCallable(options)
+
+    def startMenu(self):
+        options : dict[int, tuple[str, Callable]] = dict({
+            0 : ("Start", self.createPlayer),
+            1 : ("Quit", self.quit)
+        })
+        while self.gameState == GameStates.RUNNING:
+            menuFunctions.menuCallable(options)
     
     def mapView(self):
         print(self.map)
@@ -36,3 +45,7 @@ class GameCli:
         })
         while self.gameState == GameStates.RUNNING:
             menuFunctions.menuCallable(options)
+            
+    def createPlayer(self):
+        _globals.player = Player('test')
+        self.startMenu()
