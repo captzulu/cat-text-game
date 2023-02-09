@@ -5,4 +5,4 @@ class Player:
     name: str
     party: Side = field(init=False)
     gold: int = 0
-    items: list = list()
+    items: list = field(default_factory=list)
