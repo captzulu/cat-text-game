@@ -40,11 +40,26 @@ class GameCli:
     def mapView(self):
         print(self.map)
         options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Advance", NodeEvents.enterRandomFight),
+            0 : ("Advance", self.advanceMenu),
             1 : ("Back", self.mainMenu)
         })
         while self.gameState == GameStates.RUNNING:
             menuFunctions.menuCallable(options)
+            
+    def advanceMenu(self):
+        options : dict[int, str] = dict({0 : "Back"})
+        
+        for nodeId in self.map.activeNode.forwardLinks:
+            options[nodeId] = str(nodeId)
+        
+        if len(options) <= 1:
+            self.mapView()
+
+        pickedOption : int = menuFunctions.menuInt(options)
+        if pickedOption == 0:
+            self.mapView()
+        else:
+            self.map.advance(pickedOption)
             
     def createPlayer(self):
         _globals.player = Player('test')
