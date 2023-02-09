@@ -48,4 +48,4 @@ class GameCli:
             
     def createPlayer(self):
         _globals.player = Player('test')
-        self.startMenu()
+        self.mainMenu()
