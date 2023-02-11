@@ -43,4 +43,4 @@ class Node():
     def executeNode(self):
         if self.name == 'fight':
             NodeEvents.enterRandomFight()
-            return
+        return
