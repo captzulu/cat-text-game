@@ -1,5 +1,4 @@
 from gameObjects.sections.map.node import Node
-from gameObjects.sections.map.randomGenerator import RandomGenerator
 import random
 import itertools
 
@@ -27,13 +26,13 @@ class Map():
         return ids
     
     def autoGenerateNode(self, columnIndex : int) -> int:
-        previousColumn = self.getColumnAtIndex(columnIndex - 1)
-        previousColumnIds = self.getColumnIds(previousColumn)
+        previousColumn: list[Node] = self.getColumnAtIndex(columnIndex - 1)
+        previousColumnIds: list[int] = self.getColumnIds(previousColumn)
 
         if columnIndex not in self.nodes:
             self.nodes[columnIndex] = list()
             
-        newNode = randomGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
+        newNode: Node = Node.generateRandomNode(next(self.nodeIdGenerator), columnIndex, previousColumnIds)
         for node in previousColumn:
             if node.id in newNode.backLinks:
                 node.forwardLinks.append(newNode.id)
