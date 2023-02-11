@@ -6,7 +6,7 @@ from gameObjects.sections.battle.battle import Battle
 from cliObjects.menuFunctions import menuFunctions
 
 class NodeEvents():
-    NAME_LIST = ['city', 'market', 'fight', 'chickens', 'rest']
+    NAME_LIST: list[str] = ['city', 'market', 'fight', 'chickens', 'rest']
 
     @staticmethod
     def enterRandomFight():

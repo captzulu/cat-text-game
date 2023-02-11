@@ -31,6 +31,11 @@ class Node():
             amount -= 1
         return results
     
+    @classmethod
+    def generateRandomNode(cls, id : int, columnIndex : int, previousColumnIds : list[int]):
+        backLinks: list[int] = Node.randomBackLinks(previousColumnIds)
+        return Node(id, Node.randomName(), columnIndex, backLinks)
+    
     def executeNode(self):
         if self.name == 'fight':
             NodeEvents.enterRandomFight()

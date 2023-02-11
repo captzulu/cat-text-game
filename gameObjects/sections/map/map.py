@@ -29,12 +29,11 @@ class Map():
     def autoGenerateNode(self, columnIndex : int) -> int:
         previousColumn = self.getColumnAtIndex(columnIndex - 1)
         previousColumnIds = self.getColumnIds(previousColumn)
-        randomGenerator = RandomGenerator()
 
         if columnIndex not in self.nodes:
             self.nodes[columnIndex] = list()
             
-        newNode = randomGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
+        newNode: Node = Node.generateRandomNode(next(self.nodeIdGenerator), columnIndex, previousColumnIds)
         self.nodes[columnIndex].append(newNode)
         return newNode.id
       
