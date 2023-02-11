@@ -14,7 +14,7 @@ class NodeEvents():
         monNo2 = str(random.randint(0, len(_globals.genericMons) - 1))
         monster1 = SpecificMon(_globals.genericMons[monNo1], 10)
         monster2 = SpecificMon(_globals.genericMons[monNo2], 10)
-        side1 = Side([monster1], monster1, False, _globals.playerName)
+        side1 = Side([monster1], monster1, False, _globals.player.name)
         side2 = Side([monster2], monster2, True)
         battle: Battle = Battle(side1, side2)
         #battle menu

@@ -29,7 +29,7 @@ def withPygame():
         
 def withCli():
     game = GameCli()
-    game.mainMenu()
+    game.startMenu()
 
 if __name__ == '__main__':
     loadData()

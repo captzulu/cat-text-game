@@ -33,7 +33,10 @@ class Map():
         if columnIndex not in self.nodes:
             self.nodes[columnIndex] = list()
             
-        newNode: Node = Node.generateRandomNode(next(self.nodeIdGenerator), columnIndex, previousColumnIds)
+        newNode = randomGenerator.generateRandomNode(previousColumnIds, next(self.nodeIdGenerator), columnIndex)
+        for node in previousColumn:
+            if node.id in newNode.backLinks:
+                node.forwardLinks.append(newNode.id)
         self.nodes[columnIndex].append(newNode)
         return newNode.id
       

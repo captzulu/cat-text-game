@@ -60,7 +60,7 @@ class Game:
         monNo2 = str(random.randint(0, len(_globals.genericMons) - 1))
         monster1 = SpecificMon(_globals.genericMons[monNo1], 10)
         monster2 = SpecificMon(_globals.genericMons[monNo2], 10)
-        side1 = Side([monster1], monster1, _globals.playerName)
+        side1 = Side([monster1], monster1, _globals.player.name)
         side2 = Side([monster2], monster2)
         battle = Battle(side1, side2)
         mainMenu : Menu = _globals.objects.pop('menu')
