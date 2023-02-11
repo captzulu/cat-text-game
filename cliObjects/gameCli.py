@@ -50,7 +50,7 @@ class GameCli:
         options : dict[int, str] = dict({0 : "Back"})
         
         for nodeId in self.map.activeNode.forwardLinks:
-            options[nodeId] = str(nodeId)
+            options[len(options)] = str(nodeId)
         
         if len(options) <= 1:
             self.mapView()
