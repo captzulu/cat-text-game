@@ -24,39 +24,7 @@ class Map():
         for node in column:
             ids.append(node.id)
         return ids
-    
-    def autoGenerateNode(self, columnIndex : int) -> int:
-        previousColumn: list[Node] = self.getColumnAtIndex(columnIndex - 1)
-        previousColumnIds: list[int] = self.getColumnIds(previousColumn)
 
-        if columnIndex not in self.nodes:
-            self.nodes[columnIndex] = list()
-            
-        newNode: Node = Node.generateRandomNode(next(self.nodeIdGenerator), columnIndex, previousColumnIds)
-        for node in previousColumn:
-            if node.id in newNode.backLinks:
-                node.forwardLinks.append(newNode.id)
-        self.nodes[columnIndex].append(newNode)
-        return newNode.id
-      
-    @classmethod
-    def generateRandomMap(cls, length: int, title: str = ""):
-        newMap = cls(title)
-        i = 0 
-        while i < length:
-            newMap.randomColumn(i, 1 if i == 0 else 4)
-            i += 1
-        if 0 in newMap.nodes and len(newMap.nodes[0]) >= 1:
-            newMap.activeNode = newMap.nodes[0][0]
-        return newMap
-    
-    def randomColumn(self, columnIndex: int, maxColumnLength: int) -> None:
-        columnLength = random.randint(1, maxColumnLength)
-        i = 0
-        while i < columnLength:
-            self.autoGenerateNode(columnIndex)
-            i += 1
-    
     def advance(self, nodeIndex : int) -> None:
         nextColumnIndex : int = self.activeNode.columnIndex + 1
         if nextColumnIndex in self.nodes:
