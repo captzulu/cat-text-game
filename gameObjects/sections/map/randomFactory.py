@@ -44,13 +44,13 @@ class RandomFactory():
         newMap: Map = Map(title)
         i = 0 
         while i < length:
-            self.randomColumn(newMap, i, 1 if i == 0 else 4)
+            self.generateRandomColumn(newMap, i, 1 if i == 0 else 4)
             i += 1
         if 0 in newMap.nodes and len(newMap.nodes[0]) >= 1:
             newMap.activeNode = newMap.nodes[0][0]
         return newMap
     
-    def randomColumn(self, map : Map, columnIndex: int, maxColumnLength: int) -> None:
+    def generateRandomColumn(self, map : Map, columnIndex: int, maxColumnLength: int) -> None:
         columnLength: int = random.randint(1, maxColumnLength)
         i = 0
         while i < columnLength:
