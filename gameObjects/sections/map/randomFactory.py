@@ -14,34 +14,34 @@ class RandomFactory():
         return results[0]
     
     @staticmethod
-    def randomBackLinks(previousIds : list[int]) -> list[int]:
-        if len(previousIds) == 0:
+    def randomBackLinks(previousColumn : list[Node]) -> list[Node]:
+        previousColumnTmp = previousColumn.copy()
+        if len(previousColumnTmp) == 0:
             return []
 
         amount : int = random.choices([1, 2, 3], weights=[2, 5, 3])[0]
-        results : list[int] = list()
-        while amount > 0 and len(previousIds) > 0:
-            pickedId: int = random.choice(previousIds)
-            results.append(pickedId)
-            previousIds.remove(pickedId)
+        results : list[Node] = list()
+        while amount > 0 and len(previousColumnTmp) > 0:
+            pickedNode: Node = random.choice(previousColumnTmp)
+            results.append(pickedNode)
+            previousColumnTmp.remove(pickedNode)
             amount -= 1
         return results
     
     @staticmethod
-    def autoGenerateNode(map : Map, columnIndex : int) -> int:
+    def autoGenerateNode(map : Map, columnIndex : int) -> None:
         previousColumn: list[Node] = map.getColumnAtIndex(columnIndex - 1)
-        previousColumnIds: list[int] = map.getColumnIds(previousColumn)
 
         if columnIndex not in map.nodes:
             map.nodes[columnIndex] = list()
             
-        backLinks: list[int] = RandomFactory.randomBackLinks(previousColumnIds)
+        backLinks: list[Node] = RandomFactory.randomBackLinks(previousColumn)
         newNode: Node = Node(next(map.nodeIdGenerator), RandomFactory.randomName(), columnIndex, backLinks)
         for node in previousColumn:
-            if node.id in newNode.backLinks:
-                node.forwardLinks.append(newNode.id)
+            if node in newNode.backLinks:
+                node.forwardLinks.append(newNode)
         map.nodes[columnIndex].append(newNode)
-        return newNode.id
+        return
     
     @staticmethod
     def generateRandomMap(length: int, title: str = "") -> Map:

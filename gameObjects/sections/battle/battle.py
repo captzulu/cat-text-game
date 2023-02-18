@@ -152,4 +152,3 @@ class Battle:
         
     def getTurnLog(self) -> str:
         return self.log.getFormattedLine(self.turn)
-    

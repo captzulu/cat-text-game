@@ -47,8 +47,8 @@ class GameCli:
     def advanceMenu(self):
         options : dict[int, str] = dict({0 : "Back"})
         
-        for nodeId in self.map.activeNode.forwardLinks:
-            options[len(options)] = str(nodeId)
+        for node in self.map.activeNode.forwardLinks:
+            options[len(options)] = str(node)
         
         if len(options) <= 1:
             self.mapView()

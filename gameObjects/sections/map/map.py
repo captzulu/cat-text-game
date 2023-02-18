@@ -18,12 +18,6 @@ class Map():
         if columnIndex < 0 or columnIndex not in self.nodes:
             return []
         return self.nodes[columnIndex]
-    
-    def getColumnIds(self, column : list[Node]) -> list[int]:
-        ids : list[int] = list()
-        for node in column:
-            ids.append(node.id)
-        return ids
 
     def advance(self, nodeIndex : int) -> None:
         nextColumnIndex : int = self.activeNode.columnIndex + 1
@@ -39,7 +33,7 @@ class Map():
             self.completed = True
     
     def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
-            if firstNode.id in secondNode.backLinks:
+            if firstNode in secondNode.backLinks:
                 return True
             else:
                 return False
@@ -47,5 +41,12 @@ class Map():
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"
         for key, column in self.nodes.items():
-            toPrint += f"column {key} : " + ", ".join(map(str, column)) + "\n"
+            toPrint += f"column {key} : "
+            nodesTxt : list[str] = list()
+            for node in column:
+                forwardNodesTxt : list[str] = list()
+                for forwardNode in node.forwardLinks:
+                    forwardNodesTxt.append(f"{forwardNode.id}:{forwardNode.name}")
+                nodesTxt.append(f"{node.id}:{node.name} {{" + ", ".join(forwardNodesTxt) + "}")
+            toPrint += ", ".join(nodesTxt) + "\n"
         return toPrint
