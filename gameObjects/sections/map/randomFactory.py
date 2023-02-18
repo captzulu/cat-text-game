@@ -8,11 +8,13 @@ class RandomFactory():
     def __init__(self):
         return
     
-    def randomName(self) -> str:
+    @staticmethod
+    def randomName() -> str:
         results : list[str] = random.choices(NodeEvents.NAME_LIST, weights=[1, 1, 8, 1, 5])
         return results[0]
     
-    def randomBackLinks(self, previousIds : list[int]) -> list[int]:
+    @staticmethod
+    def randomBackLinks(previousIds : list[int]) -> list[int]:
         if len(previousIds) == 0:
             return []
 
@@ -25,34 +27,37 @@ class RandomFactory():
             amount -= 1
         return results
     
-    def autoGenerateNode(self, map : Map, columnIndex : int) -> int:
+    @staticmethod
+    def autoGenerateNode(map : Map, columnIndex : int) -> int:
         previousColumn: list[Node] = map.getColumnAtIndex(columnIndex - 1)
         previousColumnIds: list[int] = map.getColumnIds(previousColumn)
 
         if columnIndex not in map.nodes:
             map.nodes[columnIndex] = list()
             
-        backLinks: list[int] = self.randomBackLinks(previousColumnIds)
-        newNode: Node = Node(next(map.nodeIdGenerator), self.randomName(), columnIndex, backLinks)
+        backLinks: list[int] = RandomFactory.randomBackLinks(previousColumnIds)
+        newNode: Node = Node(next(map.nodeIdGenerator), RandomFactory.randomName(), columnIndex, backLinks)
         for node in previousColumn:
             if node.id in newNode.backLinks:
                 node.forwardLinks.append(newNode.id)
         map.nodes[columnIndex].append(newNode)
         return newNode.id
     
-    def generateRandomMap(self, length: int, title: str = "") -> Map:
+    @staticmethod
+    def generateRandomMap(length: int, title: str = "") -> Map:
         newMap: Map = Map(title)
         i = 0 
         while i < length:
-            self.generateRandomColumn(newMap, i, 1 if i == 0 else 4)
+            RandomFactory.generateRandomColumn(newMap, i, 1 if i == 0 else 4)
             i += 1
         if 0 in newMap.nodes and len(newMap.nodes[0]) >= 1:
             newMap.activeNode = newMap.nodes[0][0]
         return newMap
     
-    def generateRandomColumn(self, map : Map, columnIndex: int, maxColumnLength: int) -> None:
+    @staticmethod
+    def generateRandomColumn(map : Map, columnIndex: int, maxColumnLength: int) -> None:
         columnLength: int = random.randint(1, maxColumnLength)
         i = 0
         while i < columnLength:
-            self.autoGenerateNode(map, columnIndex)
+            RandomFactory.autoGenerateNode(map, columnIndex)
             i += 1
