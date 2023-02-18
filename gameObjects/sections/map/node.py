@@ -14,7 +14,10 @@ class Node():
         self.columnIndex : int = columnIndex
     
     def __str__(self) -> str:
-        return f"{{{self.id}:{self.name} " + ", ".join(map(str, self.forwardLinks)) + "}}}"
+        forwardLinks : list[str] = list()
+        for forwardNode in self.forwardLinks:
+            forwardLinks.append(f"{forwardNode.id}:{forwardNode.name}")
+        return f"{self.id}:{self.name} {{" + ", ".join(forwardLinks) + "}"
     
     def executeNode(self):
         if self.name == 'fight':

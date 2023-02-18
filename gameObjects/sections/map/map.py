@@ -28,7 +28,8 @@ class Map():
             if self.areLinked(self.activeNode, newNode):
                 self.activeNode = newNode
             else:
-                raise Exception("Nodes_Not_Linked", "Given node is not linked to the previous node")
+                print("Given node is not linked to the previous node")
+                return
         else:
             self.completed = True
     
@@ -41,12 +42,5 @@ class Map():
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"
         for key, column in self.nodes.items():
-            toPrint += f"column {key} : "
-            nodesTxt : list[str] = list()
-            for node in column:
-                forwardNodesTxt : list[str] = list()
-                for forwardNode in node.forwardLinks:
-                    forwardNodesTxt.append(f"{forwardNode.id}:{forwardNode.name}")
-                nodesTxt.append(f"{node.id}:{node.name} {{" + ", ".join(forwardNodesTxt) + "}")
-            toPrint += ", ".join(nodesTxt) + "\n"
+            toPrint += f"column {key} : " + ", ".join(map(str, column)) + "\n"
         return toPrint
