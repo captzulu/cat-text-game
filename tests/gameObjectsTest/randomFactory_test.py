@@ -20,17 +20,20 @@ class randomFactoryTest(unittest.TestCase):
         self.assertIsInstance(self.randomFactory.randomBackLinks([]), list)
 
     def testRandomBackLinks_PopulatedPrevious(self):
-        self.assertIsInstance(self.randomFactory.randomBackLinks([1, 2, 3]), list)
+        newMap = Map()
+        self.randomFactory.autoGenerateNode(newMap, 0)
+        self.assertIsInstance(self.randomFactory.randomBackLinks(newMap.nodes[0]), list)
         
     def testAutoGenerateNode(self):
         columnIndex = 0
         newMap = Map()
-        node = self.randomFactory.autoGenerateNode(newMap, columnIndex)
-        self.assertIsInstance(node, Node)
+        self.randomFactory.autoGenerateNode(newMap, columnIndex)
+        self.assertIsInstance(newMap.nodes[0][0], Node)
         
     def testAutoGenerateNode_twoColumns_linkedNodes(self):
         newMap = Map()
-        expectedBackLinks = [self.randomFactory.autoGenerateNode(newMap, 0)]
+        self.randomFactory.autoGenerateNode(newMap, 0)
+        expectedBackLinks = [newMap.nodes[0][0]]
         self.randomFactory.autoGenerateNode(newMap, 1)
         actualBackLinks = newMap.nodes[1][0].backLinks
         self.assertEqual(actualBackLinks, expectedBackLinks)
@@ -38,7 +41,8 @@ class randomFactoryTest(unittest.TestCase):
     def testAutoGenerateNode_twoColumns_incrementingId(self):
         newMap = Map()
         self.randomFactory.autoGenerateNode(newMap, 0)
-        actualId = self.randomFactory.autoGenerateNode(newMap, 1)
+        self.randomFactory.autoGenerateNode(newMap, 1)
+        actualId = newMap.nodes[1][0].id
         expectedId = 2
         self.assertEqual(actualId, expectedId)
         

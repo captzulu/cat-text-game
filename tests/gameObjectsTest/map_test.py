@@ -57,14 +57,14 @@ class mapTest(unittest.TestCase):
         newMap.nodes[1] = [nextNode]
         newMap.advance(0)
 
-    def testAdvance_NodesNotLinked_exception(self):
+    def testAdvance_NodesNotLinked_dontMove(self):
         newMap = Map()
         self.randomFactory.autoGenerateNode(newMap, 0)
         newMap.activeNode = newMap.nodes[0][0]
         nextNode : Node = Node(2, "linkedNode", 1, [], [])
         newMap.nodes[1] = [nextNode]
-        with self.assertRaises(Exception):
-            newMap.advance(10)
+        newMap.advance(10)
+        self.assertEqual(newMap.activeNode, newMap.nodes[0][0])
 
 if __name__ == '__main__':
     unittest.main()
