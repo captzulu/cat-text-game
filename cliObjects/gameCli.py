@@ -57,7 +57,8 @@ class GameCli:
         if pickedOption == 0:
             self.mapView()
         else:
-            self.map.advance(pickedOption)
+            nodeIndex : int = pickedOption - 1
+            self.map.advance(nodeIndex)
             
     def createPlayer(self):
         _globals.player = Player('test')
