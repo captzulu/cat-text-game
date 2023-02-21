@@ -38,6 +38,8 @@ class GameCli:
     def mapView(self):
         if _globals.debug:
             print(self.map)
+            
+        print(f"Current Node : {self.map.activeNode}")
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Advance", self.advanceMenu),
             1 : ("Back", self.mainMenu)
@@ -59,7 +61,7 @@ class GameCli:
             self.mapView()
         else:
             nodeIndex : int = pickedOption - 1
-            self.map.advance(nodeIndex)
+            self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
             
     def createPlayer(self):
         _globals.player = Player('test')
