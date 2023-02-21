@@ -3,15 +3,20 @@ from gameObjects.sections.map.nodeEvents import NodeEvents
 from typing import Optional
 
 class Node():
-    def __init__(self, id : int, name : str, columnIndex : int, backLinks : list, forwardLinks : Optional[list]=None):
+    def __init__(self, id : int, name : str, columnIndex : int, backLinks : Optional[list]=None, forwardLinks : Optional[list]=None):
         self.id : int = id
         self.name : str = name 
-        self.backLinks : list[Node] = backLinks 
+        self.columnIndex : int = columnIndex
+
+        if backLinks is None:
+            self.backLinks : list[Node] = list()
+        else:
+            self.backLinks : list[Node] = backLinks
+
         if forwardLinks is None:
             self.forwardLinks : list[Node] = list()
         else:
             self.forwardLinks : list[Node] = forwardLinks
-        self.columnIndex : int = columnIndex
     
     def __str__(self) -> str:
         forwardLinks : list[str] = list()

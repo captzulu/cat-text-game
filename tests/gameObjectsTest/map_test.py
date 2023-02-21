@@ -23,8 +23,12 @@ class mapTest(unittest.TestCase):
         self.assertEqual(newMap.title, "untitled")
     
     def testAdvance_validNodeIndex_getDifferentNode(self):
-        newMap = self.randomFactory.generateRandomMap(3)
-        oldNode = newMap.activeNode
+        newMap = Map()
+        self.randomFactory.autoGenerateNode(newMap, 0)
+        self.randomFactory.autoGenerateNode(newMap, 1)
+        self.randomFactory.linkAllNodes(newMap)
+        oldNode = newMap.nodes[0][0]
+        newMap.activeNode = oldNode
         newMap.advance(0)
         newNode = newMap.activeNode
         self.assertNotEqual(oldNode, newNode)

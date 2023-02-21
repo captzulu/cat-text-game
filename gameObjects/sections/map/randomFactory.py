@@ -14,45 +14,23 @@ class RandomFactory():
         return results[0]
     
     @staticmethod
-    def randomBackLinks(previousColumn : list[Node]) -> list[Node]:
-        previousColumnTmp = previousColumn.copy()
-        if len(previousColumnTmp) == 0:
-            return []
-
-        amount : int = random.choices([1, 2, 3], weights=[2, 5, 3])[0]
-        results : list[Node] = list()
-        while amount > 0 and len(previousColumnTmp) > 0:
-            pickedNode: Node = random.choice(previousColumnTmp)
-            results.append(pickedNode)
-            previousColumnTmp.remove(pickedNode)
-            amount -= 1
-        return results
-    
-    @staticmethod
-    def autoGenerateNode(map : Map, columnIndex : int) -> None:
-        previousColumn: list[Node] = map.getColumnAtIndex(columnIndex - 1)
-
-        if columnIndex not in map.nodes:
-            map.nodes[columnIndex] = list()
-            
-        backLinks: list[Node] = RandomFactory.randomBackLinks(previousColumn)
-        newNode: Node = Node(next(map.nodeIdGenerator), RandomFactory.randomName(), columnIndex, backLinks)
-        for node in previousColumn:
-            if node in newNode.backLinks:
-                node.forwardLinks.append(newNode)
-        map.nodes[columnIndex].append(newNode)
-        return
-    
-    @staticmethod
     def generateRandomMap(length: int, title: str = "") -> Map:
         newMap: Map = Map(title)
-        i = 0 
-        while i < length:
-            RandomFactory.generateRandomColumn(newMap, i, 1 if i == 0 else 4)
-            i += 1
+        
+        RandomFactory.generateAllNodes(newMap, length)    
+        RandomFactory.linkAllNodes(newMap)
+
         if 0 in newMap.nodes and len(newMap.nodes[0]) >= 1:
             newMap.activeNode = newMap.nodes[0][0]
         return newMap
+    
+    @staticmethod
+    def generateAllNodes(map : Map, length : int) -> None:
+        i = 0
+        while i < length:
+            RandomFactory.generateRandomColumn(map, i, 1 if i == 0 else 4)
+            i += 1
+        return
     
     @staticmethod
     def generateRandomColumn(map : Map, columnIndex: int, maxColumnLength: int) -> None:
@@ -61,3 +39,31 @@ class RandomFactory():
         while i < columnLength:
             RandomFactory.autoGenerateNode(map, columnIndex)
             i += 1
+            
+    @staticmethod
+    def autoGenerateNode(map : Map, columnIndex : int) -> None:
+        if columnIndex not in map.nodes:
+            map.nodes[columnIndex] = list()
+
+        map.nodes[columnIndex].append(Node(next(map.nodeIdGenerator), RandomFactory.randomName(), columnIndex))
+        return
+
+    @staticmethod
+    def linkAllNodes(map : Map) -> None:
+        for i, column in map.nodes.items():
+            for node in column:
+                nextColumn = map.nodes[i + 1] if (i + 1) in map.nodes else []
+                RandomFactory.generateForwardLinks(node, nextColumn)
+        return
+    
+    @staticmethod
+    def generateForwardLinks(node : Node, nextColumn : list[Node]) -> None:
+        nextColumnTmp = nextColumn.copy()
+
+        amount : int = random.choices([1, 2], weights=[5, 3])[0]
+        while amount > 0 and len(nextColumnTmp) > 0:
+            pickedNode = random.choice(nextColumnTmp)
+            node.forwardLinks.append(pickedNode)
+            nextColumnTmp.remove(pickedNode)
+            amount -= 1
+        return

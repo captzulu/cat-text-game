@@ -16,13 +16,18 @@ class randomFactoryTest(unittest.TestCase):
     def testRandomName(self):
         self.assertIsInstance(self.randomFactory.randomName(), str)
     
-    def testRandomBackLinks_emptyPrevious(self):
-        self.assertIsInstance(self.randomFactory.randomBackLinks([]), list)
-
-    def testRandomBackLinks_PopulatedPrevious(self):
+    def testGenerateForwardLinks_emptyPrevious(self):
         newMap = Map()
         self.randomFactory.autoGenerateNode(newMap, 0)
-        self.assertIsInstance(self.randomFactory.randomBackLinks(newMap.nodes[0]), list)
+        self.randomFactory.generateForwardLinks(newMap.nodes[0][0], [])
+        self.assertEquals(newMap.nodes[0][0].forwardLinks, [])
+
+    def testGenerateForwardLinks_PopulatedPrevious(self):
+        newMap = Map()
+        self.randomFactory.autoGenerateNode(newMap, 0)
+        self.randomFactory.autoGenerateNode(newMap, 1)
+        self.randomFactory.generateForwardLinks(newMap.nodes[0][0], newMap.nodes[1])
+        self.assertEquals(newMap.nodes[0][0].forwardLinks, [newMap.nodes[1][0]])
         
     def testAutoGenerateNode(self):
         columnIndex = 0
@@ -30,13 +35,15 @@ class randomFactoryTest(unittest.TestCase):
         self.randomFactory.autoGenerateNode(newMap, columnIndex)
         self.assertIsInstance(newMap.nodes[0][0], Node)
         
-    def testAutoGenerateNode_twoColumns_linkedNodes(self):
+    def testLinkAllNodes_twoColumns_linkedNodes(self):
         newMap = Map()
         self.randomFactory.autoGenerateNode(newMap, 0)
-        expectedBackLinks = [newMap.nodes[0][0]]
         self.randomFactory.autoGenerateNode(newMap, 1)
-        actualBackLinks = newMap.nodes[1][0].backLinks
-        self.assertEqual(actualBackLinks, expectedBackLinks)
+        self.randomFactory.linkAllNodes(newMap)
+        
+        expectedForwardLinks = [newMap.nodes[1][0]]
+        actualForwardLinks = newMap.nodes[0][0].forwardLinks
+        self.assertEqual(actualForwardLinks, expectedForwardLinks)
 
     def testAutoGenerateNode_twoColumns_incrementingId(self):
         newMap = Map()

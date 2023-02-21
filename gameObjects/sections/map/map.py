@@ -34,7 +34,7 @@ class Map():
             self.completed = True
     
     def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
-            if firstNode in secondNode.backLinks:
+            if secondNode in firstNode.forwardLinks:
                 return True
             else:
                 return False
