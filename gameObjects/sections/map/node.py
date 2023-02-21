@@ -1,4 +1,4 @@
-import random
+import _globals
 from gameObjects.sections.map.nodeEvents import NodeEvents
 from typing import Optional
 
@@ -16,8 +16,9 @@ class Node():
     def __str__(self) -> str:
         forwardLinks : list[str] = list()
         for forwardNode in self.forwardLinks:
-            forwardLinks.append(f"{forwardNode.id}:{forwardNode.name}")
-        return f"{self.id}:{self.name} {{" + ", ".join(forwardLinks) + "}"
+            forwardLinks.append((f"{self.id}:" if _globals.debug else "") + f"{forwardNode.name}")
+            
+        return (f"{self.id}:" if _globals.debug else "" ) + f"{self.name} {{" + ", ".join(forwardLinks) + "}"
     
     def executeNode(self):
         if self.name == 'fight':

@@ -8,3 +8,4 @@ genericMons: dict[str | int, GenericMon] = {}
 player: Player
 X: int = 600
 Y: int = 400
+debug : bool = False
