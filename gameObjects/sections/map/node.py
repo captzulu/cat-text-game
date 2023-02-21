@@ -21,7 +21,7 @@ class Node():
     def __str__(self) -> str:
         forwardLinks : list[str] = list()
         for forwardNode in self.forwardLinks:
-            forwardLinks.append((f"{self.id}:" if _globals.debug else "") + f"{forwardNode.name}")
+            forwardLinks.append((f"{forwardNode.id}:" if _globals.debug else "") + f"{forwardNode.name}")
             
         return (f"{self.id}:" if _globals.debug else "" ) + f"{self.name} {{" + ", ".join(forwardLinks) + "}"
     
