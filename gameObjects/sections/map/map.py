@@ -19,19 +19,16 @@ class Map():
             return []
         return self.nodes[columnIndex]
 
-    def advance(self, nodeIndex : int) -> None:
-        nextColumnIndex : int = self.activeNode.columnIndex + 1
-        if nextColumnIndex in self.nodes:
-            column = self.nodes[nextColumnIndex]
-            maxIndex = (len(column) - 1)
-            newNode = column[0] if maxIndex < nodeIndex else column[nodeIndex]
-            if self.areLinked(self.activeNode, newNode):
-                self.activeNode = newNode
-            else:
-                print("Given node is not linked to the previous node")
-                return
-        else:
+    def advance(self, node : Node) -> None:
+        if self.activeNode.columnIndex + 1 not in self.nodes:
             self.completed = True
+            return
+            
+        if self.areLinked(self.activeNode, node):
+            self.activeNode = node
+        else:
+            print("Given node is not linked to the previous node")
+            return
     
     def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
             if secondNode in firstNode.forwardLinks:
