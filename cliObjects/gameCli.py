@@ -12,7 +12,7 @@ class GameCli:
     map : Map 
     def __init__(self) -> None:
         self.gameState : GameStates = GameStates.RUNNING
-        self.map = RandomFactory().generateRandomMap(10, "new map")
+        self.map = RandomFactory().generateRandomMap(5, "new map")
 
     def quit(self):
         self.gameState = GameStates.ENDED
