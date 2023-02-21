@@ -36,7 +36,8 @@ class GameCli:
             menuFunctions.menuCallable(options)
     
     def mapView(self):
-        print(self.map)
+        if _globals.debug:
+            print(self.map)
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Advance", self.advanceMenu),
             1 : ("Back", self.mainMenu)
