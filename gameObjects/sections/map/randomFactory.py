@@ -2,7 +2,7 @@ import random
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.map.nodeEvents import NodeEvents
 from gameObjects.sections.map.map import Map
-from dataObjects.enums.nodeTypes import NodeTypes
+from dataObjects.enums.nodeType import NodeType
 from typing import Optional
 
 class RandomFactory():
@@ -10,8 +10,8 @@ class RandomFactory():
         return
     
     @staticmethod
-    def randomName() -> NodeTypes:
-        results : list[NodeTypes] = random.choices(NodeEvents.TYPE_LIST, weights=[1, 1, 8, 1, 5])
+    def randomType() -> NodeType:
+        results : list[NodeType] = random.choices(NodeEvents.TYPE_LIST, weights=[1, 1, 8, 1, 5])
         return results[0]
     
     @staticmethod
@@ -46,7 +46,7 @@ class RandomFactory():
         if columnIndex not in map.nodes:
             map.nodes[columnIndex] = list()
 
-        map.nodes[columnIndex].append(Node(next(map.nodeIdGenerator), RandomFactory.randomName(), columnIndex))
+        map.nodes[columnIndex].append(Node(next(map.nodeIdGenerator), RandomFactory.randomType(), columnIndex))
         return
 
     @staticmethod
