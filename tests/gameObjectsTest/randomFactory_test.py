@@ -3,6 +3,7 @@ import unittest
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.map.map import Map
 from gameObjects.sections.map.randomFactory import RandomFactory
+from dataObjects.enums.nodeTypes import NodeTypes
 class randomFactoryTest(unittest.TestCase):
     
     randomFactory : RandomFactory
@@ -14,7 +15,7 @@ class randomFactoryTest(unittest.TestCase):
         self.assertIsInstance(self.randomFactory, RandomFactory)
         
     def testRandomName(self):
-        self.assertIsInstance(self.randomFactory.randomName(), str)
+        self.assertIsInstance(self.randomFactory.randomName(), NodeTypes)
     
     def testGenerateForwardLinks_emptyPrevious(self):
         newMap = Map()
