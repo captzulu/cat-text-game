@@ -94,7 +94,7 @@ class Battle:
     
     def __pickMoveAi(self, pokemonSpecies : GenericMon) -> Move:
         maxMoveIndex : int = len(pokemonSpecies.moves) - 1
-        pickedMoveIndex = random.choice(range(0, maxMoveIndex))
+        pickedMoveIndex = 0 if maxMoveIndex == 0 else random.choice(range(0, maxMoveIndex))
         pickedMove : Move = pokemonSpecies.moves[pickedMoveIndex]
         return pickedMove
 
