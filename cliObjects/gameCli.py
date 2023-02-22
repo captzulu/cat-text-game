@@ -39,11 +39,13 @@ class GameCli:
         if _globals.debug:
             print(self.map)
             
-        options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Advance", self.advanceMenu),
-            1 : ("Back", self.mainMenu)
-        })
         while self.gameState == GameStates.RUNNING:
+            options : dict[int, tuple[str, Callable]] = dict({
+                0 : ("Advance", self.advanceMenu),
+                1 : ("Back", self.mainMenu)
+            })
+            if self.map.completed:
+                options[len(options)] = ("Reset map", self.map.resetMap)
             menuFunctions.menuCallable(options)
             
     def advanceMenu(self):
