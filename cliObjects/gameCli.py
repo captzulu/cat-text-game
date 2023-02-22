@@ -39,7 +39,6 @@ class GameCli:
         if _globals.debug:
             print(self.map)
             
-        print(f"Current Node : {self.map.activeNode}")
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Advance", self.advanceMenu),
             1 : ("Back", self.mainMenu)
@@ -48,20 +47,22 @@ class GameCli:
             menuFunctions.menuCallable(options)
             
     def advanceMenu(self):
-        options : dict[int, str] = dict({0 : "Back"})
-        
-        for node in self.map.activeNode.forwardLinks:
-            options[len(options)] = str(node)
-        
-        if len(options) <= 1:
-            self.mapView()
+        while not self.map.completed:
+            print(f"Current Node : {self.map.activeNode}")
+            options : dict[int, str] = dict({0 : "Back"})
+            
+            for node in self.map.activeNode.forwardLinks:
+                options[len(options)] = str(node)
+            
+            if len(options) <= 1:
+                return
 
-        pickedOption : int = menuFunctions.menuInt(options)
-        if pickedOption == 0:
-            self.mapView()
-        else:
-            nodeIndex : int = pickedOption - 1
-            self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
+            pickedOption : int = menuFunctions.menuInt(options)
+            if pickedOption == 0:
+                return
+            else:
+                nodeIndex : int = pickedOption - 1
+                self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
             
     def createPlayer(self):
         _globals.player = Player('test')
