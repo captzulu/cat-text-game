@@ -1,11 +1,13 @@
 import _globals
 from gameObjects.sections.map.nodeEvents import NodeEvents
+from dataObjects.enums.nodeType import NodeType
 from typing import Optional
 
 class Node():
-    def __init__(self, id : int, name : str, columnIndex : int, backLinks : Optional[list]=None, forwardLinks : Optional[list]=None):
+    def __init__(self, id : int, type : NodeType, columnIndex : int, backLinks : Optional[list]=None, forwardLinks : Optional[list]=None):
         self.id : int = id
-        self.name : str = name 
+        self.name : str = type.value
+        self.nodeType : NodeType = type
         self.columnIndex : int = columnIndex
 
         if backLinks is None:
