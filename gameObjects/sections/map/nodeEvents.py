@@ -4,9 +4,11 @@ from gameObjects.specificMon import SpecificMon
 from gameObjects.sections.battle.side import Side
 from gameObjects.sections.battle.battle import Battle
 from cliObjects.menuFunctions import menuFunctions
+from dataObjects.enums.nodeTypes import NodeTypes
 
 class NodeEvents():
-    NAME_LIST: list[str] = ['City', 'Market', 'Fight', 'Chickens', 'Rest']
+    TYPE_LIST: list[NodeTypes] = [NodeTypes.CITY, NodeTypes.MARKET, NodeTypes.FIGHT, NodeTypes.CHICKENS, NodeTypes.REST]
+    
 
     @staticmethod
     def enterRandomFight():
