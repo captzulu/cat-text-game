@@ -1,5 +1,4 @@
 from gameObjects.sections.map.node import Node
-import random
 import itertools
 
 class Map():
@@ -26,6 +25,7 @@ class Map():
             
         if self.areLinked(self.activeNode, node):
             self.activeNode = node
+            node.executeNode()
         else:
             print("Given node is not linked to the previous node")
             return
