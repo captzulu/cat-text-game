@@ -4,10 +4,10 @@ from gameObjects.specificMon import SpecificMon
 from gameObjects.sections.battle.side import Side
 from gameObjects.sections.battle.battle import Battle
 from cliObjects.menuFunctions import menuFunctions
-from dataObjects.enums.nodeTypes import NodeTypes
+from dataObjects.enums.nodeType import NodeType
 
 class NodeEvents():
-    TYPE_LIST: list[NodeTypes] = [NodeTypes.CITY, NodeTypes.MARKET, NodeTypes.FIGHT, NodeTypes.CHICKENS, NodeTypes.REST]
+    TYPE_LIST: list[NodeType] = [NodeType.CITY, NodeType.MARKET, NodeType.FIGHT, NodeType.CHICKENS, NodeType.REST]
     
 
     @staticmethod
@@ -28,4 +28,6 @@ class NodeEvents():
         mons : dict[int, str] = dict()
         for no, mon in _globals.genericMons.items():
             mons[int(no)] = str(mon)
+    
+        print("")
         return menuFunctions.menuInt(mons)

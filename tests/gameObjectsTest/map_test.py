@@ -1,14 +1,24 @@
 import unittest
+from unittest import mock
+import _globals
+from dataFactory import dataFactory
+from dataObjects.enums.nodeType import NodeType
 from gameObjects.sections.map.map import Map
 from gameObjects.sections.map.node import Node
+from gameObjects.sections.map.nodeEvents import NodeEvents
 from gameObjects.sections.map.randomFactory import RandomFactory
+from gameObjects.sections.player.player import Player
 
 class mapTest(unittest.TestCase):
-    
-    randomFactory : RandomFactory
 
-    def setUp(self) -> None:
-        self.randomFactory =  RandomFactory()
+    def setUp(self):
+        self.initTestGlobals()
+    
+    def initTestGlobals(self):
+        _globals.types = dataFactory.loadClassDictTest('type')
+        _globals.moves = dataFactory.loadClassDictTest('move')
+        _globals.genericMons = dataFactory.loadClassDictTest('genericMon')
+        _globals.player = Player('bob')
 
     def testInitClass(self):
         newMap = Map()
@@ -24,9 +34,9 @@ class mapTest(unittest.TestCase):
     
     def testAdvance_validNode_getDifferentNode(self):
         newMap = Map()
-        self.randomFactory.autoGenerateNode(newMap, 0)
-        self.randomFactory.autoGenerateNode(newMap, 1)
-        self.randomFactory.linkAllNodes(newMap)
+        RandomFactory.autoGenerateNode(newMap, 0)
+        RandomFactory.autoGenerateNode(newMap, 1)
+        RandomFactory.linkAllNodes(newMap)
         oldNode = newMap.nodes[0][0]
         newMap.activeNode = oldNode
         newMap.advance(newMap.nodes[1][0])
@@ -34,19 +44,31 @@ class mapTest(unittest.TestCase):
         self.assertNotEqual(oldNode, newNode)
 
     def testAdvance_invalidNode_getNodeAt0(self):
-        newMap = self.randomFactory.generateRandomMap(3)
-        newMap.advance(Node(100, 'fakeNode', 100))
+        newMap = RandomFactory.generateRandomMap(3)
+        newMap.advance(Node(100, NodeType.FIGHT, 100))
         expectedNode = newMap.nodes[0][0]
         newNode = newMap.activeNode
         self.assertEqual(expectedNode, newNode)
+        
+    @mock.patch('builtins.input', return_value = '1')
+    def testAdvance_fightNode_startFight(self, mocked_instance):
+        newMap = Map()
+        RandomFactory.autoGenerateNode(newMap, 0)
+        newMap.nodes[1] = [Node(2, NodeType.FIGHT, 1)]
+        newMap.activeNode = newMap.nodes[0][0]
+        RandomFactory.linkAllNodes(newMap)
+
+        NodeEvents.enterRandomFight = mock.MagicMock(return_value=None)
+        newMap.advance(newMap.nodes[1][0])
+        NodeEvents.enterRandomFight.assert_called()
 
     def testAdvance_mapLengthOne_mapGetsCompleted(self):
-        newMap = self.randomFactory.generateRandomMap(1)
+        newMap = RandomFactory.generateRandomMap(1)
         newMap.advance(newMap.activeNode)
         self.assertTrue(newMap.completed)
 
     def testAdvance_mapLengthOne_activeNodeStaysSame(self):
-        newMap = self.randomFactory.generateRandomMap(1)
+        newMap = RandomFactory.generateRandomMap(1)
         oldNode = newMap.activeNode
         newMap.advance(newMap.activeNode)
         newNode = newMap.activeNode

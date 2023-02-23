@@ -1,5 +1,5 @@
 from enum import Enum
-class NodeTypes(Enum):
+class NodeType(Enum):
     CITY = 'City'
     MARKET = 'Market'
     FIGHT = 'Fight'
