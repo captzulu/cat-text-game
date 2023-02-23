@@ -33,7 +33,7 @@
     },
     "4": {
         "name": "Pikku",
-        "typeText": "poi,nor",
+        "typeText": "poi,ele",
         "speed": 25,
         "attack": 18,
         "health": 17,
