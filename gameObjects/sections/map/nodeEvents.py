@@ -28,4 +28,6 @@ class NodeEvents():
         mons : dict[int, str] = dict()
         for no, mon in _globals.genericMons.items():
             mons[int(no)] = str(mon)
+    
+        print("")
         return menuFunctions.menuInt(mons)

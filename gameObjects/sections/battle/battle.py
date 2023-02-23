@@ -7,12 +7,13 @@ from dataObjects.type import Type
 from dataObjects.move import Move
 import random
 from cliObjects.menuFunctions import menuFunctions
-import _globals
+import time
+
 @dataclass
 class Battle:
     side1: Side
     side2: Side
-    turn: int = 0
+    turn: int = 1
     log: BattleLog = field(init=False)
     completed: bool = False
     edgeSymbol: str = '°'
@@ -26,6 +27,7 @@ class Battle:
         self.__battleLoop()
 
     def __executeIntro(self):
+        print("")
         title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
         titleLine = self.edgeSymbol + self.fillTitleLine(title) + self.edgeSymbol
         self.write(titleLine)
@@ -36,7 +38,6 @@ class Battle:
         self.write(' ' * paddingLength + 'VS' + (' ' * paddingLength))
         self.write(str(self.side2.activeMon))
         self.write(self.edgeSymbol + (self.Filler * longestMonNameLength) + self.edgeSymbol)
-        print(self.getTurnLog())
 
     def fillTitleLine(self, title:str) -> str:
         longestMonNameLength = self.calculateLongestMonNameLength()
@@ -48,6 +49,8 @@ class Battle:
             self.log = BattleLog()
         self.log.addExplicitLine(self.turn, text)
         self.log.addImplicitLine(self.turn, text)
+        print(text)
+        time.sleep(0.10)
     
     def calculateLongestMonNameLength(self) -> int:
         mon1Length = len(str(self.side1.activeMon))
@@ -55,12 +58,12 @@ class Battle:
         return mon1Length if mon1Length > mon2Length else mon2Length
 
     def __executeTurn(self):
-        self.turn += 1
-        self.write(f"=== New turn ({self.turn}) ===")
+        self.write(f"\n==== New turn ({self.turn}) ====")
         self.__attackPhase()
         if self.turn >= 100:
             winner = self.side1.activeMon if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2.activeMon
             self.__completeBattle(f'{winner.nickname} has stalled out the win !')
+        self.turn += 1
     
     def __attackPhase(self):
         firstSide : Side = self.getFastestSide()
@@ -86,6 +89,7 @@ class Battle:
         return pickedMoveFirst 
 
     def __pickMove(self, pokemonSpecies : GenericMon) -> Move:
+        print("Pick a move to use :")
         moves : dict[int, tuple[str, Move]] = dict()
         for i, move in pokemonSpecies.moves.items():
             moves[i] = (move.name, move) 
@@ -99,6 +103,7 @@ class Battle:
         return pickedMove
 
     def __sideTurn(self, side : Side, oppositeSide : Side, pickedMove: Move):
+        self.write(f'')
         oppositeMon = oppositeSide.activeMon
         self.attack(side.activeMon, oppositeMon, pickedMove)
         if oppositeSide.isDefeated():
@@ -109,9 +114,7 @@ class Battle:
     def __battleLoop(self) -> None:
         while self.__hasCompleted() == False:
             self.__executeTurn()
-            print(self.getTurnLog())
-            if self.__hasCompleted() == False:
-                input("Hit a key to continue...")
+        print("")
         return
 
     def __hasCompleted(self):
