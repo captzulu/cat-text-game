@@ -30,4 +30,6 @@ class Node():
     def executeNode(self):
         if self.nodeType == NodeType.FIGHT:
             NodeEvents.enterRandomFight()
+        elif self.nodeType == NodeType.CHICKENS:
+            NodeEvents.chickenEvent()
         return
