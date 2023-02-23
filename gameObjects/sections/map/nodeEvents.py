@@ -24,6 +24,13 @@ class NodeEvents():
         return
     
     @staticmethod
+    def chickenEvent():
+        print("You have found an unguarded chicken coop. You quickly capture and kill a hen.")
+        _globals.player.addItem('Whole chicken')
+        print()
+        return
+    
+    @staticmethod
     def pickMon() -> int:
         mons : dict[int, str] = dict()
         for no, mon in _globals.genericMons.items():
