@@ -21,7 +21,7 @@ class GameCli:
     def mainMenu(self):
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Fight", NodeEvents.enterRandomFight),
-            1 : ("Map", self.mapView),
+            1 : ("Map", self.mapMenu),
             2 : ("Quit", self.quit)
         })
         while self.gameState == GameStates.RUNNING:
@@ -35,17 +35,18 @@ class GameCli:
         while self.gameState == GameStates.RUNNING:
             menuFunctions.menuCallable(options)
     
-    def mapView(self):
+    def mapMenu(self):
         if _globals.debug:
             print(self.map)
             
         while self.gameState == GameStates.RUNNING:
             options : dict[int, tuple[str, Callable]] = dict({
-                0 : ("Advance", self.advanceMenu),
-                1 : ("Back", self.mainMenu)
+                0 : ("Back", self.mainMenu),
             })
             if self.map.completed:
                 options[len(options)] = ("Reset map", self.map.resetMap)
+            else:
+                options[len(options)] = ("Advance", self.advanceMenu)
             menuFunctions.menuCallable(options)
             
     def advanceMenu(self):

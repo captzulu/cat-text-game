@@ -13,6 +13,10 @@ class Map():
         self.nodes = dict()
         self.completed = False
         
+    def complete(self) -> None:
+        self.completed = True
+        print(f"You have completed {self.title} !")
+        
     def resetMap(self) -> None:
         self.completed = False
         if (0 in self.nodes and len(self.nodes[0]) > 0):
@@ -33,7 +37,7 @@ class Map():
             print("Given node is not linked to the previous node")
             return
         if len(self.activeNode.forwardLinks) == 0:
-            self.completed = True
+            self.complete()
             return
     
     def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
