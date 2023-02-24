@@ -9,7 +9,7 @@ class BattleLog:
         self.implicitLog = {}
         
     def getFormattedLine(self, turn : int) -> str:
-        return ' ' + ' '.join(self.explicitLog[turn]) if len(self.explicitLog) - 1 >= turn else ''
+        return ' ' + ' '.join(self.explicitLog[turn]) if len(self.explicitLog) >= turn else ''
 
     def addExplicitLine(self, turn : int, line : str):
         if turn not in self.explicitLog.keys():
