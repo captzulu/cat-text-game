@@ -10,8 +10,6 @@ def loadData():
     _globals.genericMons = dataFactory.loadClassDict('genericMon')
 
 def main():
-    #playerName = _globals.playerName = input("What's your name? > ").capitalize()
-    #print(f'Your name is {playerName}')
     withCli()
         
 def withCli():
