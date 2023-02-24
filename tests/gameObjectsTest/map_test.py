@@ -7,7 +7,6 @@ from gameObjects.sections.map.map import Map
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.map.nodeEvents import NodeEvents
 from gameObjects.sections.map.randomFactory import RandomFactory
-from gameObjects.sections.player.player import Player
 
 class mapTest(unittest.TestCase):
 
@@ -18,7 +17,6 @@ class mapTest(unittest.TestCase):
         _globals.types = dataFactory.loadClassDictTest('type')
         _globals.moves = dataFactory.loadClassDictTest('move')
         _globals.genericMons = dataFactory.loadClassDictTest('genericMon')
-        _globals.player = Player('bob')
 
     def testInitClass(self):
         newMap = Map()

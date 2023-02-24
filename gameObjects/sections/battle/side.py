@@ -21,3 +21,8 @@ class Side:
     
     def getActiveMonSpecies(self) -> GenericMon:
         return self.activeMon.genericMon
+    
+    def addMon(self, specificMon : SpecificMon) -> None:
+        self.mons.append(specificMon)
+        if len(self.mons) == 1:
+            self.activeMon = specificMon
