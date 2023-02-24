@@ -35,7 +35,7 @@ class Map():
             node.executeNode()
         else:
             print("Given node is not linked to the previous node")
-            return
+
         if len(self.activeNode.forwardLinks) == 0:
             self.complete()
             return

@@ -43,7 +43,7 @@ class mapTest(unittest.TestCase):
         newNode = newMap.activeNode
         self.assertNotEqual(oldNode, newNode)
 
-    def testAdvance_invalidNode_getNodeAt0(self):
+    def testAdvance_invalidNode_dontMove(self):
         newMap = RandomFactory.generateRandomMap(3)
         newMap.advance(Node(100, NodeType.FIGHT, 100))
         expectedNode = newMap.nodes[0][0]
