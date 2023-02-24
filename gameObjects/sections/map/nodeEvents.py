@@ -1,6 +1,7 @@
 import _globals
 import random
 from gameObjects.specificMon import SpecificMon
+from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
 from gameObjects.sections.battle.battle import Battle
 from cliObjects.menuFunctions import menuFunctions
@@ -12,16 +13,17 @@ class NodeEvents():
 
     @staticmethod
     def enterRandomFight():
-        monNo1 = str(NodeEvents.pickMon())
-        monNo2 = str(random.randint(0, len(_globals.genericMons) - 1))
-        monster1 = SpecificMon(_globals.genericMons[monNo1], 10)
-        monster2 = SpecificMon(_globals.genericMons[monNo2], 10)
-        side1 = Side([monster1], monster1, False, _globals.player.name)
+        monster2 = NodeEvents.randomMon(3)
         side2 = Side([monster2], monster2, True)
-        battle: Battle = Battle(side1, side2)
+        battle: Battle = Battle(_globals.player.party, side2)
         #battle menu
         battle.executeBattle()
         return
+
+    @staticmethod
+    def randomMon(level : int):
+        monNo2 = str(random.randint(0, len(_globals.genericMons) - 1))
+        return SpecificMon(_globals.genericMons[monNo2], level)
     
     @staticmethod
     def chickenEvent():
@@ -29,12 +31,3 @@ class NodeEvents():
         _globals.player.addItem('Whole chicken')
         print()
         return
-    
-    @staticmethod
-    def pickMon() -> int:
-        mons : dict[int, str] = dict()
-        for no, mon in _globals.genericMons.items():
-            mons[int(no)] = str(mon)
-    
-        print("")
-        return menuFunctions.menuInt(mons)
