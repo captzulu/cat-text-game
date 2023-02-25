@@ -52,8 +52,12 @@ class GameCli:
     def advanceMenu(self):
         while not self.map.completed:
             print(f"Current Node : {self.map.activeNode}")
-            options : dict[int, str] = dict({0 : "Back"})
+            options : dict[int, str] = dict({
+                0 : "Back",
+                1 : "Status"
+            })
             
+            offset : int = len(options)
             for node in self.map.activeNode.forwardLinks:
                 options[len(options)] = str(node)
             
@@ -63,8 +67,10 @@ class GameCli:
             pickedOption : int = menuFunctions.menuInt(options)
             if pickedOption == 0:
                 return
+            elif pickedOption == 1:
+                print(_globals.player)
             else:
-                nodeIndex : int = pickedOption - 1
+                nodeIndex : int = pickedOption - offset
                 self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
             
     def createPlayer(self):
