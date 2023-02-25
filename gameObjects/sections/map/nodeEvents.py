@@ -31,3 +31,11 @@ class NodeEvents():
         _globals.player.addItem('Whole chicken')
         print()
         return
+    
+    @staticmethod
+    def rest():
+        print("You stumble upon clearing with a creek flowing nearby. You take a moment to rest.")
+        print("You restore 20% of your max HP")
+        _globals.player.party.healParty(20)
+        print()
+        return

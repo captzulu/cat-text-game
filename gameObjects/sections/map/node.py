@@ -32,4 +32,6 @@ class Node():
             NodeEvents.enterRandomFight()
         elif self.nodeType == NodeType.CHICKENS:
             NodeEvents.chickenEvent()
+        elif self.nodeType == NodeType.REST:
+            NodeEvents.rest()
         return
