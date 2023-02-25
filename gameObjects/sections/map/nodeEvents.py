@@ -34,8 +34,7 @@ class NodeEvents():
     
     @staticmethod
     def rest():
-        print("You stumble upon clearing with a creek flowing nearby. You take a moment to rest.")
-        print("You restore 20% of your max HP")
+        print("You stumble upon clearing with a creek flowing nearby. You take a moment to rest and restore 20% of your max HP.")
         _globals.player.party.healParty(20)
-        print()
+        _globals.player.status()
         return

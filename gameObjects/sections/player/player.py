@@ -39,4 +39,5 @@ class Player:
         print(self)
         
     def __str__(self) -> str:
-        return self.name + " " + str(self.party)
+        partyHp = [(mon.nickname, mon.currentHealth) for mon in self.party.mons]
+        return self.name + " " + str(partyHp)

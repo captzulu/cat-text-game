@@ -15,7 +15,9 @@ class Map():
         
     def complete(self) -> None:
         self.completed = True
+        print()
         print(f"You have completed {self.title} !")
+        print()
         
     def resetMap(self) -> None:
         self.completed = False
