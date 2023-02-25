@@ -26,3 +26,7 @@ class Side:
         self.mons.append(specificMon)
         if len(self.mons) == 1:
             self.activeMon = specificMon
+            
+    def healParty(self, percentageToHeal : int):
+        for mon in self.mons:
+            mon.currentHealth += int(mon.maxHealth * (percentageToHeal / 100))
