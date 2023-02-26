@@ -39,5 +39,5 @@ class Player:
         print(self)
         
     def __str__(self) -> str:
-        partyHp = [(mon.nickname, mon.currentHealth) for mon in self.party.mons]
+        partyHp = [(mon.nickname, f"{mon.currentHealth}/{mon.maxHealth}") for mon in self.party.mons]
         return self.name + " " + str(partyHp)
