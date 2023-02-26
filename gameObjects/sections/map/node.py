@@ -28,5 +28,5 @@ class Node():
         return (f"{self.id}:" if _globals.debug else "" ) + f"{self.name} {{" + ", ".join(forwardLinks) + "}"
     
     def executeNode(self):
-        eval("NodeEvents." + str.lower(self.nodeType.value))
+        eval("NodeEvents." + str.lower(self.nodeType.value) + "()")
         return
