@@ -27,7 +27,6 @@ class Battle:
         self.__battleLoop()
 
     def __executeIntro(self):
-        print("")
         title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
         titleLine = self.edgeSymbol + self.fillTitleLine(title) + self.edgeSymbol
         self.write(titleLine)
@@ -72,6 +71,7 @@ class Battle:
         secondSideMove : Move = self.__takeTurn(secondSide)
         self.__sideTurn(firstSide, secondSide, firstSideMove)
         if self.__hasCompleted() == False:
+            print("")
             self.__sideTurn(secondSide, firstSide, secondSideMove)
         
     def getFastestSide(self) -> Side:
@@ -103,7 +103,6 @@ class Battle:
         return pickedMove
 
     def __sideTurn(self, side : Side, oppositeSide : Side, pickedMove: Move):
-        self.write(f'')
         oppositeMon = oppositeSide.activeMon
         self.attack(side.activeMon, oppositeMon, pickedMove)
         if oppositeSide.isDefeated():
@@ -114,7 +113,6 @@ class Battle:
     def __battleLoop(self) -> None:
         while self.__hasCompleted() == False:
             self.__executeTurn()
-        print("")
         return
 
     def __hasCompleted(self):
