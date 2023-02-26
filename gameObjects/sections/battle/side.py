@@ -29,4 +29,4 @@ class Side:
             
     def healParty(self, percentageToHeal : int):
         for mon in self.mons:
-            mon.currentHealth += int(mon.maxHealth * (percentageToHeal / 100))
+            mon.heal(int(mon.maxHealth * (percentageToHeal / 100)))
