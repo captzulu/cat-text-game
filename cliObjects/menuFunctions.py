@@ -2,7 +2,7 @@ from typing import Callable, TypeVar
 Obj = TypeVar('Obj')
 class menuFunctions():
     @staticmethod
-    def menuCallable(dict : dict[int, tuple[str, Callable]]) -> None:
+    def menuCallable(dict : dict[int, tuple[str, Callable]]) -> bool:
         valuesList = list(dict.values())
         choices = menuFunctions.makeOrderedChoices(valuesList)
         menuFunctions.printTupleChoices(choices)
@@ -15,8 +15,8 @@ class menuFunctions():
             for item in dict.values():
                 text: str = item[0]
                 if text == textInputted:
-                    item[1]()
-                    return
+                    print()
+                    return item[1]()
             print(f"'{textInputted}' is not a valid choice. Pick again :")
 
     @staticmethod
@@ -48,6 +48,7 @@ class menuFunctions():
             if textInputted in choices.values():
                 for key, text in dictIn.items():
                     if text == textInputted:
+                        print()
                         return key
             print(f"'{textInputted}' is not a valid choice. Pick again :")
     
@@ -65,5 +66,6 @@ class menuFunctions():
             for item in dict.values():
                 text: str = item[0]
                 if text == textInputted:
+                    print()
                     return item[1]
             print(f"'{textInputted}' is not a valid choice. Pick again :")
