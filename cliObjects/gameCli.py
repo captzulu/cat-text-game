@@ -32,22 +32,32 @@ class GameCli:
             0 : ("Start", self.createPlayer),
             1 : ("Quit", self.quit)
         })
-        while self.gameState == GameStates.RUNNING:
-            menuFunctions.menuCallable(options)
+        if _globals.debug:
+            options[len(options)] = ("Debug", self.debugMenu)
+        menuFunctions.menuCallable(options)
+
+    def debugMenu(self):
+        options : dict[int, tuple[str, Callable]] = dict({
+            0 : ("Back", lambda : 1 == 1)
+        })
+        exitMenu = False
+        while exitMenu != True:
+            exitMenu = menuFunctions.menuCallable(options)
     
     def mapMenu(self):
         if _globals.debug:
             print(self.map)
-            
-        while self.gameState == GameStates.RUNNING:
+        
+        exitMenu = False
+        while exitMenu != True:
             options : dict[int, tuple[str, Callable]] = dict({
-                0 : ("Back", self.mainMenu),
+                0 : ("Back", lambda : 1 == 1),
             })
             if self.map.completed:
                 options[len(options)] = ("Reset map", self.map.resetMap)
             else:
                 options[len(options)] = ("Advance", self.advanceMenu)
-            menuFunctions.menuCallable(options)
+            exitMenu : bool = menuFunctions.menuCallable(options)
             
     def advanceMenu(self):
         while not self.map.completed:
