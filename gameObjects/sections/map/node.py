@@ -28,10 +28,5 @@ class Node():
         return (f"{self.id}:" if _globals.debug else "" ) + f"{self.name} {{" + ", ".join(forwardLinks) + "}"
     
     def executeNode(self):
-        if self.nodeType == NodeType.FIGHT:
-            NodeEvents.enterRandomFight()
-        elif self.nodeType == NodeType.CHICKENS:
-            NodeEvents.chickenEvent()
-        elif self.nodeType == NodeType.REST:
-            NodeEvents.rest()
+        eval("NodeEvents." + str.lower(self.nodeType.value))
         return

@@ -1,6 +1,5 @@
 from dataFactory import dataFactory
 import _globals  
-from dataObjects.enums.gameStates import GameStates
 from cliObjects.gameCli import GameCli
 
 

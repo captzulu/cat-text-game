@@ -20,10 +20,12 @@ class GameCli:
     
     def mainMenu(self):
         options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Fight", NodeEvents.enterRandomFight),
+            0 : ("Fight", NodeEvents.fight),
             1 : ("Map", self.mapMenu),
             2 : ("Quit", self.quit)
         })
+        if _globals.debug:
+            options[len(options)] = ("Debug", self.debugMenu)
         while self.gameState == GameStates.RUNNING:
             menuFunctions.menuCallable(options)
 
@@ -32,14 +34,14 @@ class GameCli:
             0 : ("Start", self.createPlayer),
             1 : ("Quit", self.quit)
         })
-        if _globals.debug:
-            options[len(options)] = ("Debug", self.debugMenu)
         menuFunctions.menuCallable(options)
 
     def debugMenu(self):
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Back", lambda : 1 == 1)
         })
+        for event in NodeEvents.TYPE_LIST:
+            options[len(options)] = (event.value, eval("NodeEvents." + str.lower(event.value)))
         exitMenu = False
         while exitMenu != True:
             exitMenu = menuFunctions.menuCallable(options)

@@ -12,7 +12,7 @@ class NodeEvents():
     
 
     @staticmethod
-    def enterRandomFight():
+    def fight():
         monster2 = NodeEvents.randomMon(3)
         side2 = Side([monster2], monster2, True)
         battle: Battle = Battle(_globals.player.party, side2)
@@ -26,7 +26,7 @@ class NodeEvents():
         return SpecificMon(_globals.genericMons[monNo2], level)
     
     @staticmethod
-    def chickenEvent():
+    def chickens():
         print("You have found an unguarded chicken coop. You quickly capture and kill a hen.")
         _globals.player.addItem('Whole chicken')
         print()
@@ -37,4 +37,12 @@ class NodeEvents():
         print("You stumble upon clearing with a creek flowing nearby. You take a moment to rest and restore 20% of your max HP.")
         _globals.player.party.healParty(20)
         _globals.player.status()
+        return
+    
+    @staticmethod
+    def city():
+        return
+    
+    @staticmethod
+    def market():
         return
