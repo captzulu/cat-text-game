@@ -6,6 +6,7 @@ from dataObjects.enums.nodeType import NodeType
 from gameObjects.sections.map.map import Map
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.map.nodeEvents import NodeEvents
+from gameObjects.sections.player.player import Player
 from gameObjects.sections.map.randomFactory import RandomFactory
 
 class mapTest(unittest.TestCase):
@@ -13,10 +14,12 @@ class mapTest(unittest.TestCase):
     def setUp(self):
         self.initTestGlobals()
     
-    def initTestGlobals(self):
+    @mock.patch('builtins.input', return_value = '1')
+    def initTestGlobals(self, mocked_instance):
         _globals.types = dataFactory.loadClassDictTest('type')
         _globals.moves = dataFactory.loadClassDictTest('move')
         _globals.genericMons = dataFactory.loadClassDictTest('genericMon')
+        _globals.player = Player('test')
 
     def testInitClass(self):
         newMap = Map()
@@ -56,9 +59,9 @@ class mapTest(unittest.TestCase):
         newMap.activeNode = newMap.nodes[0][0]
         RandomFactory.linkAllNodes(newMap)
 
-        NodeEvents.enterRandomFight = mock.MagicMock(return_value=None)
+        NodeEvents.fight = mock.MagicMock(return_value=None)
         newMap.advance(newMap.nodes[1][0])
-        NodeEvents.enterRandomFight.assert_called()
+        NodeEvents.fight.assert_called()
 
     def testAdvance_mapLengthOne_mapGetsCompleted(self):
         newMap = RandomFactory.generateRandomMap(1)
