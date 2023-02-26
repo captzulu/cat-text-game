@@ -70,10 +70,9 @@ class GameCli:
             })
             
             offset : int = len(options)
-            for node in self.map.activeNode.forwardLinks:
-                options[len(options)] = str(node)
+            self.addForwardLinks(options)
             
-            if len(options) <= 1:
+            if len(options) == offset:
                 return
 
             pickedOption : int = menuFunctions.menuInt(options)
@@ -86,6 +85,10 @@ class GameCli:
                 self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
                 if _globals.player.party.isDefeated():
                     self.quit()
+                    
+    def addForwardLinks(self, options):
+        for node in self.map.activeNode.forwardLinks:
+                options[len(options)] = str(node)
 
     def createPlayer(self):
         _globals.player = Player('test')
