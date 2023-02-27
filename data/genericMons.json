@@ -50,9 +50,9 @@
     "6": {
         "name": "Olive",
         "typeText": "fai,dar",
-        "speed": 30,
-        "attack": 16,
-        "health": 12,
+        "speed": 27,
+        "attack": 17,
+        "health": 15,
         "movesText": "5,1"
     }
 }
