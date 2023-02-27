@@ -63,12 +63,11 @@ class GameCli:
             
     def advanceMenu(self):
         while not self.map.completed:
-            print(f"Current Node : {self.map.activeNode}")
             options : dict[int, str] = dict({
                 0 : "Back",
                 1 : "Status"
             })
-            
+            self.showCurrentNode()
             offset : int = len(options)
             self.addForwardLinks(options)
             
@@ -85,6 +84,10 @@ class GameCli:
                 self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
                 if _globals.player.party.isDefeated():
                     self.quit()
+    
+    def showCurrentNode(self):
+        index = self.map.activeNode.columnIndex
+        print(f"Current Node : {self.map.activeNode}. At {index}/{len(self.map.nodes)}")
                     
     def addForwardLinks(self, options):
         for node in self.map.activeNode.forwardLinks:
