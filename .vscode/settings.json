@@ -150,7 +150,7 @@
         "vendor": true
     },
     "diffEditor.ignoreTrimWhitespace": false,
-    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.typeCheckingMode": "basic",
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
