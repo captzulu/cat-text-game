@@ -23,7 +23,7 @@ class Player:
             
     def chooseFirstMon(self, level : int):
         specificMon : SpecificMon = self.pickSpecificMon(level)
-        self.party = Side([specificMon], specificMon, False, self.name)
+        self.party = Side([specificMon])
     
     def pickGenericMon(self) -> GenericMon:
         mons : dict[int, str] = dict()

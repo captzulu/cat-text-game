@@ -23,10 +23,10 @@ class battleTest(unittest.TestCase):
         
     def InitClass(self):
         newSpecificMon1 = SpecificMon(_globals.genericMons[self.TEST_MON_1_NB], 10)
-        side1 = Side([newSpecificMon1], newSpecificMon1, False)
+        side1 = Side([newSpecificMon1])
         
         newSpecificMon2 = SpecificMon(_globals.genericMons[self.TEST_MON_2_NB], 10)
-        side2 = Side([newSpecificMon2], newSpecificMon2, True)
+        side2 = Side([newSpecificMon2], '', True)
         
         return Battle(side1, side2)
         

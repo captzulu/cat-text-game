@@ -1,16 +1,18 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from gameObjects.specificMon import SpecificMon
 from dataObjects.genericMon import GenericMon
 @dataclass
 class Side:
-    mons: list[SpecificMon]
-    activeMon: SpecificMon
-    isAi: bool
+    mons: list[SpecificMon] = field(default_factory=list)
     name: str = ''
+    isAi: bool = False
+    activeMon: SpecificMon = field(init=False)
 
     def __post_init__(self):
-        if self.name == '':
-            self.name = self.activeMon.nickname = 'Wild ' + self.activeMon.nickname
+        if len(self.mons) != 0:
+            self.activeMon = self.mons[0]
+            if self.name == '':
+                self.name = self.activeMon.nickname = 'Wild ' + self.activeMon.nickname
 
     def isDefeated(self) -> bool:
         for mon in self.mons:
