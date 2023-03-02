@@ -5,3 +5,4 @@ class NodeType(Enum):
     FIGHT = 'Fight'
     CHICKENS = 'Chickens'
     REST = 'Rest'
+    START = 'Start'

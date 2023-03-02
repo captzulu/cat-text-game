@@ -8,9 +8,8 @@ from cliObjects.menuFunctions import menuFunctions
 from dataObjects.enums.nodeType import NodeType
 
 class NodeEvents():
-    TYPE_LIST: list[NodeType] = [NodeType.CITY, NodeType.MARKET, NodeType.FIGHT, NodeType.CHICKENS, NodeType.REST]
+    RANDOM_TYPE_LIST: list[NodeType] = [NodeType.CITY, NodeType.MARKET, NodeType.FIGHT, NodeType.CHICKENS, NodeType.REST]
     
-
     @staticmethod
     def fight():
         ennemyMon = NodeEvents.randomMon(4)
@@ -39,7 +38,12 @@ class NodeEvents():
         return
     
     @staticmethod
-    def city():
+    def start():
+        test = ""
+        return
+    
+    @staticmethod
+    def city(): 
         return
     
     @staticmethod

@@ -40,7 +40,7 @@ class GameCli:
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Back", lambda : 1 == 1)
         })
-        for event in NodeEvents.TYPE_LIST:
+        for event in NodeEvents.RANDOM_TYPE_LIST:
             options[len(options)] = (event.value, eval("NodeEvents." + str.lower(event.value)))
         exitMenu = False
         while exitMenu != True:
@@ -50,13 +50,14 @@ class GameCli:
         if _globals.debug:
             print(self.map)
         
+        self.map.start()
         exitMenu = False
         while exitMenu != True:
             options : dict[int, tuple[str, Callable]] = dict({
                 0 : ("Back", lambda : 1 == 1),
             })
             if self.map.completed:
-                options[len(options)] = ("Reset map", self.map.resetMap)
+                options[len(options)] = ("Reset map", self.map.reset)
             else:
                 options[len(options)] = ("Advance", self.advanceMenu)
             exitMenu : bool = menuFunctions.menuCallable(options)
