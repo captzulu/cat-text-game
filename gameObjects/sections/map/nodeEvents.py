@@ -12,9 +12,9 @@ class NodeEvents():
     
     @staticmethod
     def fight():
-        ennemyMon = NodeEvents.randomMon(4)
-        ennemySide = Side([ennemyMon], '', True)
-        battle: Battle = Battle(_globals.player.party, ennemySide)
+        enemyMon = NodeEvents.randomMon(4)
+        enemySide = Side([enemyMon], '', True)
+        battle: Battle = Battle(_globals.player.party, enemySide)
         battle.executeBattle()
         return
 
