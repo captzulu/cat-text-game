@@ -12,7 +12,7 @@ class Player:
     items: list = field(default_factory=list)
     
     def __post_init__(self):
-        self.chooseFirstMon(5)
+        self.party = Side([], self.name)
     
     def addItem(self, item : str):
         print(f"You have aquired {item}")
@@ -21,7 +21,7 @@ class Player:
     def addMon(self, specificMon : SpecificMon):
             self.party.addMon(specificMon)
             
-    def chooseFirstMon(self, level : int):
+    def chooseMon(self, level : int):
         specificMon : SpecificMon = self.pickSpecificMon(level)
         self.party = Side([specificMon])
     
