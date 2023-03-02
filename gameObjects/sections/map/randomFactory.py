@@ -11,13 +11,12 @@ class RandomFactory():
     
     @staticmethod
     def randomType() -> NodeType:
-        results : list[NodeType] = random.choices(NodeEvents.TYPE_LIST, weights=[1, 1, 8, 1, 5])
+        results : list[NodeType] = random.choices(NodeEvents.RANDOM_TYPE_LIST, weights=[1, 1, 8, 1, 5])
         return results[0]
     
     @staticmethod
     def generateRandomMap(length: int, title: str = "") -> Map:
         newMap: Map = Map(title)
-        
         RandomFactory.generateAllNodes(newMap, length)    
         RandomFactory.linkAllNodes(newMap)
 
@@ -46,7 +45,8 @@ class RandomFactory():
         if columnIndex not in map.nodes:
             map.nodes[columnIndex] = list()
 
-        map.nodes[columnIndex].append(Node(next(map.nodeIdGenerator), RandomFactory.randomType(), columnIndex))
+        nodeType = NodeType.START if columnIndex == 0 else RandomFactory.randomType()
+        map.nodes[columnIndex].append(Node(next(map.nodeIdGenerator), nodeType, columnIndex))
         return
 
     @staticmethod

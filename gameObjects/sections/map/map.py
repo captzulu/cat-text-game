@@ -13,17 +13,19 @@ class Map():
         self.nodes = dict()
         self.completed = False
         
+    def start(self) -> None:
+        self.completed = False
+        self.activeNode = self.nodes[0][0]
+        self.activeNode.executeNode()
+        
     def complete(self) -> None:
         self.completed = True
         print()
         print(f"You have completed {self.title} !")
         print()
         
-    def resetMap(self) -> None:
-        self.completed = False
-        if (0 in self.nodes and len(self.nodes[0]) > 0):
-            self.activeNode = self.nodes[0][0]
-
+    def reset(self) -> None:
+        self.start()
         print(f"{self.title} has been reset.")
     
     def getColumnAtIndex(self, columnIndex : int) -> list[Node]:
