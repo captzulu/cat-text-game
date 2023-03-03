@@ -1,7 +1,7 @@
 from tkinter import TRUE
 import unittest
+from unittest import mock
 import _globals
-from dataObjects.genericMon import GenericMon
 from dataFactory import dataFactory
 from gameObjects.sections.battle.side import Side
 from gameObjects.specificMon import SpecificMon
@@ -15,6 +15,7 @@ class battleTest(unittest.TestCase):
     def setUp(self):
         self.initTestGlobals()
         self.battle = self.InitClass()
+        self.battle.testMode = True
     
     def initTestGlobals(self):
         _globals.types = dataFactory.loadClassDictTest('type')
@@ -56,7 +57,7 @@ class battleTest(unittest.TestCase):
         self.battle.write(str(self.battle.side2.getActiveMonSpecies()))
         self.battle.write(self.battle.edgeSymbol + (self.battle.Filler * longestMonNameLength) + self.battle.edgeSymbol)
     
-    def testAttack(self):
+    def testAttack_damageWithinVariation(self):
         move = self.battle.side1.getActiveMonSpecies().moves[0]
         expectedModifier = self.battle.side2.activeMon.weakTo(move.type)
         ExpectedDamage = expectedModifier * self.battle.side1.activeMon.attack
@@ -76,6 +77,25 @@ class battleTest(unittest.TestCase):
     def testGetFastestSide(self):
         expectedFastestSide = self.battle.side1
         self.assertEqual(expectedFastestSide, self.battle.getFastestSide())
+    
+    @mock.patch('builtins.input', return_value = '1')
+    def testBattleLoop_getsCompleted(self, mocked_instance):
+        veryWeakSpecificMon = SpecificMon(_globals.genericMons['5'], 1)
+        self.battle.side1 = Side([veryWeakSpecificMon])
+        veryStrongSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
+        self.battle.side2 = Side([veryStrongSpecificMon])
+        self.battle.battleLoop()
+        self.assertTrue(self.battle.completed)
+        
+    @mock.patch('builtins.input', return_value = '1')
+    def testBattleLoop_getsCompletedByStall(self, mocked_instance):
+        veryWeakSpecificMon = SpecificMon(_globals.genericMons['2'], 100)
+        self.battle.side1 = Side([veryWeakSpecificMon])
+        veryStrongSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
+        self.battle.side2 = Side([veryStrongSpecificMon])
+        self.battle.battleLoop()
+        self.assertIn('stalled', self.battle.getTurnLog())
+        
     
 if __name__ == '__main__':
     unittest.main()
