@@ -39,14 +39,14 @@ class battleTest(unittest.TestCase):
 
     def testFillTitleLine(self):
         title = f"Battle ! {self.battle.side1.name} Vs {self.battle.side2.name}"
-        filledTitle = self.battle.fillTitleLine(title)
+        filledTitle = self.battle.writeTitle(title)
         lineFiller = self.battle.Filler * ((self.battle.calculateLongestMonNameLength() - len(title)) // 2)
         expectedText = lineFiller + title + lineFiller
         self.assertEqual(filledTitle, expectedText)
         
     def testExecuteIntro(self):
         title = f"Battle ! {self.battle.side1.name} Vs {self.battle.side2.name}"
-        titleLine = self.battle.edgeSymbol + self.battle.fillTitleLine(title) + self.battle.edgeSymbol
+        titleLine = self.battle.edgeSymbol + self.battle.writeTitle(title) + self.battle.edgeSymbol
         self.battle.write(titleLine)
         self.battle.write(str(self.battle.side1.getActiveMonSpecies()))
         

@@ -8,6 +8,7 @@ from dataObjects.move import Move
 import random
 from cliObjects.menuFunctions import menuFunctions
 import time
+import _globals
 
 @dataclass
 class Battle:
@@ -28,7 +29,7 @@ class Battle:
 
     def __executeIntro(self):
         title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
-        titleLine = self.edgeSymbol + self.fillTitleLine(title) + self.edgeSymbol
+        titleLine = self.edgeSymbol + self.writeTitle(title) + self.edgeSymbol
         self.write(titleLine)
         self.write(str(self.side1.activeMon))
         
@@ -38,10 +39,34 @@ class Battle:
         self.write(str(self.side2.activeMon))
         self.write(self.edgeSymbol + (self.Filler * longestMonNameLength) + self.edgeSymbol)
 
-    def fillTitleLine(self, title:str) -> str:
+    def writeTitle(self, title:str) -> str:
         longestMonNameLength = self.calculateLongestMonNameLength()
         titleLineHalf : str = self.Filler * ((longestMonNameLength - len(title)) // 2)
         return titleLineHalf + title + titleLineHalf
+    
+    def battleStatusPanel(self):
+        mon1 = self.side1.activeMon
+        mon2 = self.side2.activeMon
+        mon1str = mon1.nickname + " || lvl:" + str(mon1.level) + " || " + mon1.genericMon.printTypeAcronyms()
+        mon2str = mon2.nickname + " || lvl:" + str(mon2.level) + " || " + mon2.genericMon.printTypeAcronyms()
+        padding = self.calculatePadding(len(mon1str + mon2str))
+        
+        line1 = mon1str + padding + mon2str + "\n"
+        mon1HpBar = self.printProgressBar(mon1.currentHealth, mon1.maxHealth)
+        mon2HpBar = self.printProgressBar(mon2.currentHealth, mon2.maxHealth)
+        padding = self.calculatePadding(len(mon1HpBar + mon2HpBar))
+        line2 = mon1HpBar + padding + mon2HpBar
+        
+        return line1 + line2
+    
+    def calculatePadding(self, textLength : int, paddingChar : str = " ") -> str:
+        return (_globals.terminalSize.columns - textLength) * paddingChar
+        
+    def printProgressBar(self, iteration :int, total : int, decimals : int = 0, length : int = 100) -> str:
+        percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+        filledLength = int(length * iteration // total)
+        bar = '█' * filledLength + '-' * (length - filledLength)
+        return f'HP : |{bar}| {percent}%'
 
     def write(self, text : str):
         if hasattr(self, 'log') == False:
