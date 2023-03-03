@@ -20,11 +20,12 @@ class Battle:
     Filler: str = '='
     DAMAGE_VARIATION_MIN : float = 0.85
     DAMAGE_VARIATION_MAX : float = 1.15
+    testMode: bool = False
     
     def executeBattle(self):
         self.__executeIntro()
         input("Hit a key to start the fight...")
-        self.__battleLoop()
+        self.battleLoop()
 
     def __executeIntro(self):
         title = f"Battle ! {self.side1.name} Vs {self.side2.name}"
@@ -49,7 +50,8 @@ class Battle:
         self.log.addExplicitLine(self.turn, text)
         self.log.addImplicitLine(self.turn, text)
         print(text)
-        time.sleep(0.10)
+        if not self.testMode:
+            time.sleep(0.10)
     
     def calculateLongestMonNameLength(self) -> int:
         mon1Length = len(str(self.side1.activeMon))
@@ -62,6 +64,7 @@ class Battle:
         if self.turn >= 100:
             winner = self.side1.activeMon if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2.activeMon
             self.__completeBattle(f'{winner.nickname} has stalled out the win !')
+            return
         self.turn += 1
     
     def __attackPhase(self):
@@ -110,7 +113,7 @@ class Battle:
         else:
             self.write(f'{oppositeMon.nickname} has {oppositeMon.currentHealth}/{oppositeMon.maxHealth} health !')
 
-    def __battleLoop(self) -> None:
+    def battleLoop(self) -> None:
         while self.__hasCompleted() == False:
             self.__executeTurn()
         return
