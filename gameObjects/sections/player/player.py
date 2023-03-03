@@ -15,7 +15,7 @@ class Player:
         self.party = Side([], self.name)
     
     def addItem(self, item : str):
-        print(f"You have aquired {item}")
+        print(f"You have acquired {item}")
         self.items.append(item)
         
     def addMon(self, specificMon : SpecificMon):
