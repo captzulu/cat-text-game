@@ -43,7 +43,7 @@ class NodeEvents():
     def start():
         _globals.player.chooseMon(5)
         return
-    
+
     @staticmethod
     def city(): 
         return
