@@ -26,6 +26,7 @@ class Battle:
     def executeBattle(self):
         self.__executeIntro()
         input("Hit a key to start the fight...")
+        print()
         self.battleLoop()
 
     def __executeIntro(self):
@@ -45,25 +46,23 @@ class Battle:
         titleLineHalf : str = self.Filler * ((longestMonNameLength - len(title)) // 2)
         return titleLineHalf + title + titleLineHalf
     
-    def battleStatusPanel(self):
+    def showStatusPanel(self) -> None:
         mon1 = self.side1.activeMon
         mon2 = self.side2.activeMon
         mon1str = mon1.nickname + " || lvl:" + str(mon1.level) + " || " + mon1.genericMon.printTypeAcronyms()
         mon2str = mon2.nickname + " || lvl:" + str(mon2.level) + " || " + mon2.genericMon.printTypeAcronyms()
-        padding = self.calculatePadding(len(mon1str + mon2str))
+        padding = self.__calculatePadding(len(mon1str + mon2str))
+        print(mon1str + padding + mon2str)
         
-        line1 = mon1str + padding + mon2str + "\n"
-        mon1HpBar = self.printProgressBar(mon1.currentHealth, mon1.maxHealth)
-        mon2HpBar = self.printProgressBar(mon2.currentHealth, mon2.maxHealth)
-        padding = self.calculatePadding(len(mon1HpBar + mon2HpBar))
-        line2 = mon1HpBar + padding + mon2HpBar
-        
-        return line1 + line2
+        mon1HpBar = self.getHpBar(mon1.currentHealth, mon1.maxHealth, length = 25)
+        mon2HpBar = self.getHpBar(mon2.currentHealth, mon2.maxHealth, length = 25)
+        padding = self.__calculatePadding(len(mon1HpBar + mon2HpBar))
+        print(mon1HpBar + padding + mon2HpBar)
     
-    def calculatePadding(self, textLength : int, paddingChar : str = " ") -> str:
+    def __calculatePadding(self, textLength : int, paddingChar : str = " ") -> str:
         return (_globals.terminalSize.columns - textLength) * paddingChar
         
-    def printProgressBar(self, iteration :int, total : int, decimals : int = 0, length : int = 100) -> str:
+    def getHpBar(self, iteration :int, total : int, decimals : int = 0, length : int = 100) -> str:
         percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
         filledLength = int(length * iteration // total)
         bar = '█' * filledLength + '-' * (length - filledLength)
@@ -140,7 +139,9 @@ class Battle:
 
     def battleLoop(self) -> None:
         while self.__hasCompleted() == False:
+            self.showStatusPanel()
             self.__executeTurn()
+            print()
         return
 
     def __hasCompleted(self):
