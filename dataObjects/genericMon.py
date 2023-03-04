@@ -32,7 +32,7 @@ class GenericMon:
             ' || HP: ' + str(self.health) + ' | ATK: ' + str(self.attack) + ' | SPD: ' + str(self.speed))
     
     def printTypeAcronyms(self) -> str:
-        return (self.type1.acronym + (' / ' + self.type2.acronym if self.type2 != None else '')).upper()
+        return (self.type1.acronym + ('/' + self.type2.acronym if self.type2 != None else '')).upper()
 
     def weakTo(self, incomingType:Type) -> float:
         damageMultiplierType1 = self.type1.checkTypeModifier(incomingType.acronym)

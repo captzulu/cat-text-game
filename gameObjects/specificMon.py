@@ -50,6 +50,9 @@ class SpecificMon:
     def getHealthPercent(self):
         return self.maxHealth / self.currentHealth
     
+    def levelUp(self):
+        self.level += 1
+    
     def heal(self, amount):
         self.currentHealth = self.maxHealth if amount + self.currentHealth > self.maxHealth else self.currentHealth + amount
     
