@@ -55,6 +55,6 @@ class SpecificMon:
     
     def __str__(self):
         return (
-            self.nickname + " || lvl:" + str(self.level) + " || " + self.genericMon.printTypeAcronyms() + " || HP:" + str(self.maxHealth) +
-            ' | ATK: ' + str(self.attack) + ' | SPD:' + str(self.speed)
+            self.nickname + " | lvl:" + str(self.level) + " | " + self.genericMon.printTypeAcronyms() + " | HP:" + str(self.maxHealth) +
+            ' ¦ ATK: ' + str(self.attack) + ' ¦ SPD:' + str(self.speed)
             )

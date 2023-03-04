@@ -49,8 +49,9 @@ class Battle:
     def showStatusPanel(self) -> None:
         mon1 = self.side1.activeMon
         mon2 = self.side2.activeMon
-        mon1str = mon1.nickname + " || lvl:" + str(mon1.level) + " || " + mon1.genericMon.printTypeAcronyms()
-        mon2str = mon2.nickname + " || lvl:" + str(mon2.level) + " || " + mon2.genericMon.printTypeAcronyms()
+        spacer = "¦"
+        mon1str = f"{mon1.nickname} {spacer} lvl:{str(mon1.level)} {spacer} {mon1.genericMon.printTypeAcronyms()}"
+        mon2str = f"{mon2.nickname} {spacer} lvl:{str(mon2.level)} {spacer} {mon2.genericMon.printTypeAcronyms()}"
         padding = self.__calculatePadding(len(mon1str + mon2str))
         print(mon1str + padding + mon2str)
         
