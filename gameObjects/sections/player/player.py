@@ -19,9 +19,10 @@ class Player:
         self.items.append(item)
         
     def addMon(self, specificMon : SpecificMon):
-            self.party.addMon(specificMon)
+        self.party.addMon(specificMon)
             
     def chooseMon(self, level : int):
+        print("Pick a mon to start with :")
         specificMon : SpecificMon = self.pickSpecificMon(level)
         self.party = Side([specificMon])
     
