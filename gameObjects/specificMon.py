@@ -50,11 +50,14 @@ class SpecificMon:
     def getHealthPercent(self):
         return self.maxHealth / self.currentHealth
     
+    def levelUp(self):
+        self.level += 1
+    
     def heal(self, amount):
         self.currentHealth = self.maxHealth if amount + self.currentHealth > self.maxHealth else self.currentHealth + amount
     
     def __str__(self):
         return (
-            self.nickname + " || lvl:" + str(self.level) + " || " + self.genericMon.printTypeAcronyms() + " || HP:" + str(self.maxHealth) +
-            ' | ATK: ' + str(self.attack) + ' | SPD:' + str(self.speed)
+            self.nickname + " | lvl:" + str(self.level) + " | " + self.genericMon.printTypeAcronyms() + " | HP:" + str(self.maxHealth) +
+            ' ¦ ATK: ' + str(self.attack) + ' ¦ SPD:' + str(self.speed)
             )
