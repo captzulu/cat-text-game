@@ -21,7 +21,7 @@ class Battle:
     Filler: str = '='
     DAMAGE_VARIATION_MIN : float = 0.85
     DAMAGE_VARIATION_MAX : float = 1.15
-    testMode: bool = False
+    quickMode: bool = False
     
     def executeBattle(self):
         self.__executeIntro()
@@ -75,7 +75,7 @@ class Battle:
         self.log.addExplicitLine(self.turn, text)
         self.log.addImplicitLine(self.turn, text)
         print(text)
-        if not self.testMode:
+        if not self.quickMode:
             time.sleep(0.10)
     
     def calculateLongestMonNameLength(self) -> int:
@@ -113,14 +113,20 @@ class Battle:
         return firstSide
  
     def __takeTurn(self, side : Side) -> Move:
-        pickedMoveFirst : Move = self.__pickMoveAi(side.getActiveMonSpecies()) if side.isAi else self.__pickMove(side.getActiveMonSpecies())
+        pickedMoveFirst : Move = self.__pickMoveAi(side.getActiveMonSpecies()) if side.isAi else self.__pickMove(side)
         return pickedMoveFirst 
 
-    def __pickMove(self, pokemonSpecies : GenericMon) -> Move:
+    def __pickMove(self, side : Side) -> Move:
         print("Pick a move to use :")
         moves : dict[int, tuple[str, Move]] = dict()
-        for i, move in pokemonSpecies.moves.items():
-            moves[i] = (move.name, move) 
+        activeMon : SpecificMon = side.activeMon
+        for i, move in activeMon.genericMon.moves.items():
+            moves[i] = (move.name, move)
+
+        debugMove : Move = Move("[Debug] Instant Kill", 100000, 'ste')
+        if _globals.debug:
+            moves[len(moves)] = (debugMove.name, debugMove)
+            activeMon.speed = 10000
         pickedMove : Move = menuFunctions.menuObject(moves)
         return pickedMove
     
