@@ -18,6 +18,8 @@ class NodeEvents():
         enemySide = Side([enemyMon], '', True)
         battle: Battle = Battle(_globals.player.party, enemySide)
         battle.executeBattle()
+        if battle.winner == _globals.player.party:
+            _globals.player.addGold(10)
         return
 
     @staticmethod
