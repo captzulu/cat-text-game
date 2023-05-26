@@ -22,6 +22,8 @@ class Battle:
     DAMAGE_VARIATION_MIN : float = 0.85
     DAMAGE_VARIATION_MAX : float = 1.15
     quickMode: bool = False
+    winner : Side = field(init=False)
+    
     
     def executeBattle(self):
         self.__executeIntro()
@@ -87,8 +89,8 @@ class Battle:
         self.write(f"\n==== New turn ({self.turn}) ====")
         self.__attackPhase()
         if self.turn >= 100:
-            winner = self.side1.activeMon if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2.activeMon
-            self.__completeBattle(f'{winner.nickname} has stalled out the win !')
+            winner = self.side1 if self.side1.activeMon.currentHealth > self.side2.activeMon.currentHealth else self.side2
+            self.__completeBattle(f'{winner.activeMon.nickname} has stalled out the win !', winner)
             return
         self.turn += 1
     
@@ -140,7 +142,7 @@ class Battle:
         oppositeMon = oppositeSide.activeMon
         self.attack(side.activeMon, oppositeMon, pickedMove)
         if oppositeSide.isDefeated():
-            self.__completeBattle(f'{oppositeMon.nickname} has fainted !')
+            self.__completeBattle(f'{oppositeMon.nickname} has fainted !', side)
         else:
             self.write(f'{oppositeMon.nickname} has {oppositeMon.currentHealth}/{oppositeMon.maxHealth} health !')
 
@@ -154,9 +156,10 @@ class Battle:
     def __hasCompleted(self):
         return self.completed
             
-    def __completeBattle(self, message:str):
+    def __completeBattle(self, message:str, winner:Side):
         self.write(message)
         self.completed = True
+        self.winner = winner
         return
     
     def attack(self, attacker:SpecificMon, defender:SpecificMon, move:Move):
