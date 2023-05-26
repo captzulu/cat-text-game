@@ -18,6 +18,10 @@ class Player:
         print(f"You have acquired {item}")
         self.items.append(item)
         
+    def addGold(self, amount : int):
+        print(f"You have acquired {amount}g")
+        self.gold += amount
+        
     def addMon(self, specificMon : SpecificMon):
         self.party.addMon(specificMon)
             
