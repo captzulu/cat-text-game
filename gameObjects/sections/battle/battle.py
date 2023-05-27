@@ -9,7 +9,7 @@ import random
 from cliObjects.menuFunctions import menuFunctions
 import time
 import _globals
-import shutil
+import os
 
 @dataclass
 class Battle:
@@ -62,7 +62,7 @@ class Battle:
         print(mon1HpBar + padding + mon2HpBar)
     
     def __calculatePadding(self, textLength : int, paddingChar : str = " ") -> str:
-        return (shutil.get_terminal_size().columns - textLength) * paddingChar
+        return (os.get_terminal_size().columns - textLength) * paddingChar
         
     def getHpBar(self, iteration :int, total : int, decimals : int = 0, length : int = 100) -> str:
         if total == 0:
