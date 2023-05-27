@@ -20,7 +20,7 @@ class genericMonTest(unittest.TestCase):
     def testToString(self):
         newGenericMon = str(self.__newGenericMon('1,2'))
         #currently tests printTypeAcronyms() too
-        self.assertEqual(newGenericMon, ('bob || 1 / 2 || HP: 90 | ATK: 90 | SPD: 90'))
+        self.assertEqual(newGenericMon, ('bob || 1/2 || HP: 90 | ATK: 90 | SPD: 90'))
     
     def testWeakTo_hasRes(self):
         mon1 = self.__newGenericMon('1')
