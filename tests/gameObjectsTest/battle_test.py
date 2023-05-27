@@ -15,7 +15,7 @@ class battleTest(unittest.TestCase):
     def setUp(self):
         self.initTestGlobals()
         self.battle = self.InitClass()
-        self.battle.testMode = True
+        self.battle.quickMode = True
     
     def initTestGlobals(self):
         _globals.types = dataFactory.loadClassDictTest('type')
@@ -84,6 +84,7 @@ class battleTest(unittest.TestCase):
         self.battle.side1 = Side([veryWeakSpecificMon])
         veryStrongSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
         self.battle.side2 = Side([veryStrongSpecificMon])
+        _globals.debug = False #causes an error otherwise
         self.battle.battleLoop()
         self.assertTrue(self.battle.completed)
         
@@ -93,6 +94,7 @@ class battleTest(unittest.TestCase):
         self.battle.side1 = Side([veryWeakSpecificMon])
         veryStrongSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
         self.battle.side2 = Side([veryStrongSpecificMon])
+        _globals.debug = False #causes an error otherwise
         self.battle.battleLoop()
         self.assertIn('stalled', self.battle.getTurnLog())
         
