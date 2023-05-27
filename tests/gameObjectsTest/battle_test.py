@@ -15,7 +15,7 @@ class battleTest(unittest.TestCase):
     def setUp(self):
         self.initTestGlobals()
         self.battle = self.InitClass()
-        self.battle.testMode = True
+        self.battle.quickMode = True
     
     def initTestGlobals(self):
         _globals.types = dataFactory.loadClassDictTest('type')
