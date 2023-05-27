@@ -9,6 +9,7 @@ import random
 from cliObjects.menuFunctions import menuFunctions
 import time
 import _globals
+import shutil
 
 @dataclass
 class Battle:
@@ -61,13 +62,18 @@ class Battle:
         print(mon1HpBar + padding + mon2HpBar)
     
     def __calculatePadding(self, textLength : int, paddingChar : str = " ") -> str:
-        return (_globals.terminalSize.columns - textLength) * paddingChar
+        return (shutil.get_terminal_size().columns - textLength) * paddingChar
         
     def getHpBar(self, iteration :int, total : int, decimals : int = 0, length : int = 100) -> str:
+        if total == 0:
+            return f'HP : |0| 0%'
+        
         percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
         filledLength = int(length * iteration // total)
         bar = '█' * filledLength + '-' * (length - filledLength)
         return f'HP : |{bar}| {percent}%'
+        
+        
 
     def write(self, text : str):
         if hasattr(self, 'log') == False:
@@ -123,10 +129,11 @@ class Battle:
         for i, move in activeMon.genericMon.moves.items():
             moves[i] = (move.name, move)
 
-        debugMove : Move = Move("[Debug] Instant Kill", 100000, 'ste')
         if _globals.debug:
+            debugMove : Move = Move("[Debug] Instant Kill", 100000, 'ste')
             moves[len(moves)] = (debugMove.name, debugMove)
             activeMon.speed = 10000
+
         pickedMove : Move = menuFunctions.menuObject(moves)
         return pickedMove
     
