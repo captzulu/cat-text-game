@@ -79,7 +79,7 @@ class GameCli:
             if pickedOption == 0:
                 return
             elif pickedOption == 1:
-                print(_globals.player)
+                _globals.player.status
             else:
                 nodeIndex : int = pickedOption - offset
                 self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
