@@ -84,7 +84,7 @@ class GameCli:
                 nodeIndex : int = pickedOption - offset
                 self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
                 if _globals.player.party.isDefeated():
-                    self.quit()
+                    self.gameOver()
     
     def showCurrentNode(self):
         index = self.map.activeNode.columnIndex
@@ -93,6 +93,10 @@ class GameCli:
     def addForwardLinks(self, options):
         for node in self.map.activeNode.forwardLinks:
                 options[len(options)] = str(node)
+                
+    def gameOver(self):
+        print('Game over !')
+        self.quit()
 
     def createPlayer(self):
         _globals.player = Player('test')
