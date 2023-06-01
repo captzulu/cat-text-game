@@ -42,7 +42,6 @@ class Map():
 
         if len(self.activeNode.forwardLinks) == 0:
             self.complete()
-            return
     
     def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
             if secondNode in firstNode.forwardLinks:

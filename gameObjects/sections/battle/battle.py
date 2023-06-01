@@ -74,8 +74,6 @@ class Battle:
         filledLength = int(length * iteration // total)
         bar = '█' * filledLength + '-' * (length - filledLength)
         return f'HP : |{bar}| {percent}%'
-        
-        
 
     def write(self, text : str):
         if hasattr(self, 'log') == False:
