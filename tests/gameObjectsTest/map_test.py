@@ -66,7 +66,7 @@ class mapTest(unittest.TestCase):
     def testAdvance_mapLengthOne_mapGetsCompleted(self):
         newMap = RandomFactory.generateRandomMap(1)
         newMap.advance(newMap.activeNode)
-        self.assertTrue(newMap.completed)
+        self.assertTrue(newMap.status is newMap.status.COMPLETED)
 
     def testAdvance_mapLengthOne_activeNodeStaysSame(self):
         newMap = RandomFactory.generateRandomMap(1)

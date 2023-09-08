@@ -1,25 +1,26 @@
 from gameObjects.sections.map.node import Node
+from dataObjects.enums.mapStates import MapStates
 import itertools
 
 class Map():
     nodes : dict[int, list[Node]]
     title : str
     activeNode : Node
-    completed : bool
+    status : MapStates
     
     def __init__(self, title : str = "untitled"):
         self.nodeIdGenerator = itertools.count(1)
         self.title = title
         self.nodes = dict()
-        self.completed = False
+        self.status = MapStates.READY
         
     def start(self) -> None:
-        self.completed = False
+        self.status = MapStates.STARTED
         self.activeNode = self.nodes[0][0]
         self.activeNode.executeNode()
         
     def complete(self) -> None:
-        self.completed = True
+        self.status = MapStates.COMPLETED
         print()
         print(f"You have completed {self.title} !")
         print()
@@ -48,6 +49,9 @@ class Map():
                 return True
             else:
                 return False
+    
+    def fail(self):
+        self.status = MapStates.FAILED
             
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"

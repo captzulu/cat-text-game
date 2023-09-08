@@ -56,14 +56,14 @@ class GameCli:
             options : dict[int, tuple[str, Callable]] = dict({
                 0 : ("Back", lambda : 1 == 1),
             })
-            if self.map.completed:
+            if self.map.status is self.map.status.COMPLETED or self.map.status is self.map.status.FAILED:
                 options[len(options)] = ("Reset map", self.map.reset)
             else:
                 options[len(options)] = ("Advance", self.advanceMenu)
             exitMenu : bool = menuFunctions.menuCallable(options)
             
     def advanceMenu(self):
-        while not self.map.completed:
+        while self.map.status is not self.map.status.COMPLETED and self.map.status is not self.map.status.FAILED:
             options : dict[int, str] = dict({
                 0 : "Back",
                 1 : "Status"
@@ -84,7 +84,8 @@ class GameCli:
                 nodeIndex : int = pickedOption - offset
                 self.map.advance(self.map.activeNode.forwardLinks[nodeIndex])
                 if _globals.player.party.isDefeated():
-                    self.gameOver()
+                    self.map.fail()
+                    print('Game over !')
     
     def showCurrentNode(self):
         index = self.map.activeNode.columnIndex
@@ -93,10 +94,6 @@ class GameCli:
     def addForwardLinks(self, options):
         for node in self.map.activeNode.forwardLinks:
                 options[len(options)] = str(node)
-                
-    def gameOver(self):
-        print('Game over !')
-        self.quit()
 
     def createPlayer(self):
         _globals.player = Player('test')
