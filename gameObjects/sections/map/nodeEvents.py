@@ -1,6 +1,7 @@
 import _globals
 import random
 from gameObjects.specificMon import SpecificMon
+from gameObjects.market import Market
 from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
 from gameObjects.sections.battle.battle import Battle
@@ -52,4 +53,6 @@ class NodeEvents():
     
     @staticmethod
     def market():
+        market = Market()
+        market.marketMenu()
         return
