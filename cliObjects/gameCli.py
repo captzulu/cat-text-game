@@ -37,11 +37,15 @@ class GameCli:
         menuFunctions.menuCallable(options)
 
     def debugMenu(self):
+        if len(_globals.player.party.mons) == 0:
+            print('Pick a mon to avoid errors')
+            _globals.player.chooseMon(5)
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Back", lambda : 1 == 1)
         })
         for event in NodeEvents.RANDOM_TYPE_LIST:
             options[len(options)] = (event.value, eval("NodeEvents." + str.lower(event.value)))
+        options[len(options)] = ('Status', _globals.player.status)
         exitMenu = False
         while exitMenu != True:
             exitMenu = menuFunctions.menuCallable(options)
