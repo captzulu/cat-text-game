@@ -15,6 +15,9 @@ class SpecificMon:
     def __post_init__(self):
         if self.nickname == '':
             self.nickname = self.genericMon.name
+        self.calculateStats()
+        
+    def calculateStats(self):
         self.maxHealth = int(self.genericMon.health/3 * self.level)
         self.currentHealth = int(self.genericMon.health/3 * self.level)
         baseAttack = self.genericMon.attack/8
@@ -52,6 +55,7 @@ class SpecificMon:
     
     def levelUp(self):
         self.level += 1
+        self.calculateStats()
     
     def heal(self, amount):
         self.currentHealth = self.maxHealth if amount + self.currentHealth > self.maxHealth else self.currentHealth + amount
