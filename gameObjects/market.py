@@ -25,8 +25,8 @@ class Market:
         return self.selection[menuFunctions.menuInt(choices)]
     
     def processPayment(self, pickedOption : tuple[str, int]) -> bool:
-        if _globals.player.gold >= pickedOption[1]: 
-            _globals.player.gold -= pickedOption[1]
+        if _globals.player.gold >= pickedOption[1]:
+            _globals.player.takeGold(pickedOption[1])
             print(f"You bought {pickedOption[0]} for {pickedOption[1]}g. You now have {_globals.player.gold}g")
             return True
         else:

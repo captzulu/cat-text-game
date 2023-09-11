@@ -21,6 +21,12 @@ class Player:
     def addGold(self, amount : int):
         print(f"You have acquired {amount}g")
         self.gold += amount
+    
+    def takeGold(self, amount : int):
+        if self.gold >= amount:
+            self.gold -= amount
+        else:
+            self.gold = 0
         
     def addMon(self, specificMon : SpecificMon):
         self.party.addMon(specificMon)
