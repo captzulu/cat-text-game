@@ -9,7 +9,6 @@ import random
 from cliObjects.menuFunctions import menuFunctions
 import time
 import _globals
-import os
 
 @dataclass
 class Battle:
@@ -64,7 +63,7 @@ class Battle:
         print(mon1HpBar + padding + mon2HpBar)
     
     def __calculatePadding(self, textLength : int, paddingChar : str = " ") -> str:
-        return (os.get_terminal_size().columns - textLength) * paddingChar
+        return (_globals.terminalSize.columns - textLength) * paddingChar
         
     def getHpBar(self, iteration :int, total : int, decimals : int = 0, length : int = 100) -> str:
         if total == 0:
@@ -132,7 +131,6 @@ class Battle:
         if _globals.debug:
             debugMove : Move = Move("[Debug] Instant Kill", 100000, 'ste')
             moves[len(moves)] = (debugMove.name, debugMove)
-            activeMon.speed = 10000
 
         pickedMove : Move = menuFunctions.menuObject(moves)
         return pickedMove
