@@ -110,12 +110,25 @@ class Battle:
     def getFastestSide(self) -> Side:
         side1Speed = self.side1.activeMon.speed
         side2Speed = self.side2.activeMon.speed
+        
+        prioritySide = self.checkPriority()
+        if prioritySide:
+            return prioritySide
 
         if side1Speed == side2Speed:
             firstSide = self.side1 if random.randint(0,1) == 1 else self.side2
         else:
             firstSide = self.side1 if side1Speed > side2Speed else self.side2
         return firstSide
+    
+    def checkPriority(self) -> Side | None:
+        if self.side1.activeMon.hasPriority and not self.side2.activeMon.hasPriority:
+            return self.side1
+        
+        if self.side2.activeMon.hasPriority and not self.side1.activeMon.hasPriority:
+            return self.side2
+        
+        return None
  
     def __takeTurn(self, side : Side) -> Move:
         pickedMoveFirst : Move = self.__pickMoveAi(side.getActiveMonSpecies()) if side.isAi else self.__pickMove(side)

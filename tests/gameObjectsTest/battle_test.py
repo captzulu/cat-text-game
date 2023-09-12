@@ -77,26 +77,54 @@ class battleTest(unittest.TestCase):
     def testGetFastestSide(self):
         expectedFastestSide = self.battle.side1
         self.assertEqual(expectedFastestSide, self.battle.getFastestSide())
+        
+    def testGetFastestSide_side1Priority(self):
+        verySlowSpecificMon = SpecificMon(_globals.genericMons['5'], 1)
+        verySlowSpecificMon.hasPriority = True
+        side1 = Side([verySlowSpecificMon])
+        veryFastSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
+        side2 = Side([veryFastSpecificMon])
+        newBattle = Battle(side1, side2)
+        
+        expectedFastestSide = side1
+        self.assertEqual(expectedFastestSide, newBattle.getFastestSide())
+        
+    def testGetFastestSide_bothSidePriority(self):
+        verySlowSpecificMon = SpecificMon(_globals.genericMons['5'], 1)
+        verySlowSpecificMon.hasPriority = True
+        side1 = Side([verySlowSpecificMon])
+        veryFastSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
+        veryFastSpecificMon.hasPriority = True
+        side2 = Side([veryFastSpecificMon])
+        newBattle = Battle(side1, side2)
+        
+        expectedFastestSide = side2
+        self.assertEqual(expectedFastestSide, newBattle.getFastestSide())
     
     @mock.patch('builtins.input', return_value = '1')
     def testBattleLoop_getsCompleted(self, mocked_instance):
         veryWeakSpecificMon = SpecificMon(_globals.genericMons['5'], 1)
-        self.battle.side1 = Side([veryWeakSpecificMon])
+        side1 = Side([veryWeakSpecificMon])
         veryStrongSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
-        self.battle.side2 = Side([veryStrongSpecificMon])
+        side2 = Side([veryStrongSpecificMon])
+        newBattle = Battle(side1, side2)
         _globals.debug = False #causes an error otherwise
-        self.battle.battleLoop()
-        self.assertTrue(self.battle.completed)
+
+        newBattle.battleLoop()
+        self.assertTrue(newBattle.completed)
         
     @mock.patch('builtins.input', return_value = '1')
     def testBattleLoop_getsCompletedByStall(self, mocked_instance):
         veryWeakSpecificMon = SpecificMon(_globals.genericMons['2'], 100)
-        self.battle.side1 = Side([veryWeakSpecificMon])
+        side1 = Side([veryWeakSpecificMon])
         veryStrongSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
-        self.battle.side2 = Side([veryStrongSpecificMon])
+        side2 = Side([veryStrongSpecificMon])
+        newBattle = Battle(side1, side2)
+        newBattle.quickMode = True
         _globals.debug = False #causes an error otherwise
-        self.battle.battleLoop()
-        self.assertIn('stalled', self.battle.getTurnLog())
+
+        newBattle.battleLoop()
+        self.assertIn('stalled', newBattle.getTurnLog())
         
     
 if __name__ == '__main__':
