@@ -14,8 +14,8 @@ class NodeEvents():
     @staticmethod
     def fight():
         if len(_globals.player.party.mons) == 0:
-            _globals.player.chooseMon(5)
-        enemyMon = NodeEvents.randomMon(4)
+            _globals.player.chooseMon(1)
+        enemyMon = NodeEvents.randomMon(1)
         enemySide = Side([enemyMon], '', True)
         battle: Battle = Battle(_globals.player.party, enemySide)
         battle.executeBattle()
@@ -44,7 +44,7 @@ class NodeEvents():
     
     @staticmethod
     def start():
-        _globals.player.chooseMon(5)
+        _globals.player.chooseMon(1)
         return
 
     @staticmethod

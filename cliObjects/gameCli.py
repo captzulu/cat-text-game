@@ -39,7 +39,7 @@ class GameCli:
     def debugMenu(self):
         if len(_globals.player.party.mons) == 0:
             print('Pick a mon to avoid errors')
-            _globals.player.chooseMon(5)
+            _globals.player.chooseMon(1)
         options : dict[int, tuple[str, Callable]] = dict({
             0 : ("Back", lambda : 1 == 1)
         })
