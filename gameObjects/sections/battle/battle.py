@@ -23,7 +23,7 @@ class Battle:
     DAMAGE_VARIATION_MAX : float = 1.15
     quickMode: bool = False
     winner : Side = field(init=False)
-    
+    sideWithPriority : Side | None = None  
     
     def executeBattle(self):
         self.__executeIntro()
@@ -111,7 +111,7 @@ class Battle:
         side1Speed = self.side1.activeMon.speed
         side2Speed = self.side2.activeMon.speed
         
-        prioritySide = self.checkPriority()
+        prioritySide = self.__checkPriority()
         if prioritySide:
             return prioritySide
 
@@ -121,11 +121,11 @@ class Battle:
             firstSide = self.side1 if side1Speed > side2Speed else self.side2
         return firstSide
     
-    def checkPriority(self) -> Side | None:
-        if self.side1.activeMon.hasPriority and not self.side2.activeMon.hasPriority:
+    def __checkPriority(self) -> Side | None:
+        if self.side1 == self.sideWithPriority:
             return self.side1
         
-        if self.side2.activeMon.hasPriority and not self.side1.activeMon.hasPriority:
+        if self.side2 == self.sideWithPriority:
             return self.side2
         
         return None

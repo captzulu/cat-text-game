@@ -12,7 +12,6 @@ class SpecificMon:
     level: int
     nickname: str = ''
     status: str = 'normal'
-    hasPriority: bool = False
 
     def __post_init__(self):
         if self.nickname == '':

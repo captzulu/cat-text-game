@@ -80,25 +80,13 @@ class battleTest(unittest.TestCase):
         
     def testGetFastestSide_side1Priority(self):
         verySlowSpecificMon = SpecificMon(_globals.genericMons['5'], 1)
-        verySlowSpecificMon.hasPriority = True
         side1 = Side([verySlowSpecificMon])
         veryFastSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
         side2 = Side([veryFastSpecificMon])
         newBattle = Battle(side1, side2)
+        newBattle.sideWithPriority = newBattle.side1
         
-        expectedFastestSide = side1
-        self.assertEqual(expectedFastestSide, newBattle.getFastestSide())
-        
-    def testGetFastestSide_bothSidePriority(self):
-        verySlowSpecificMon = SpecificMon(_globals.genericMons['5'], 1)
-        verySlowSpecificMon.hasPriority = True
-        side1 = Side([verySlowSpecificMon])
-        veryFastSpecificMon = SpecificMon(_globals.genericMons['4'], 100)
-        veryFastSpecificMon.hasPriority = True
-        side2 = Side([veryFastSpecificMon])
-        newBattle = Battle(side1, side2)
-        
-        expectedFastestSide = side2
+        expectedFastestSide = newBattle.side1
         self.assertEqual(expectedFastestSide, newBattle.getFastestSide())
     
     @mock.patch('builtins.input', return_value = '1')
