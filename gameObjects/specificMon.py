@@ -21,12 +21,11 @@ class SpecificMon:
         
     def calculateStats(self):
         initialStatModifier = 2
-        statsPerLevelModifier = 10
-        healthPerLevel = self.genericMon.health / statsPerLevelModifier
+        healthPerLevel = self.genericMon.health / 6
         self.maxHealth = math.ceil(healthPerLevel * (self.level + initialStatModifier))
-        baseAttack = self.genericMon.attack / statsPerLevelModifier
+        baseAttack = self.genericMon.attack / 10
         self.attack = int(baseAttack * (self.level + initialStatModifier))
-        baseSpeed = self.genericMon.speed / statsPerLevelModifier
+        baseSpeed = self.genericMon.speed / 10
         self.speed = int(baseSpeed * (self.level + initialStatModifier))
 
     def loseHealth(self, hitPointLoss : int):
