@@ -92,7 +92,7 @@ class GameCli:
                     print('Game over !')
     
     def showCurrentNode(self):
-        index = self.map.activeNode.columnIndex
+        index = self.map.activeNode.columnIndex + 1
         print(f"Current Node : {self.map.activeNode}. At {index}/{len(self.map.nodes)}")
                     
     def addForwardLinks(self, options):
