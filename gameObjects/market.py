@@ -21,8 +21,6 @@ class Market:
             if self.processPayment(pickedOption):
                 self.giveItem(pickedOption)
                 
-        
-        
     def pickFromSelection(self) -> tuple[str, int]:
         choices = {index:item[0] for (index, item) in self.selection.items()}
         return self.selection[menuFunctions.menuInt(choices)]
