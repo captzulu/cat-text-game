@@ -20,7 +20,7 @@ class GameCli:
     
     def mainMenu(self):
         options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Fight", NodeEvents.fight),
+            0 : ("Fight", self.standaloneFight),
             1 : ("Map", self.mapMenu),
             2 : ("Quit", self.quit)
         })
@@ -102,3 +102,7 @@ class GameCli:
     def createPlayer(self):
         _globals.player = Player('test')
         self.mainMenu()
+        
+    def standaloneFight(self):
+        NodeEvents.fight()
+        _globals.player.party.activeMon.fullHeal()
