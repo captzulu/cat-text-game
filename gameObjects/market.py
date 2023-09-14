@@ -11,13 +11,16 @@ class Market:
         self.selection[1] = ('Back', 0)
         
     def marketMenu(self):
-        if not hasattr(self,'selection'):
-            self.generateSelection()
-        pickedOption : tuple[str, int] = self.pickFromSelection()
-        if pickedOption[0] == 'Back':
-            return
-        if self.processPayment(pickedOption):
-            self.giveItem(pickedOption)
+        exitMenu = False
+        while exitMenu != True:
+            if not hasattr(self,'selection'):
+                self.generateSelection()
+            pickedOption : tuple[str, int] = self.pickFromSelection()
+            if pickedOption[0] == 'Back':
+                exitMenu = True
+            if self.processPayment(pickedOption):
+                self.giveItem(pickedOption)
+                
         
         
     def pickFromSelection(self) -> tuple[str, int]:
