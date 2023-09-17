@@ -32,6 +32,11 @@ class SpecificMon:
         self.currentHealth -= hitPointLoss
         if self.currentHealth <= 0 :
             self.faint()
+            
+    def loseMaxHealthPercent(self, hitPointLossPercent : float) -> int:
+        hpLost = math.floor(self.maxHealth * (hitPointLossPercent / 100))
+        self.loseHealth(hpLost)
+        return hpLost
 
     def faint(self):
         self.changeStatus('fainted')

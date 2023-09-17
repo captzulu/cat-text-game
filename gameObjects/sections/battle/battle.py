@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from gameObjects.sections.battle.battleLog import BattleLog
 from gameObjects.sections.battle.effectLib import EffectLib
+from gameObjects.sections.battle.status import Status
 from gameObjects.specificMon import SpecificMon
 from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
@@ -107,6 +108,7 @@ class Battle:
         if self.__hasCompleted() == False:
             print("")
             self.__sideTurn(secondSide, firstSide, secondSideMove)
+        self.triggerStatus()
         
     def getFastestSide(self) -> Side:
         side1Speed = self.side1.activeMon.speed
@@ -211,3 +213,10 @@ class Battle:
         
     def getTurnLog(self) -> str:
         return self.log.getFormattedLine(self.turn)
+    
+    def triggerStatus(self):
+        if self.side1.activeMon.status != "normal":
+            eval(f"Status.{self.side1.activeMon.status}(self.side1.activeMon)")
+        
+        if self.side2.activeMon.status != "normal":
+            eval(f"Status.{self.side2.activeMon.status}(self.side2.activeMon)")

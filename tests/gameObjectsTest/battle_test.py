@@ -114,6 +114,13 @@ class battleTest(unittest.TestCase):
         newBattle.battleLoop()
         self.assertIn('stalled', newBattle.getTurnLog())
         
+    def testTriggerStatus_poison(self):
+        monInitialHp = self.battle.side1.activeMon.currentHealth
+        self.battle.side1.activeMon.status = "poison"
+        self.battle.triggerStatus()
+        
+        self.assertTrue(monInitialHp > self.battle.side1.activeMon.currentHealth)
+        
     
 if __name__ == '__main__':
     unittest.main()
