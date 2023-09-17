@@ -21,7 +21,7 @@ class SpecificMon:
         
     def calculateStats(self):
         initialStatModifier = 2
-        healthPerLevel = self.genericMon.health / 6
+        healthPerLevel = self.genericMon.health / 5
         self.maxHealth = math.ceil(healthPerLevel * (self.level + initialStatModifier))
         baseAttack = self.genericMon.attack / 10
         self.attack = int(baseAttack * (self.level + initialStatModifier))

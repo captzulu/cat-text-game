@@ -20,7 +20,7 @@ class GameCli:
     
     def mainMenu(self):
         options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Fight", NodeEvents.fight),
+            0 : ("Fight", self.standaloneFight),
             1 : ("Map", self.mapMenu),
             2 : ("Quit", self.quit)
         })
@@ -92,7 +92,7 @@ class GameCli:
                     print('Game over !')
     
     def showCurrentNode(self):
-        index = self.map.activeNode.columnIndex
+        index = self.map.activeNode.columnIndex + 1
         print(f"Current Node : {self.map.activeNode}. At {index}/{len(self.map.nodes)}")
                     
     def addForwardLinks(self, options):
@@ -102,3 +102,7 @@ class GameCli:
     def createPlayer(self):
         _globals.player = Player('test')
         self.mainMenu()
+        
+    def standaloneFight(self):
+        NodeEvents.fight()
+        _globals.player.party.activeMon.fullHeal()
