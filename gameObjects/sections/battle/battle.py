@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from gameObjects.sections.battle.battleLog import BattleLog
+from gameObjects.sections.battle.effectLib import EffectLib
 from gameObjects.specificMon import SpecificMon
 from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
@@ -188,6 +189,8 @@ class Battle:
         if damageEffectiveness == 0:
             self.write(f"{defender.nickname} is immune to {attackType} !")
         else :
+            if move.effect != '' and move.effect in EffectLib.triggerList['afterMove']:
+               eval("EffectLib." + str.lower(move.effect) + "(defender, move.effectPower)")
             effectivenessMessage : str = self.__getEffectivenessMessage(damageEffectiveness)
             self.write(f"{attacker.nickname} used {move} to deal {damage} to {defender.nickname}. {effectivenessMessage}")
         return

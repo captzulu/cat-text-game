@@ -2,7 +2,9 @@
     "0": {
         "name": "Slash",
         "typeText": "nor",
-        "power": 80
+        "power": 80,
+        "effect": "highCrit",
+        "effectPower": 0
     },
     "1": {
         "name": "Crunch",
@@ -22,7 +24,9 @@
     "4": {
         "name": "Poison Fang",
         "typeText": "poi",
-        "power": 80
+        "power": 80,
+        "effect": "poison",
+        "effectPower": 20
     },
     "5": {
         "name": "Cuddle",
