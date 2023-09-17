@@ -108,7 +108,7 @@ class Battle:
         if self.__hasCompleted() == False:
             print("")
             self.__sideTurn(secondSide, firstSide, secondSideMove)
-        self.triggerStatus()
+            self.triggerStatus()
         
     def getFastestSide(self) -> Side:
         side1Speed = self.side1.activeMon.speed
@@ -215,8 +215,8 @@ class Battle:
         return self.log.getFormattedLine(self.turn)
     
     def triggerStatus(self):
-        if self.side1.activeMon.status != "normal":
+        if self.side1.activeMon.status not in ["normal", "fainted"]:
             eval(f"Status.{self.side1.activeMon.status}(self.side1.activeMon)")
         
-        if self.side2.activeMon.status != "normal":
+        if self.side2.activeMon.status not in ["normal", "fainted"]:
             eval(f"Status.{self.side2.activeMon.status}(self.side2.activeMon)")
