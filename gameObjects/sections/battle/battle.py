@@ -189,7 +189,7 @@ class Battle:
         if damageEffectiveness == 0:
             self.write(f"{defender.nickname} is immune to {attackType} !")
         else :
-            if move.effect != '' and move.effect in EffectLib.triggerList['afterMove']:
+            if EffectLib.checkTriggerList('afterMove', move.effect):
                eval("EffectLib." + str.lower(move.effect) + "(defender, move.effectPower)")
             effectivenessMessage : str = self.__getEffectivenessMessage(damageEffectiveness)
             self.write(f"{attacker.nickname} used {move} to deal {damage} to {defender.nickname}. {effectivenessMessage}")

@@ -6,9 +6,13 @@ class EffectLib:
     })
     
     @staticmethod
+    def checkTriggerList(trigger : str, effect : str) -> bool:
+        return effect in EffectLib.triggerList[trigger]
+            
+    @staticmethod
     def poison(targetMon : SpecificMon, chance : int):
         if targetMon.status == "normal":
             roll = random.randint(1, 100)
-            if roll >= chance :
+            if roll <= chance :
                 targetMon.status = 'poison'
                 print(f"{targetMon.nickname} was poisoned !")
