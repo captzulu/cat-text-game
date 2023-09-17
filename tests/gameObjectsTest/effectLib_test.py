@@ -1,11 +1,9 @@
 from tkinter import TRUE
 import unittest
-from unittest import mock
 import _globals
 from dataFactory import dataFactory
-from gameObjects.sections.player.player import Player
+from gameObjects.sections.battle.effectLib import EffectLib
 from gameObjects.specificMon import SpecificMon
-from gameObjects.market import Market
 
 class marketTest(unittest.TestCase):
     
@@ -17,36 +15,23 @@ class marketTest(unittest.TestCase):
         _globals.moves = dataFactory.loadClassDictTest('move')
         _globals.genericMons = dataFactory.loadClassDictTest('genericMon')
         
-    def testProcessPayment_noEnoughGold(self):
-        _globals.player = Player('test')
-        _globals.player.addGold(8)
-        newMarket = Market()
-        newMarket.processPayment(('test', 10))
-        self.assertEqual(_globals.player.gold, 8)
-        
-    def testProcessPayment_enoughGold(self):
-        _globals.player = Player('test')
-        _globals.player.addGold(12)
-        newMarket = Market()
-        newMarket.processPayment(('test', 10))
-        self.assertEqual(_globals.player.gold, 2)
-        
-    def testProcessPayment_levelUp(self):
-        _globals.player = Player('test')
-        _globals.player.addGold(12)
-        newMarket = Market()
-        newMarket.generateSelection()
-        _globals.player.party.addMon(SpecificMon(_globals.genericMons['5'], 1))
-        levelBeforeLevelUp = _globals.player.party.activeMon.level
-        newMarket.giveItem(newMarket.selection[0])
-        self.assertEqual(_globals.player.party.activeMon.level, levelBeforeLevelUp + 1)
+    def testPoison_withoutStatus(self):
+        defender = SpecificMon(_globals.genericMons['1'], 50)
+        EffectLib.poison(defender, 100)
+        self.assertEqual(defender.status, 'poison')
+
+    def testPoison_withStatus(self):
+        defender = SpecificMon(_globals.genericMons['1'], 50)
+        initialStatus : str = 'not normal'
+        defender.changeStatus(initialStatus)
+        EffectLib.poison(defender, 100)
+        self.assertEqual(defender.status, initialStatus)
     
-    @mock.patch('builtins.input', return_value = '1')
-    def testChooseMon(self, mocked_instance):
-        #also tests pickGenericMon and pickSpecificMon
-        newPlayer = Player('test')
-        newPlayer.chooseMon(1)
-        self.assertEqual(len(newPlayer.party.mons), 1)
+    def testCheckTriggerList_PoisonExists(self):
+        self.assertTrue(EffectLib.checkTriggerList('afterMove', 'poison'))
     
+    def testCheckTriggerList_DoesntExist(self):
+        self.assertFalse(EffectLib.checkTriggerList('afterMove', 'fake effect'))
+        
 if __name__ == '__main__':
     unittest.main()
