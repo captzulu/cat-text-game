@@ -5,7 +5,8 @@ import _globals
 from dataFactory import dataFactory
 from gameObjects.sections.player.player import Player
 from gameObjects.specificMon import SpecificMon
-from gameObjects.market import Market
+from gameObjects.sections.map.market import Market
+from gameObjects.sections.map.marketItem import MarketItem
 
 class marketTest(unittest.TestCase):
     
@@ -25,14 +26,14 @@ class marketTest(unittest.TestCase):
         _globals.player = Player('test')
         _globals.player.addGold(8)
         newMarket = Market()
-        newMarket.processPayment(('test', 10))
+        newMarket.processPayment(MarketItem('test', lambda : True, 10))
         self.assertEqual(_globals.player.gold, 8)
         
     def testProcessPayment_enoughGold(self):
         _globals.player = Player('test')
         _globals.player.addGold(12)
         newMarket = Market()
-        newMarket.processPayment(('test', 10))
+        newMarket.processPayment(MarketItem('test', lambda : True, 10))
         self.assertEqual(_globals.player.gold, 2)
         
     def testProcessPayment_levelUp(self):
@@ -42,7 +43,7 @@ class marketTest(unittest.TestCase):
         newMarket.generateSelection()
         _globals.player.party.addMon(SpecificMon(_globals.genericMons['5'], 1))
         levelBeforeLevelUp = _globals.player.party.activeMon.level
-        newMarket.giveItem(newMarket.selection[0])
+        newMarket.selection[0].giveItem()
         self.assertEqual(_globals.player.party.activeMon.level, levelBeforeLevelUp + 1)
     
     @mock.patch('builtins.input', return_value = '1')

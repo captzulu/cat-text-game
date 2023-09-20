@@ -8,12 +8,10 @@ Obj = TypeVar('Obj')
 class Market:
     selection: dict[int, MarketItem] = field(init=False)
 
-    def generateSelection(self) -> dict[int, MarketItem]:
-        selection : dict[int, MarketItem] = dict()
-        selection[0] = MarketItem('Level up', _globals.player.party.activeMon.levelUp, 10)
-        selection[1] = MarketItem('Back', lambda : True, 0)
-        return selection
-        
+    def generateSelection(self):
+        self.selection : dict[int, MarketItem] = dict()
+        self.selection[0] = MarketItem('Level up', _globals.player.party.activeMon.levelUp, 10)
+        self.selection[1] = MarketItem('Back', lambda : True, 0)
         
     def marketMenu(self):
         exitMenu = False
