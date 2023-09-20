@@ -4,6 +4,7 @@ from gameObjects.sections.battle.effectLib import EffectLib
 from gameObjects.specificMon import SpecificMon
 from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
+from gameObjects.sections.battle.status import Status
 from dataObjects.type import Type
 from dataObjects.move import Move
 import random
