@@ -20,8 +20,11 @@ class Market:
                 self.generateSelection()
             selection : dict[int, tuple[str, MarketItem]] = self.pickFromSelection()
             item = menuFunctions.menuObject(selection)
+            if item.name == 'Back':
+                exitMenu = True
+                continue
             if self.processPayment(item):
-                item.giveItem()
+               item.giveItem()
                 
     def pickFromSelection(self) -> dict[int, tuple[str, MarketItem]]:
         items : dict[int, tuple[str, MarketItem]] = dict()
