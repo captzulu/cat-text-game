@@ -215,8 +215,5 @@ class Battle:
         return self.log.getFormattedLine(self.turn)
     
     def triggerStatus(self):
-        if self.side1.activeMon.status not in ["normal", "fainted"]:
-            eval(f"Status.{self.side1.activeMon.status}(self.side1.activeMon)")
-        
-        if self.side2.activeMon.status not in ["normal", "fainted"]:
-            eval(f"Status.{self.side2.activeMon.status}(self.side2.activeMon)")
+        eval(f"Status.{self.side1.activeMon.status}(self.side1.activeMon)")
+        eval(f"Status.{self.side2.activeMon.status}(self.side2.activeMon)")
