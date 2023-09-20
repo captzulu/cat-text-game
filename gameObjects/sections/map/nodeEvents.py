@@ -1,7 +1,7 @@
 import _globals
 import random
 from gameObjects.specificMon import SpecificMon
-from gameObjects.market import Market
+from gameObjects.sections.map.market import Market
 from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
 from gameObjects.sections.battle.battle import Battle
