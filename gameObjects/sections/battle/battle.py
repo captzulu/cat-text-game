@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
 from gameObjects.sections.battle.battleLog import BattleLog
 from gameObjects.sections.battle.effectLib import EffectLib
-from gameObjects.sections.battle.status import Status
 from gameObjects.specificMon import SpecificMon
 from dataObjects.genericMon import GenericMon
 from gameObjects.sections.battle.side import Side
