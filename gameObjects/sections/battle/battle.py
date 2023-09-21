@@ -139,17 +139,16 @@ class Battle:
 
     def __pickMove(self, side : Side) -> Move:
         print("Pick a move to use :")
-        moves : dict[int, tuple[str, Move]] = dict()
+        moves : list[tuple[str, Move]] = list()
         activeMon : SpecificMon = side.activeMon
-        for i, move in activeMon.genericMon.moves.items():
-            moves[i] = (move.name, move)
+        for move in activeMon.genericMon.moves.values():
+            moves.append((move.name, move))
 
         if _globals.debug:
             debugMove : Move = Move("[Debug] Instant Kill", 100000, 'ste')
-            moves[len(moves)] = (debugMove.name, debugMove)
+            moves.append((debugMove.name, debugMove))
 
-        pickedMove : Move = menuFunctions.menuObject(moves)
-        return pickedMove
+        return menuFunctions.menuObject(moves)
     
     def __pickMoveAi(self, pokemonSpecies : GenericMon) -> Move:
         maxMoveIndex : int = len(pokemonSpecies.moves) - 1
