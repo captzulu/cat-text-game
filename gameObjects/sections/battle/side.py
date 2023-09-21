@@ -31,4 +31,4 @@ class Side:
             
     def healParty(self, percentageToHeal : int):
         for mon in self.mons:
-            mon.heal(int(mon.maxHealth * (percentageToHeal / 100)))
+            mon.healMaxHealthPercent(percentageToHeal)

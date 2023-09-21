@@ -71,6 +71,11 @@ class SpecificMon:
     def heal(self, amount):
         self.currentHealth = self.maxHealth if amount + self.currentHealth > self.maxHealth else self.currentHealth + amount
     
+    def healMaxHealthPercent(self, hitPointHealPercent : float) -> int:
+        hpGained = math.floor(self.maxHealth * (hitPointHealPercent / 100))
+        self.heal(hpGained)
+        return hpGained
+    
     def __str__(self):
         return (
             self.nickname + " | lvl:" + str(self.level) + " | " + self.genericMon.printTypeAcronyms() + " | HP:" + str(self.maxHealth) +
