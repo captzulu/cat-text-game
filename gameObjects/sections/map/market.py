@@ -2,35 +2,32 @@ from dataclasses import dataclass, field
 from cliObjects.menuFunctions import menuFunctions
 from gameObjects.sections.map.marketItem import MarketItem
 import _globals
-from typing import TypeVar
-Obj = TypeVar('Obj')
 @dataclass
 class Market:
-    selection: dict[int, MarketItem] = field(init=False)
+    selection: list[MarketItem] = field(init=False)
 
     def generateSelection(self):
-        self.selection : dict[int, MarketItem] = dict()
-        self.selection[0] = MarketItem('Level up', _globals.player.party.activeMon.levelUp, 10)
-        self.selection[1] = MarketItem('Back', lambda : True, 0)
+        self.selection : list[MarketItem] = list()
+        self.selection.append(MarketItem('Level up', _globals.player.party.activeMon.levelUp, 10))
+        self.selection.append(MarketItem('Full Heal', _globals.player.party.activeMon.fullHeal, 20))
+        self.selection.append(MarketItem('Heal 30%', _globals.player.party.activeMon.healMaxHealthPercent, 5, 30))
+        self.selection.append(MarketItem('Back', lambda : True, 0))
         
     def marketMenu(self):
         exitMenu = False
         while exitMenu != True:
             if not hasattr(self,'selection'):
                 self.generateSelection()
-            selection : dict[int, tuple[str, MarketItem]] = self.pickFromSelection()
-            item = menuFunctions.menuObject(selection)
+            choices : list[tuple[str, MarketItem]] = self.makeChoicesFromSelection()
+            item = menuFunctions.menuObject(choices)
             if item.name == 'Back':
                 exitMenu = True
                 continue
             if self.processPayment(item):
                item.giveItem()
                 
-    def pickFromSelection(self) -> dict[int, tuple[str, MarketItem]]:
-        items : dict[int, tuple[str, MarketItem]] = dict()
-        for i, item in self.selection.items():
-            items[i] = (item.name, item)
-        return items
+    def makeChoicesFromSelection(self) -> list[tuple[str, MarketItem]]:
+        return [(item.name, item) for item in self.selection]
     
     def processPayment(self, item : MarketItem) -> bool:
         if _globals.player.gold >= item.price:

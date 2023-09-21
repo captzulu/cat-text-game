@@ -10,13 +10,9 @@ class menuFunctions():
         while(True):
             textInputted = input('> ')
             if textInputted.isnumeric() and int(textInputted) in choices.keys():
-                textInputted: str = choices[int(textInputted)][0]
+                print()
+                return choices[int(textInputted)][1]()
 
-            for item in dict.values():
-                text: str = item[0]
-                if text == textInputted:
-                    print()
-                    return item[1]()
             print(f"'{textInputted}' is not a valid choice. Pick again :")
 
     @staticmethod
@@ -28,7 +24,7 @@ class menuFunctions():
         return choices
 
     @staticmethod
-    def printTupleChoices(choices) -> None:
+    def printTupleChoices(choices : dict) -> None:
         for i, item in choices.items():
             text: str = item[0]
             print(str(i) + '. ' + text)
@@ -45,6 +41,8 @@ class menuFunctions():
             if textInputted.isnumeric() and int(textInputted) in choices.keys():
                 textInputted = choices[int(textInputted)]
 
+            #this is necessary to be able to enter a dict with IDs as keys and get that id back 
+            # and not the ordered choice index
             if textInputted in choices.values():
                 for key, text in dictIn.items():
                     if text == textInputted:
@@ -53,19 +51,14 @@ class menuFunctions():
             print(f"'{textInputted}' is not a valid choice. Pick again :")
     
     @staticmethod
-    def menuObject(dict : dict[int, tuple[str, Obj]]) -> Obj:
-        valuesList = list(dict.values())
-        choices = menuFunctions.makeOrderedChoices(valuesList)
-        menuFunctions.printTupleChoices(choices)
+    def menuObject(choices : list[tuple[str, Obj]]) -> Obj:
+        choicesDict = menuFunctions.makeOrderedChoices(choices)
+        menuFunctions.printTupleChoices(choicesDict)
 
         while(True):
             textInputted = input('> ')
-            if textInputted.isnumeric() and int(textInputted) in choices.keys():
-                textInputted: str = choices[int(textInputted)][0]
+            if textInputted.isnumeric() and int(textInputted) in choicesDict.keys():
+                print()
+                return choicesDict[int(textInputted)][1]
 
-            for item in dict.values():
-                text: str = item[0]
-                if text == textInputted:
-                    print()
-                    return item[1]
             print(f"'{textInputted}' is not a valid choice. Pick again :")
