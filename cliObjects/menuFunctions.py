@@ -2,16 +2,15 @@ from typing import Callable, TypeVar
 Obj = TypeVar('Obj')
 class menuFunctions():
     @staticmethod
-    def menuCallable(dict : dict[int, tuple[str, Callable]]) -> bool:
-        valuesList = list(dict.values())
-        choices = menuFunctions.makeOrderedChoices(valuesList)
-        menuFunctions.printTupleChoices(choices)
+    def menuCallable(choices : list[tuple[str, Callable]]) -> bool:
+        orderedChoices = menuFunctions.makeOrderedChoices(choices)
+        menuFunctions.printTupleChoices(orderedChoices)
 
         while(True):
             textInputted = input('> ')
-            if textInputted.isnumeric() and int(textInputted) in choices.keys():
+            if textInputted.isnumeric() and int(textInputted) in orderedChoices.keys():
                 print()
-                return choices[int(textInputted)][1]()
+                return orderedChoices[int(textInputted)][1]()
 
             print(f"'{textInputted}' is not a valid choice. Pick again :")
 

@@ -19,33 +19,24 @@ class GameCli:
         sys.exit()
     
     def mainMenu(self):
-        options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Fight", self.standaloneFight),
-            1 : ("Map", self.mapMenu),
-            2 : ("Quit", self.quit)
-        })
+        options : list[tuple[str, Callable]] = [("Fight", self.standaloneFight),("Map", self.mapMenu),("Quit", self.quit)]
         if _globals.debug:
-            options[len(options)] = ("Debug", self.debugMenu)
+            options.append(("Debug", self.debugMenu))
         while self.gameState == GameStates.RUNNING:
             menuFunctions.menuCallable(options)
 
     def startMenu(self):
-        options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Start", self.createPlayer),
-            1 : ("Quit", self.quit)
-        })
+        options : list[tuple[str, Callable]] = [("Start", self.standaloneFight),("Quit", self.mapMenu)]
         menuFunctions.menuCallable(options)
 
     def debugMenu(self):
         if len(_globals.player.party.mons) == 0:
             print('Pick a mon to avoid errors')
             _globals.player.chooseMon(1)
-        options : dict[int, tuple[str, Callable]] = dict({
-            0 : ("Back", lambda : 1 == 1)
-        })
+        options : list[tuple[str, Callable]] = [("Back", lambda : 1 == 1)]
         for event in NodeEvents.RANDOM_TYPE_LIST:
-            options[len(options)] = (event.value, eval("NodeEvents." + str.lower(event.value)))
-        options[len(options)] = ('Status', _globals.player.status)
+            options.append((event.value, eval("NodeEvents." + str.lower(event.value))))
+        options.append(('Status', _globals.player.status))
         exitMenu = False
         while exitMenu != True:
             exitMenu = menuFunctions.menuCallable(options)
@@ -57,13 +48,11 @@ class GameCli:
         self.map.start()
         exitMenu = False
         while exitMenu != True:
-            options : dict[int, tuple[str, Callable]] = dict({
-                0 : ("Back", lambda : 1 == 1),
-            })
+            options : list[tuple[str, Callable]] = [("Back", lambda : 1 == 1)]
             if self.map.status is self.map.status.COMPLETED or self.map.status is self.map.status.FAILED:
-                options[len(options)] = ("Reset map", self.map.reset)
+                options.append(("Reset map", self.map.reset))
             else:
-                options[len(options)] = ("Advance", self.advanceMenu)
+                options.append(("Advance", self.advanceMenu))
             exitMenu : bool = menuFunctions.menuCallable(options)
             
     def advanceMenu(self):
@@ -97,7 +86,7 @@ class GameCli:
                     
     def addForwardLinks(self, options):
         for node in self.map.activeNode.forwardLinks:
-                options[len(options)] = str(node)
+            options[len(options)] = str(node)
 
     def createPlayer(self):
         _globals.player = Player('test')
