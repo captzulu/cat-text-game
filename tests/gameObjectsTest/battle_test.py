@@ -30,6 +30,14 @@ class battleTest(unittest.TestCase):
         side2 = Side([newSpecificMon2], '', True)
         
         return Battle(side1, side2)
+    
+    def disableDamageVariation(self):
+        self.battle.DAMAGE_VARIATION_MAX = 1
+        self.battle.DAMAGE_VARIATION_MIN = 1
+        
+    def enableDamageVariation(self):
+        self.battle.DAMAGE_VARIATION_MAX = 1.15
+        self.battle.DAMAGE_VARIATION_MIN = 0.85
         
     def testCalculateLongestMonNameLength(self):
         longestMonNameLength = self.battle.calculateLongestMonNameLength()
@@ -120,6 +128,23 @@ class battleTest(unittest.TestCase):
         self.battle.triggerStatus()
         
         self.assertTrue(monInitialHp > self.battle.side1.activeMon.currentHealth)
+        
+    def testAttack_burnHalvesDamage(self):
+        self.disableDamageVariation()
+        attacker = self.battle.side1.activeMon
+        attacker.status = "burn"
+        defender = self.battle.side2.activeMon
+        defenderHp = defender.currentHealth
+        self.battle.attack(attacker, defender, _globals.moves['3'])
+        afterAttackDeltaBurned = defenderHp - defender.currentHealth
+        
+        defender.fullHeal()
+        attacker.fullHeal()
+        self.battle.attack(attacker, defender, _globals.moves['3'])
+        afterAttackDelta = defenderHp - defender.currentHealth
+        
+        self.enableDamageVariation()
+        self.assertTrue((afterAttackDelta / 2) == afterAttackDeltaBurned)
         
     
 if __name__ == '__main__':

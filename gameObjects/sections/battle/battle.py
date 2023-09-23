@@ -184,7 +184,8 @@ class Battle:
         attackType : Type = move.type
         damageEffectiveness : float = defender.weakTo(attackType)
         defense : int = 80
-        damage = int(self.__damageVariation((attacker.attack / defense) * move.power * damageEffectiveness))
+        attack : float = attacker.attack if attacker.status != 'burn' else attacker.attack / 2
+        damage = int(self.__damageVariation((attack / defense) * move.power * damageEffectiveness))
         defender.loseHealth(damage)
         
         if damageEffectiveness == 0:
@@ -206,6 +207,7 @@ class Battle:
     
     def __damageVariation(self, damage : float):
         return damage * random.uniform(self.DAMAGE_VARIATION_MIN, self.DAMAGE_VARIATION_MAX)
+    
         
     def writeImplicit(self, text : str):
         self.log.addImplicitLine(self.turn, text)
