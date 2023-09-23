@@ -39,9 +39,9 @@ class marketTest(unittest.TestCase):
     def testProcessPayment_levelUp(self):
         _globals.player = Player('test')
         _globals.player.addGold(12)
+        _globals.player.party.addMon(SpecificMon(_globals.genericMons['5'], 1))
         newMarket = Market()
         newMarket.generateSelection()
-        _globals.player.party.addMon(SpecificMon(_globals.genericMons['5'], 1))
         levelBeforeLevelUp = _globals.player.party.activeMon.level
         newMarket.selection[0].giveItem()
         self.assertEqual(_globals.player.party.activeMon.level, levelBeforeLevelUp + 1)
