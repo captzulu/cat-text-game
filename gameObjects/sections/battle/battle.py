@@ -108,6 +108,7 @@ class Battle:
         if self.__hasCompleted() == False:
             print("")
             self.__sideTurn(secondSide, firstSide, secondSideMove)
+            print("")
             self.triggerStatus()
         
     def getFastestSide(self) -> Side:
