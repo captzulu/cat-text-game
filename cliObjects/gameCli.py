@@ -26,7 +26,7 @@ class GameCli:
             menuFunctions.menuCallable(options)
 
     def startMenu(self):
-        options : list[tuple[str, Callable]] = [("Start", self.standaloneFight),("Quit", self.mapMenu)]
+        options : list[tuple[str, Callable]] = [("Start", self.createPlayer),("Quit", self.quit)]
         menuFunctions.menuCallable(options)
 
     def debugMenu(self):
