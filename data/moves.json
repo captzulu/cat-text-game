@@ -46,7 +46,9 @@
     "8": {
         "name": "Blazing Stare",
         "typeText": "fir",
-        "power": 80
+        "power": 80,
+        "effect": "burn",
+        "effectPower": 20
     },
     "9": {
         "name": "Spit",
