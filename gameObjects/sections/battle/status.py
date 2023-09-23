@@ -5,6 +5,11 @@ class Status():
     def poison(mon : SpecificMon):
         hpLost = mon.loseMaxHealthPercent(100/12)
         print(f"{mon.nickname} suffers from poison ({hpLost if hpLost > 0 else 1} hp)")
+        
+    @staticmethod
+    def burn(mon : SpecificMon):
+        hpLost = mon.loseMaxHealthPercent(100/20)
+        print(f"{mon.nickname} suffers from burn ({hpLost if hpLost > 0 else 1} hp)")
     
     @staticmethod
     def normal(mon : SpecificMon):
