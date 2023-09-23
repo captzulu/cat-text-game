@@ -33,8 +33,9 @@ class SpecificMon:
         if self.currentHealth <= 0 :
             self.faint()
             
-    def loseMaxHealthPercent(self, hitPointLossPercent : float) -> int:
+    def loseMaxHealthPercent(self, hitPointLossPercent : float, minDmg : bool = True) -> int:
         hpLost = math.floor(self.maxHealth * (hitPointLossPercent / 100))
+        hpLost = 1 if hpLost == 0 and minDmg == True else hpLost
         self.loseHealth(hpLost)
         return hpLost
 
@@ -76,6 +77,15 @@ class SpecificMon:
         self.heal(hpGained)
         return hpGained
     
+    def getStatusAcronym(self) -> str: 
+        if self.status == 'poison':
+            return 'psn'
+        
+        if self.status == 'burn':
+            return 'brn'
+        
+        return ''
+
     def __str__(self):
         return (
             self.nickname + " | lvl:" + str(self.level) + " | " + self.genericMon.printTypeAcronyms() + " | HP:" + str(self.maxHealth) +

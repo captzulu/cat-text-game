@@ -59,8 +59,8 @@ class Battle:
         padding = self.__calculatePadding(len(mon1str + mon2str))
         print(mon1str + padding + mon2str)
         
-        mon1HpBar = self.getHpBar(mon1.currentHealth, mon1.maxHealth, length = 25)
-        mon2HpBar = self.getHpBar(mon2.currentHealth, mon2.maxHealth, length = 25)
+        mon1HpBar = self.getHpBar(mon1.currentHealth, mon1.maxHealth, length = 25) + ' ' + mon1.getStatusAcronym()
+        mon2HpBar = self.getHpBar(mon2.currentHealth, mon2.maxHealth, length = 25) + ' ' + mon2.getStatusAcronym()
         padding = self.__calculatePadding(len(mon1HpBar + mon2HpBar))
         print(mon1HpBar + padding + mon2HpBar)
     
