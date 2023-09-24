@@ -21,6 +21,7 @@ class NodeEvents():
         battle.executeBattle()
         if battle.winner == _globals.player.party:
             _globals.player.addGold(10)
+        _globals.player.party.activeMon.changeStatus('normal')
         return
 
     @staticmethod
