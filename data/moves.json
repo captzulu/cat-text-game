@@ -19,7 +19,9 @@
     "3": {
         "name": "Zen Headbutt",
         "typeText": "psy",
-        "power": 80
+        "power": 80,
+        "effect": "flinch",
+        "effectPower": 20
     },
     "4": {
         "name": "Poison Fang",

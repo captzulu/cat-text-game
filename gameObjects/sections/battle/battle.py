@@ -159,7 +159,10 @@ class Battle:
 
     def __sideTurn(self, side : Side, oppositeSide : Side, pickedMove: Move):
         oppositeMon = oppositeSide.activeMon
-        self.attack(side.activeMon, oppositeMon, pickedMove)
+        if side.activeMon.flinchCounter > 0:
+            self.write(side.activeMon.flinch())
+        else:
+            self.attack(side.activeMon, oppositeMon, pickedMove)
         if oppositeSide.isDefeated():
             self.__completeBattle(f'{oppositeMon.nickname} has fainted !', side)
         else:

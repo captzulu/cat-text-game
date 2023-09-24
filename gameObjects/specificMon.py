@@ -12,6 +12,7 @@ class SpecificMon:
     level: int
     nickname: str = ''
     status: str = 'normal'
+    flinchCounter : int = 0
 
     def __post_init__(self):
         if self.nickname == '':
@@ -85,6 +86,11 @@ class SpecificMon:
             return 'brn'
         
         return ''
+    
+    def flinch(self) -> str:
+        self.flinchCounter -= 1
+        return f"{self} has flinched !" + (f"It will continue flinching for {self.flinchCounter} turns"
+                if self.flinchCounter > 0 else '')
 
     def __str__(self):
         return (
