@@ -48,6 +48,21 @@ class menuFunctions():
                         print()
                         return key
             print(f"'{textInputted}' is not a valid choice. Pick again :")
+
+    @staticmethod
+    def menuStr(choices : list[str]) -> str:
+        valuesList: list[str] = list(choices)
+        orderedChoices: dict[int, str] = menuFunctions.makeOrderedChoices(valuesList)
+        for i, text in orderedChoices.items():
+            print(str(i) + '. ' + str(text))
+
+        while(True):
+            textInputted: str = input('> ')
+            if textInputted.isnumeric() and int(textInputted) in orderedChoices.keys():
+                print()
+                return orderedChoices[int(textInputted)]
+
+            print(f"'{textInputted}' is not a valid choice. Pick again :")
     
     @staticmethod
     def menuObject(choices : list[tuple[str, Obj]]) -> Obj:
