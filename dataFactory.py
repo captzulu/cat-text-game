@@ -7,6 +7,21 @@ class dataFactory(object):
     def dictFromJson(name : str, className: object) -> dict[str, object]:
         json_file = open(constants.DATA_PATH + '/' + name + "s" + '.json', encoding='utf-8')
         return json.load(json_file, object_hook=lambda d: dataFactory.decoder(d, className))
+
+
+    @staticmethod
+    def objectFromJson(filePath : str) -> dict:
+        json_file = open(filePath, encoding='utf-8')
+        return json.load(json_file)
+    
+    @staticmethod
+    def getFilesInDirectory(path: str) -> list[str]:
+        from os import listdir
+        from os.path import isfile, join, isdir
+        if not isdir(path):
+            return []
+        return [f for f in listdir(path) if isfile(join(path, f))]
+    
     
     @staticmethod
     def decoder(object : dict, className):

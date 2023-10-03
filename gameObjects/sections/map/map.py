@@ -1,5 +1,7 @@
 from gameObjects.sections.map.node import Node
 from dataObjects.enums.mapStates import MapStates
+from dataFactory import dataFactory
+from typing import Self
 import itertools
 
 class Map():
@@ -52,6 +54,16 @@ class Map():
     
     def fail(self):
         self.status = MapStates.FAILED
+
+    @classmethod
+    def fromJson(cls, filePath : str) -> Self:
+        mapJson : dict = dataFactory.objectFromJson(filePath)
+        map : Map = cls(mapJson['title'])
+        for i, nodeColumn in mapJson['nodes'].items():
+            map.nodes[int(i)] = []
+            for node in nodeColumn.values():
+                map.nodes[int(i)].append(Node.fromDict(node))
+        return map
             
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"

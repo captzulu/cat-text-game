@@ -1,5 +1,6 @@
 import _globals
 import random
+from dataFactory import dataFactory
 from cliObjects.menuFunctions import menuFunctions
 from dataObjects.enums.gameStates import GameStates
 from gameObjects.sections.player.player import Player
@@ -19,7 +20,7 @@ class GameCli:
         sys.exit()
     
     def mainMenu(self):
-        options : list[tuple[str, Callable]] = [("Fight", self.standaloneFight),("Map", self.mapMenu),("Quit", self.quit)]
+        options : list[tuple[str, Callable]] = [("Fight", self.standaloneFight),("Random Map", self.mapMenu), ("Premade Map", self.pickPremadeMap), ("Quit", self.quit)]
         if _globals.debug:
             options.append(("Debug", self.debugMenu))
         while self.gameState == GameStates.RUNNING:
@@ -40,6 +41,13 @@ class GameCli:
         exitMenu = False
         while exitMenu != True:
             exitMenu = menuFunctions.menuCallable(options)
+            
+    def pickPremadeMap(self):
+        mapDir : str = 'data/maps'
+        maps : list[str] = dataFactory.getFilesInDirectory(mapDir)
+        map = menuFunctions.menuStr(maps)
+        self.map : Map = Map.fromJsonFile(mapDir + '/' + map)
+        self.mapMenu()
     
     def mapMenu(self):
         if _globals.debug:

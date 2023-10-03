@@ -1,7 +1,7 @@
 import _globals
 from gameObjects.sections.map.nodeEvents import NodeEvents
 from dataObjects.enums.nodeType import NodeType
-from typing import Optional
+from typing import Optional, Self
 
 class Node():
     def __init__(self, id : int, type : NodeType, columnIndex : int, backLinks : Optional[list]=None, forwardLinks : Optional[list]=None):
@@ -19,6 +19,10 @@ class Node():
             self.forwardLinks : list[Node] = list()
         else:
             self.forwardLinks : list[Node] = forwardLinks
+            
+    @classmethod
+    def fromDict(cls, nodeDict : dict) -> Self:
+        return cls(nodeDict['id'], eval("NodeType." + nodeDict['type']), nodeDict['columnIndex'])
     
     def __str__(self) -> str:
         forwardLinks : list[str] = list()
