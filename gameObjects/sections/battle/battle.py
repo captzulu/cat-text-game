@@ -178,13 +178,13 @@ class Battle:
     def __hasCompleted(self):
         return self.completed
             
-    def __completeBattle(self, message:str, winner:Side):
+    def __completeBattle(self, message : str, winner : Side):
         self.write(message)
         self.completed = True
         self.winner = winner
         return
     
-    def attack(self, attacker:SpecificMon, defender:SpecificMon, move:Move):
+    def attack(self, attacker : SpecificMon, defender : SpecificMon, move : Move):
         attackType : Type = move.type
         damageEffectiveness : float = defender.weakTo(attackType)
         defense : int = 80
