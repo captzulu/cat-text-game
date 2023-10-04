@@ -36,7 +36,7 @@ class GameCli:
             _globals.player.chooseMon(1)
         options : list[tuple[str, Callable]] = [("Back", lambda : 1 == 1)]
         for event in NodeEvents.RANDOM_TYPE_LIST:
-            options.append((event.value, eval("NodeEvents." + str.lower(event.value))))
+            options.append((event.value, getattr(NodeEvents, str.lower(event.value))))
         options.append(('Status', _globals.player.status))
         exitMenu = False
         while exitMenu != True:
@@ -46,7 +46,7 @@ class GameCli:
         mapDir : str = 'data/maps'
         maps : list[str] = dataFactory.getFilesInDirectory(mapDir)
         map = menuFunctions.menuStr(maps)
-        self.map : Map = Map.fromJsonFile(mapDir + '/' + map)
+        self.map : Map = Map.fromJson(mapDir + '/' + map)
         self.mapMenu()
     
     def mapMenu(self):

@@ -11,6 +11,7 @@ import random
 from cliObjects.menuFunctions import menuFunctions
 import time
 import _globals
+from typing import Callable
 
 @dataclass
 class Battle:
@@ -196,7 +197,7 @@ class Battle:
             self.write(f"{defender.nickname} is immune to {attackType} !")
         else :
             if EffectLib.checkTriggerList('afterMove', move.effect):
-               eval("EffectLib." + str.lower(move.effect) + "(defender, move.effectPower)")
+                getattr(EffectLib, str.lower(move.effect))(defender, move.effectPower)
             effectivenessMessage : str = self.__getEffectivenessMessage(damageEffectiveness)
             self.write(f"{attacker.nickname} used {move} to deal {damage} to {defender.nickname}. {effectivenessMessage}")
         return
@@ -220,5 +221,6 @@ class Battle:
         return self.log.getFormattedLine(self.turn)
     
     def triggerStatus(self):
-        eval(f"Status.{self.side1.activeMon.status}(self.side1.activeMon)")
-        eval(f"Status.{self.side2.activeMon.status}(self.side2.activeMon)")
+        statusFunction : Callable = getattr(Status, self.side1.activeMon.status)
+        statusFunction(self.side1.activeMon)
+        statusFunction(self.side2.activeMon)

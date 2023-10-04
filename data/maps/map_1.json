@@ -2,12 +2,32 @@
     "title": "Map 1",
     "nodes": {
         "0": {
-            "0": {"id": 0, "type": "START", "columnIndex": 0}
-            },
-        "1": {
-            "0": {"id": 1, "type": "FIGHT", "columnIndex": 1}
-            }
+            "0": {"type": "START", "columnIndex": 0}
         },
-    "activeNode": "0",
-    "status": "READY"
+        "1": {
+            "0": {"type": "FIGHT", "columnIndex": 1}
+        },
+        "2": {
+            "0": {"type": "FIGHT", "columnIndex": 2}
+        },
+        "3": {
+            "0": {"type": "FIGHT", "columnIndex": 2},
+            "1": {"type": "FIGHT", "columnIndex": 2}
+        }
+    },
+    "nodes2": [
+        [
+            {"type": "START"}
+        ],
+        [
+            {"type": "FIGHT"}
+        ],
+        [
+            {"type": "FIGHT"}
+        ],
+        [
+            {"type": "FIGHT"},
+            {"type": "FIGHT"}
+        ]
+    ]
 }
