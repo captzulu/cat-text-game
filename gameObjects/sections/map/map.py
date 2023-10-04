@@ -61,7 +61,7 @@ class Map():
         mapJson : dict = dataFactory.objectFromJson(filePath)
         map : Map = cls(mapJson['title'])
         columnIndex : int = 0
-        for nodeColumn in mapJson['nodes2']:
+        for nodeColumn in mapJson['nodes']:
             map.nodes[columnIndex] = []
             for node in nodeColumn:
                 map.nodes[columnIndex].append(Node(next(map.nodeIdGenerator), NodeType[node['type']], columnIndex))
