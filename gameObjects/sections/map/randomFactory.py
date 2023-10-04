@@ -1,9 +1,7 @@
 import random
 from gameObjects.sections.map.node import Node
-from gameObjects.sections.map.nodeEvents import NodeEvents
 from gameObjects.sections.map.map import Map
 from dataObjects.enums.nodeType import NodeType
-from typing import Optional
 
 class RandomFactory():
     def __init__(self):
@@ -11,7 +9,9 @@ class RandomFactory():
     
     @staticmethod
     def randomType() -> NodeType:
-        results : list[NodeType] = random.choices(NodeEvents.RANDOM_TYPE_LIST, weights=[1, 1, 8, 1, 5])
+        nodeTypeList = list(NodeType)
+        nodeTypeList.remove(NodeType.START)
+        results : list[NodeType] = random.choices(nodeTypeList, weights=[1, 1, 8, 1, 5])
         return results[0]
     
     @staticmethod

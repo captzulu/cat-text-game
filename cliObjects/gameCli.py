@@ -6,7 +6,7 @@ from dataObjects.enums.gameStates import GameStates
 from gameObjects.sections.player.player import Player
 from gameObjects.sections.map.randomFactory import RandomFactory
 from gameObjects.sections.map.map import Map
-from gameObjects.sections.map.nodeEvents import NodeEvents
+from dataObjects.enums.nodeType import NodeType
 from typing import Callable
 import sys
 class GameCli:
@@ -35,8 +35,8 @@ class GameCli:
             print('Pick a mon to avoid errors')
             _globals.player.chooseMon(1)
         options : list[tuple[str, Callable]] = [("Back", lambda : 1 == 1)]
-        for event in NodeEvents.RANDOM_TYPE_LIST:
-            options.append((event.value, getattr(NodeEvents, str.lower(event.value))))
+        for event in NodeType:
+            options.append((event.value, getattr(NodeType, str.lower(event.value))))
         options.append(('Status', _globals.player.status))
         exitMenu = False
         while exitMenu != True:
@@ -101,5 +101,5 @@ class GameCli:
         self.mainMenu()
         
     def standaloneFight(self):
-        NodeEvents.fight()
+        NodeType.FIGHT.execute()
         _globals.player.party.activeMon.fullHeal()

@@ -1,5 +1,4 @@
 import _globals
-from gameObjects.sections.map.nodeEvents import NodeEvents
 from dataObjects.enums.nodeType import NodeType
 from typing import Optional
 
@@ -28,5 +27,5 @@ class Node():
         return (f"{self.id}:" if _globals.debug else "" ) + f"{self.name} {{" + ", ".join(forwardLinks) + "}"
     
     def executeNode(self):
-        getattr(NodeEvents, str.lower(self.nodeType.value))()
+        self.nodeType.execute()
         return
