@@ -64,7 +64,7 @@ class RandomFactory():
         amount : int = random.choices([1, 2], weights=[5, 3])[0]
         while amount > 0 and len(nextColumnTmp) > 0:
             pickedNode = random.choice(nextColumnTmp)
-            node.forwardLinks.append(pickedNode)
+            node.forelinks.append(pickedNode)
             nextColumnTmp.remove(pickedNode)
             amount -= 1
         return

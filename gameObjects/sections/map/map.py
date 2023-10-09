@@ -44,11 +44,11 @@ class Map():
         else:
             print("Given node is not linked to the previous node")
 
-        if len(self.activeNode.forwardLinks) == 0:
+        if len(self.activeNode.forelinks) == 0:
             self.complete()
     
     def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
-            if secondNode in firstNode.forwardLinks:
+            if secondNode in firstNode.forelinks:
                 return True
             else:
                 return False
@@ -64,9 +64,19 @@ class Map():
         for nodeColumn in mapJson['nodes']:
             map.nodes[columnIndex] = []
             for node in nodeColumn:
-                map.nodes[columnIndex].append(Node(next(map.nodeIdGenerator), NodeType[node['type']], columnIndex))
+                newNode = Node(next(map.nodeIdGenerator), NodeType[node['type']], columnIndex, forelinks=node['type'])
+                map.nodes[columnIndex].append(newNode)
+            map.linkLastColumn(columnIndex - 1)
             columnIndex += 1
         return map
+    
+    def linkLastColumn(self, columnIndex : int):
+        lastColumn : list[Node] = self.nodes[columnIndex]
+        for node in lastColumn:
+            for link in foreLinks:
+                link : int = link - 1
+                nodeLinkedTo : Node = lastColumn[link if link in lastColumn else 0]
+        return
             
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"

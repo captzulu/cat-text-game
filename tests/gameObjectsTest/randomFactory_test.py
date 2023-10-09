@@ -21,14 +21,14 @@ class randomFactoryTest(unittest.TestCase):
         newMap = Map()
         self.randomFactory.autoGenerateNode(newMap, 0)
         self.randomFactory.generateForwardLinks(newMap.nodes[0][0], [])
-        self.assertEquals(newMap.nodes[0][0].forwardLinks, [])
+        self.assertEquals(newMap.nodes[0][0].forelinks, [])
 
     def testGenerateForwardLinks_PopulatedPrevious(self):
         newMap = Map()
         self.randomFactory.autoGenerateNode(newMap, 0)
         self.randomFactory.autoGenerateNode(newMap, 1)
         self.randomFactory.generateForwardLinks(newMap.nodes[0][0], newMap.nodes[1])
-        self.assertEquals(newMap.nodes[0][0].forwardLinks, [newMap.nodes[1][0]])
+        self.assertEquals(newMap.nodes[0][0].forelinks, [newMap.nodes[1][0]])
         
     def testAutoGenerateNode(self):
         columnIndex = 0
@@ -43,7 +43,7 @@ class randomFactoryTest(unittest.TestCase):
         self.randomFactory.linkAllNodes(newMap)
         
         expectedForwardLinks = [newMap.nodes[1][0]]
-        actualForwardLinks = newMap.nodes[0][0].forwardLinks
+        actualForwardLinks = newMap.nodes[0][0].forelinks
         self.assertEqual(actualForwardLinks, expectedForwardLinks)
 
     def testAutoGenerateNode_twoColumns_incrementingId(self):

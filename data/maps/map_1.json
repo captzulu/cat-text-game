@@ -11,7 +11,13 @@
             {"type": "FIGHT"}
         ],
         [
-            {"type": "FIGHT"},
+            {"type": "FIGHT", "forelinks": [1,2]},
+            {"type": "MARKET", "forelinks": [3]},
+            {"type": "CITY", "forelinks": [3]}
+        ],
+        [
+            {"type": "REST"},
+            {"type": "MARKET"},
             {"type": "FIGHT"}
         ]
     ]
