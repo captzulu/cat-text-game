@@ -1,0 +1,18 @@
+{
+    "title": "Map 1",
+    "nodes": [
+        [
+            {"type": "START"}
+        ],
+        [
+            {"type": "FIGHT", "forelinks": [1,2]},
+            {"type": "MARKET", "forelinks": [3]},
+            {"type": "CITY", "forelinks": [8]}
+        ],
+        [
+            {"type": "REST"},
+            {"type": "MARKET"},
+            {"type": "FIGHT"}
+        ]
+    ]
+}

@@ -73,6 +73,20 @@ class mapTest(unittest.TestCase):
         newMap.advance(newMap.activeNode)
         newNode = newMap.activeNode
         self.assertEqual(oldNode, newNode)
+    
+    def testFromJson_mapWithoutLinks_validMapAndCorrectTitle(self):
+        newMap = Map.fromJson('data/maps/map_withoutLinks.json')
+        self.assertIsInstance(newMap, Map)
+        
+        self.assertEqual(newMap.title, 'map_withoutLinks')
+        
+    def testFromJson_mapWithLinks_validLinks(self):
+        newMap = Map.fromJson('data/maps/map_withLinks.json')
+        self.assertEqual(newMap.nodes[0][0].forelinks[0], newMap.nodes[1][0])
+        self.assertEqual(newMap.nodes[1][0].forelinks[0], newMap.nodes[2][0])
+        self.assertEqual(newMap.nodes[1][0].forelinks[1], newMap.nodes[2][1])
+        #invalid links are set to 0 instead
+        self.assertEqual(newMap.nodes[1][0].forelinks[2], newMap.nodes[2][0])
 
 if __name__ == '__main__':
     unittest.main()

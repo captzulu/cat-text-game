@@ -1,0 +1,24 @@
+{
+    "title": "map_withoutLinks",
+    "nodes": [
+        [
+            {"type": "START"}
+        ],
+        [
+            {"type": "FIGHT"}
+        ],
+        [
+            {"type": "FIGHT"}
+        ],
+        [
+            {"type": "FIGHT"},
+            {"type": "MARKET"},
+            {"type": "CITY"}
+        ],
+        [
+            {"type": "REST"},
+            {"type": "MARKET"},
+            {"type": "FIGHT"}
+        ]
+    ]
+}
