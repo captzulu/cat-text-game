@@ -64,19 +64,25 @@ class Map():
         for nodeColumn in mapJson['nodes']:
             map.nodes[columnIndex] = []
             for node in nodeColumn:
-                newNode = Node(next(map.nodeIdGenerator), NodeType[node['type']], columnIndex, forelinks=node['type'])
+                newNode = Node(next(map.nodeIdGenerator), NodeType[node['type']], columnIndex)
                 map.nodes[columnIndex].append(newNode)
-            map.linkLastColumn(columnIndex - 1)
+            if columnIndex - 1 >= 0 :
+                map.linkLastColumn(columnIndex, mapJson['nodes'][columnIndex - 1])
             columnIndex += 1
         return map
     
-    def linkLastColumn(self, columnIndex : int):
-        lastColumn : list[Node] = self.nodes[columnIndex]
-        for node in lastColumn:
-            for link in foreLinks:
-                link : int = link - 1
-                nodeLinkedTo : Node = lastColumn[link if link in lastColumn else 0]
-        return
+    def linkLastColumn(self, columnIndex : int, lastColumnJson : list):
+        currentColumn : list[Node] = self.nodes[columnIndex]
+        lastColumn : list[Node] = self.nodes[columnIndex - 1]
+        for i, nodeJson in enumerate(lastColumnJson):
+            if 'forelinks' not in nodeJson:
+                nodeJson['forelinks'] = [0]
+
+            for link in nodeJson['forelinks']:
+                link -= 1
+                link : int = link if link <= len(currentColumn) - 1 and link >= 0 else 0
+                nodeLinkedTo : Node = currentColumn[link]
+                lastColumn[i].forelinks.append(nodeLinkedTo)
             
     def __str__(self) -> str:
         toPrint : str = "Title : " + self.title + "\n"
