@@ -64,7 +64,8 @@ class Map():
         for nodeColumn in mapJson['nodes']:
             map.nodes[columnIndex] = []
             for node in nodeColumn:
-                newNode = Node(next(map.nodeIdGenerator), NodeType[node['type']], columnIndex)
+                nodeType : NodeType = NodeType[node['type']] if node['type'] in NodeType else Node.chooseRandomNodeType(node['type'])
+                newNode = Node(next(map.nodeIdGenerator), nodeType, columnIndex)
                 map.nodes[columnIndex].append(newNode)
             if columnIndex - 1 >= 0 :
                 map.linkLastColumn(columnIndex, mapJson['nodes'][columnIndex - 1])
