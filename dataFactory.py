@@ -6,13 +6,17 @@ class dataFactory(object):
     @staticmethod
     def dictFromJson(name : str, className: object) -> dict[str, object]:
         json_file = open(constants.DATA_PATH + '/' + name + "s" + '.json', encoding='utf-8')
-        return json.load(json_file, object_hook=lambda d: dataFactory.decoder(d, className))
+        dict = json.load(json_file, object_hook=lambda d: dataFactory.decoder(d, className))
+        json_file.close()
+        return dict
 
 
     @staticmethod
     def objectFromJson(filePath : str) -> dict:
         json_file = open(filePath, encoding='utf-8')
-        return json.load(json_file)
+        dict = json.load(json_file)
+        json_file.close()
+        return dict
     
     @staticmethod
     def getFilesInDirectory(path: str) -> list[str]:
