@@ -20,7 +20,7 @@ class Node():
         if ":" in randomizedNodeType:
             return Node.parseWithOdds(randomizedNodeType)
         else:
-            return Node.parseWithOdds(randomizedNodeType)        
+            return Node.parseWithoutOdds(randomizedNodeType)        
     
     @staticmethod
     def parseWithOdds(nodeTypeWithOdds : str) -> NodeType:
