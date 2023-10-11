@@ -24,15 +24,17 @@ class Node():
     
     @staticmethod
     def parseWithOdds(nodeTypeWithOdds : str) -> NodeType:
-        choices : dict[int, NodeType] = {}
+        choices : dict[str, int] = {}
         for nodeType in nodeTypeWithOdds.split(','):
             if ':' in nodeType:
                 nodeType = nodeType.split(':')
-                choices[int(nodeType[1])] = NodeType[nodeType[0]]
+                if nodeType[0] not in NodeType.__members__:
+                    continue
+                choices[nodeType[0]] = int(nodeType[1])
             else:
                 continue
-        results : list[NodeType] = random.choices(list(choices.values()), weights=list(choices.keys()))
-        return results[0]
+        results : list[str] = random.choices(list(choices.keys()), weights=list(choices.values()))
+        return NodeType[results[0]]
 
     @staticmethod
     def parseWithoutOdds(nodeTypeWithOdds : str) -> NodeType:
