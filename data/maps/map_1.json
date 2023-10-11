@@ -2,10 +2,10 @@
     "title": "Map 1",
     "nodes": [
         [
-            {"type": "START"}
+            {"type": "START", "forelinks": [1,2,3]}
         ],
         [
-            {"type": "FIGHT"}
+            {"type": "FIGHT"}, {"type": "FIGHT"}, {"type": "FIGHT"}
         ],
         [
             {"type": "FIGHT"}
