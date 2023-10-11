@@ -1,0 +1,18 @@
+{
+    "title": "Map 1",
+    "nodes": [
+        [
+            {"type": "START"}
+        ],
+        [
+            {"type": "FIGHT:60,REST:40,MARKET:10"},
+            {"type": "MARKET,REST,FIGHT"},
+            {"type": "FIGHT:60,REST,MARKET:10"}
+        ],
+        [
+            {"type": "REST"},
+            {"type": "MARKET"},
+            {"type": "FIGHT"}
+        ]
+    ]
+}

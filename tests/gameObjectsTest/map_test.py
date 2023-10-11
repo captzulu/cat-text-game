@@ -87,6 +87,10 @@ class mapTest(unittest.TestCase):
         self.assertEqual(newMap.nodes[1][0].forelinks[1], newMap.nodes[2][1])
         #invalid links are set to 0 instead
         self.assertEqual(newMap.nodes[1][2].forelinks[0], newMap.nodes[2][0])
+    
+    def testChooseRandomNodeType_mapWithRandomNodeTypes_validMap(self):
+        newMap = Map.fromJson('data/maps/map_withRandomNodeTypes.json')
+        self.assertIsInstance(newMap, Map)
 
 if __name__ == '__main__':
     unittest.main()
