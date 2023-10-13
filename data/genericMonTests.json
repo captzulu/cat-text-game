@@ -1,4 +1,12 @@
 {
+    "0": {
+        "name": "1",
+        "typeText": "1",
+        "speed": 10,
+        "attack": 10,
+        "health": 1000,
+        "movesText": "1"
+    },
     "1": {
         "name": "1",
         "typeText": "1",
@@ -34,6 +42,14 @@
     "5": {
         "name": "55555",
         "typeText": "4",
+        "speed": 0,
+        "attack": 0,
+        "health": 1,
+        "movesText": "4"
+    },
+    "6": {
+        "name": "6",
+        "typeText": "a4",
         "speed": 0,
         "attack": 0,
         "health": 1,
