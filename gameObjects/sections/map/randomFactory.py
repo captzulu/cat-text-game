@@ -1,7 +1,7 @@
 import random
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.map.map import Map
-from dataObjects.enums.nodeType import NodeType
+from gameObjects.sections.map.nodeType import NodeType
 
 class RandomFactory():
     def __init__(self):

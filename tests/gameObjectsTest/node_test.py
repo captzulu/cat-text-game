@@ -1,6 +1,6 @@
 import unittest
 from gameObjects.sections.map.node import Node
-from dataObjects.enums.nodeType import NodeType
+from gameObjects.sections.map.nodeType import NodeType
 
 class nodeTest(unittest.TestCase):
 

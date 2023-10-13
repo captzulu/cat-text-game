@@ -1,6 +1,6 @@
 from gameObjects.sections.map.node import Node
 from dataObjects.enums.mapStates import MapStates
-from dataObjects.enums.nodeType import NodeType
+from gameObjects.sections.map.nodeType import NodeType
 from dataFactory import dataFactory
 from typing import Self, Callable
 import itertools

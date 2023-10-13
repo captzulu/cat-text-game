@@ -1,5 +1,5 @@
 import _globals
-from dataObjects.enums.nodeType import NodeType
+from gameObjects.sections.map.nodeType import NodeType
 import random
 from typing import Optional
 

@@ -2,7 +2,7 @@ import unittest
 from unittest import mock
 import _globals
 from dataFactory import dataFactory
-from dataObjects.enums.nodeType import NodeType
+from gameObjects.sections.map.nodeType import NodeType
 from gameObjects.sections.map.map import Map
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.player.player import Player

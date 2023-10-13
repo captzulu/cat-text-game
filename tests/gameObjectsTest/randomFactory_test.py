@@ -3,7 +3,7 @@ import unittest
 from gameObjects.sections.map.node import Node
 from gameObjects.sections.map.map import Map
 from gameObjects.sections.map.randomFactory import RandomFactory
-from dataObjects.enums.nodeType import NodeType
+from gameObjects.sections.map.nodeType import NodeType
 class randomFactoryTest(unittest.TestCase):
     
     randomFactory : RandomFactory

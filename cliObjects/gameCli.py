@@ -5,7 +5,7 @@ from dataObjects.enums.gameStates import GameStates
 from gameObjects.sections.player.player import Player
 from gameObjects.sections.map.randomFactory import RandomFactory
 from gameObjects.sections.map.map import Map
-from dataObjects.enums.nodeType import NodeType
+from gameObjects.sections.map.nodeType import NodeType
 from typing import Callable
 import sys
 class GameCli:
