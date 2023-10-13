@@ -9,5 +9,5 @@ types: dict[str, Type] = {}
 moves: dict[str, Move] = {}
 genericMons: dict[str | int, GenericMon] = {}
 player: Player
-debug : bool = True
+debug : bool = False
 testMode : bool = False
