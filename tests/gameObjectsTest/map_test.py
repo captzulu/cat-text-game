@@ -13,8 +13,7 @@ class mapTest(unittest.TestCase):
     def setUp(self):
         self.initTestGlobals()
     
-    @mock.patch('builtins.input', return_value = '1')
-    def initTestGlobals(self, mocked_instance):
+    def initTestGlobals(self):
         _globals.types = dataFactory.loadClassDictTest('type')
         _globals.moves = dataFactory.loadClassDictTest('move')
         _globals.genericMons = dataFactory.loadClassDictTest('genericMon')
@@ -32,11 +31,9 @@ class mapTest(unittest.TestCase):
         newMap = Map()
         self.assertEqual(newMap.title, "untitled")
     
-    def testAdvance_validNode_getDifferentNode(self):
-        newMap = Map()
-        RandomFactory.autoGenerateNode(newMap, 0)
-        RandomFactory.autoGenerateNode(newMap, 1)
-        RandomFactory.linkAllNodes(newMap)
+    @mock.patch('builtins.input', return_value = '1')
+    def testAdvance_validNode_getDifferentNode(self, mocked_instance):
+        newMap = Map.fromJson('data/maps/map_withLinks.json')
         oldNode = newMap.nodes[0][0]
         newMap.activeNode = oldNode
         newMap.advance(newMap.nodes[1][0])

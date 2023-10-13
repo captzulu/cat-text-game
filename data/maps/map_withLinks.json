@@ -5,7 +5,7 @@
             {"type": "START"}
         ],
         [
-            {"type": "FIGHT", "forelinks": [1,2]},
+            {"type": "CITY", "forelinks": [1,2]},
             {"type": "MARKET", "forelinks": [3]},
             {"type": "CITY", "forelinks": [8]}
         ],
