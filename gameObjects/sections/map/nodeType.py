@@ -14,19 +14,19 @@ class NodeType(Enum):
     REST = 'Rest'
     START = 'Start'
     
-    def execute(self) -> None:
+    def execute(self):
         if self == NodeType.CITY:
-            self.city()
+            return self.city()
         elif self == NodeType.MARKET:
-            self.market()
+            return self.market()
         elif self == NodeType.FIGHT:
-            self.fight()
+            return self.fight()
         elif self == NodeType.CHICKENS:
-            self.chickens()
+            return self.chickens()
         elif self == NodeType.REST:
-            self.rest()
+            return self.rest()
         elif self == NodeType.START:
-            self.start()
+            return self.start()
     
     def fight(self):
         if len(_globals.player.party.mons) == 0:
@@ -38,7 +38,7 @@ class NodeType(Enum):
         if battle.winner == _globals.player.party:
             _globals.player.addGold(10)
         _globals.player.party.activeMon.changeStatus('normal')
-        return
+        return battle
 
     def randomMon(self, level : int):
         monNo2 = str(random.randint(0, len(_globals.genericMons) - 1))
