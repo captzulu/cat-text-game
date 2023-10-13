@@ -83,7 +83,7 @@ class Battle:
         self.log.addExplicitLine(self.turn, text)
         self.log.addImplicitLine(self.turn, text)
         print(text)
-        if not self.quickMode:
+        if not self.quickMode or _globals.testMode:
             time.sleep(0.10)
     
     def calculateLongestMonNameLength(self) -> int:
