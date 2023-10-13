@@ -2,8 +2,10 @@ from gameObjects.sections.map.node import Node
 from dataObjects.enums.mapStates import MapStates
 from dataObjects.enums.nodeType import NodeType
 from dataFactory import dataFactory
-from typing import Self
+from typing import Self, Callable
 import itertools
+import _globals
+from cliObjects.menuFunctions import menuFunctions
 
 class Map():
     nodes : dict[int, list[Node]]
@@ -46,6 +48,53 @@ class Map():
 
         if len(self.activeNode.forelinks) == 0:
             self.complete()
+            
+    def mapMenu(self):
+        if _globals.debug:
+            print(self)
+        
+        self.start()
+        exitMenu = False
+        while exitMenu != True:
+            options : list[tuple[str, Callable]] = [("Back", lambda : 1 == 1)]
+            if self.status is self.status.COMPLETED or self.status is self.status.FAILED:
+                options.append(("Reset map", self.reset))
+            else:
+                options.append(("Advance", self.advanceMenu))
+            exitMenu : bool = menuFunctions.menuCallable(options)
+            
+    def advanceMenu(self):
+        while self.status is not self.status.COMPLETED and self.status is not self.status.FAILED:
+            options : dict[int, str] = dict({
+                0 : "Back",
+                1 : "Status"
+            })
+            self.printCurrentNode()
+            offset : int = len(options)
+            self.createAdvanceOptions(options)
+            
+            if len(options) == offset:
+                return
+
+            pickedOption : int = menuFunctions.menuInt(options)
+            if pickedOption == 0:
+                return
+            elif pickedOption == 1:
+                _globals.player.status
+            else:
+                nodeIndex : int = pickedOption - offset
+                self.advance(self.activeNode.forelinks[nodeIndex])
+                if _globals.player.party.isDefeated():
+                    self.fail()
+                    print('Game over !')
+                    
+    def printCurrentNode(self):
+        index = self.activeNode.columnIndex + 1
+        print(f"Current Node : {self.activeNode}. At {index}/{len(self.nodes)}")
+                    
+    def createAdvanceOptions(self, options):
+        for node in self.activeNode.forelinks:
+            options[len(options)] = str(node)
     
     def areLinked(self, firstNode : Node, secondNode : Node) -> bool:
             if secondNode in firstNode.forelinks:
