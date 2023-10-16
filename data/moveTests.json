@@ -20,5 +20,10 @@
         "name": "4",
         "typeText": "4",
         "power": 80
+    },
+    "5": {
+        "name": "5",
+        "typeText": "4",
+        "power": 80
     }
 }
