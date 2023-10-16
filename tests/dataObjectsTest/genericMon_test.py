@@ -12,7 +12,7 @@ class genericMonTest(unittest.TestCase):
         _globals.moves = dataFactory.loadClassDictTest('move')
 
     def __newGenericMon(self, type : str):
-        return GenericMon('bob', 90, 90, 90, type, '1')
+        return GenericMon('bob', 90, 90, 90, type, '1:1')
         
     def testInitClass(self):
         self.assertIsInstance(self.__newGenericMon('1'), GenericMon)
