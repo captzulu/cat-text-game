@@ -5,7 +5,7 @@
         "speed": 10,
         "attack": 10,
         "health": 1000,
-        "movesText": "1"
+        "movesText": "1:3,1:1"
     },
     "1": {
         "name": "1",
@@ -13,7 +13,7 @@
         "speed": 10,
         "attack": 10,
         "health": 1000,
-        "movesText": "1"
+        "movesText": "1:1"
     },
     "2": {
         "name": "22",
@@ -21,7 +21,7 @@
         "speed": 20,
         "attack": 20,
         "health": 1000,
-        "movesText": "2"
+        "movesText": "1:2"
     },
     "3": {
         "name": "333",
@@ -29,7 +29,7 @@
         "speed": 30,
         "attack": 30,
         "health": 1000,
-        "movesText": "3"
+        "movesText": "1:3"
     },
     "4": {
         "name": "4444",
@@ -37,7 +37,7 @@
         "speed": 40,
         "attack": 40,
         "health": 10,
-        "movesText": "4"
+        "movesText": "1:4"
     },
     "5": {
         "name": "55555",
@@ -45,7 +45,7 @@
         "speed": 0,
         "attack": 0,
         "health": 1,
-        "movesText": "4"
+        "movesText": "1:4"
     },
     "6": {
         "name": "6",
@@ -53,6 +53,6 @@
         "speed": 0,
         "attack": 0,
         "health": 1,
-        "movesText": "4"
+        "movesText": "1:4"
     }
 }

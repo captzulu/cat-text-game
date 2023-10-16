@@ -13,7 +13,7 @@ class GenericMon:
     type1: Type = field(init=False, repr=False)
     type2: Optional[Type] = field(init=False, repr=False)
     typeText: str = ''
-    moves: dict[int, Move] = field(init=False)
+    moveList: list[tuple[int, Move]] = field(init=False)
     movesText: str = ''
 
     def __post_init__(self):
@@ -21,11 +21,12 @@ class GenericMon:
         self.type1 = _globals.types[types[0]]
         self.type2 = None if len(types) == 1 else _globals.types[types[1]]
         
-        self.moves : dict[int, Move] = dict()
+        self.moveList : list[tuple[int, Move]] = list()
         if self.movesText != "":
-            moveIdList : list[str] = self.movesText.split(',')
-            for i, id in enumerate(moveIdList):
-                self.moves[i] = _globals.moves[id]
+            moveListing : list[str] = self.movesText.split(',')
+            for listing in moveListing:
+                listing = listing.split(':')
+                self.moveList.append((int(listing[0]), _globals.moves[listing[1]]))
 
     def __str__(self):
         return (self.name + ' || ' + self.printTypeAcronyms() + 

@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from dataObjects.genericMon import GenericMon
+from dataObjects.move import Move
 from dataObjects.type import Type
 import math
 @dataclass
@@ -8,6 +9,7 @@ class SpecificMon:
     maxHealth: int = field(init=False)
     attack: int = field(init=False)
     speed: int = field(init=False)
+    moves: dict[int, Move] = field(init=False)
     genericMon: GenericMon = field(repr=False)
     level: int
     nickname: str = ''
@@ -19,6 +21,7 @@ class SpecificMon:
             self.nickname = self.genericMon.name
         self.calculateStats()
         self.currentHealth = self.maxHealth
+        self.assignDefaultMoves()
         
     def calculateStats(self):
         initialStatModifier = 2
@@ -33,6 +36,12 @@ class SpecificMon:
         self.currentHealth -= hitPointLoss
         if self.currentHealth <= 0 :
             self.faint()
+    
+    def assignDefaultMoves(self):
+        self.moves : dict[int, Move] = dict()
+        for (level, move) in reversed(self.genericMon.moveList):
+            if level <= self.level and len(self.moves) < 4:
+                self.moves[len(self.moves) + 1] = move
             
     def loseMaxHealthPercent(self, hitPointLossPercent : float, minDmg : bool = True) -> int:
         hpLost = math.floor(self.maxHealth * (hitPointLossPercent / 100))
