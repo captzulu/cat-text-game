@@ -136,14 +136,14 @@ class Battle:
         return None
  
     def __takeTurn(self, side : Side) -> Move:
-        pickedMoveFirst : Move = self.__pickMoveAi(side.getActiveMonSpecies()) if side.isAi else self.__pickMove(side)
+        pickedMoveFirst : Move = self.__pickMoveAi(side.activeMon) if side.isAi else self.__pickMove(side)
         return pickedMoveFirst 
 
     def __pickMove(self, side : Side) -> Move:
         print("Pick a move to use :")
         moves : list[tuple[str, Move]] = list()
         activeMon : SpecificMon = side.activeMon
-        for move in activeMon.genericMon.moves.values():
+        for move in activeMon.moves:
             moves.append((move.name, move))
 
         if _globals.debug:
@@ -152,10 +152,10 @@ class Battle:
 
         return menuFunctions.menuObject(moves)
     
-    def __pickMoveAi(self, pokemonSpecies : GenericMon) -> Move:
-        maxMoveIndex : int = len(pokemonSpecies.moves) - 1
+    def __pickMoveAi(self, mon : SpecificMon) -> Move:
+        maxMoveIndex : int = len(mon.moves) - 1
         pickedMoveIndex = 0 if maxMoveIndex == 0 else random.choice(range(0, maxMoveIndex))
-        pickedMove : Move = pokemonSpecies.moves[pickedMoveIndex]
+        pickedMove : Move = mon.moves[pickedMoveIndex]
         return pickedMove
 
     def __sideTurn(self, side : Side, oppositeSide : Side, pickedMove: Move):

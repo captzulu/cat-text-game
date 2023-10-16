@@ -66,7 +66,7 @@ class battleTest(unittest.TestCase):
         self.battle.write(self.battle.edgeSymbol + (self.battle.Filler * longestMonNameLength) + self.battle.edgeSymbol)
     
     def testAttack_damageWithinVariation(self):
-        move = self.battle.side1.getActiveMonSpecies().moves[0]
+        move = self.battle.side1.activeMon.moves[0]
         expectedModifier = self.battle.side2.activeMon.weakTo(move.type)
         ExpectedDamage = expectedModifier * self.battle.side1.activeMon.attack
         ExpectedMinDamage = int(ExpectedDamage * self.battle.DAMAGE_VARIATION_MIN)
@@ -77,7 +77,7 @@ class battleTest(unittest.TestCase):
         self.assertTrue(ExpectedMinDamage <= actualDamage <= ExpectedMaxDamage)
         
     def testAttack_notVeryEffective_hasNotVeryEffective(self):
-        self.battle.attack(self.battle.side1.activeMon, self.battle.side2.activeMon, self.battle.side1.getActiveMonSpecies().moves[0])
+        self.battle.attack(self.battle.side1.activeMon, self.battle.side2.activeMon, self.battle.side1.activeMon.moves[0])
         actualLine = self.battle.getTurnLog()
         
         self.assertTrue("not very effective" in actualLine)
