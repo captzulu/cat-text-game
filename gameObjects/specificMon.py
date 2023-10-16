@@ -9,7 +9,7 @@ class SpecificMon:
     maxHealth: int = field(init=False)
     attack: int = field(init=False)
     speed: int = field(init=False)
-    moves: dict[int, Move] = field(init=False)
+    moves: list[Move] = field(init=False)
     genericMon: GenericMon = field(repr=False)
     level: int
     nickname: str = ''
@@ -38,10 +38,10 @@ class SpecificMon:
             self.faint()
     
     def assignDefaultMoves(self):
-        self.moves : dict[int, Move] = dict()
+        self.moves : list[Move] = list()
         for (level, move) in reversed(self.genericMon.moveList):
             if level <= self.level and len(self.moves) < 4:
-                self.moves[len(self.moves) + 1] = move
+                self.moves.append(move)
             
     def loseMaxHealthPercent(self, hitPointLossPercent : float, minDmg : bool = True) -> int:
         hpLost = math.floor(self.maxHealth * (hitPointLossPercent / 100))
