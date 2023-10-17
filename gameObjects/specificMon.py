@@ -61,7 +61,7 @@ class SpecificMon:
     
     def healStatus(self):
         self.changeStatus('normal')
-    
+
     def fullHeal(self):
         self.healStatus()
         self.currentHealth = self.maxHealth
@@ -71,7 +71,7 @@ class SpecificMon:
     
     def getHealthPercent(self):
         return self.maxHealth / self.currentHealth
-    
+
     def levelUp(self):
         self.level += 1
         beforeLevelUpMaxHp = self.maxHealth
