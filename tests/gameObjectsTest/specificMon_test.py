@@ -38,5 +38,21 @@ class specificMon_Test(unittest.TestCase):
         newPlayer.chooseMon(1)
         self.assertEqual(len(newPlayer.party.mons), 1)
     
+    def testLevelUp(self):
+        initialLevel = 25
+        newSpecificMon = SpecificMon(_globals.genericMons['0'], initialLevel)
+        newSpecificMon.levelUp()
+        self.assertEqual(newSpecificMon.level, initialLevel + 1)
+        
+    def testCalculateStats(self):
+        newSpecificMon = SpecificMon(_globals.genericMons['3'], 5)
+        initialHp = newSpecificMon.maxHealth
+        initialAttack = newSpecificMon.attack
+        initialSpeed = newSpecificMon.speed
+        newSpecificMon.levelUp()
+        self.assertGreater(newSpecificMon.maxHealth, initialHp)
+        self.assertGreater(newSpecificMon.attack, initialAttack)
+        self.assertGreater(newSpecificMon.speed, initialSpeed)
+    
 if __name__ == '__main__':
     unittest.main()
