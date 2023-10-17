@@ -3,6 +3,7 @@ from unittest import mock
 import _globals
 from dataFactory import dataFactory
 from gameObjects.specificMon import SpecificMon
+from gameObjects.sections.battle.effectLib import EffectLib
 from gameObjects.sections.player.player import Player
 
 class specificMon_Test(unittest.TestCase):
@@ -53,6 +54,11 @@ class specificMon_Test(unittest.TestCase):
         self.assertGreater(newSpecificMon.maxHealth, initialHp)
         self.assertGreater(newSpecificMon.attack, initialAttack)
         self.assertGreater(newSpecificMon.speed, initialSpeed)
+        
+    def testGetStatusAcronym(self):
+        newSpecificMon = SpecificMon(_globals.genericMons['3'], 5)
+        EffectLib.poison(newSpecificMon, 100)
+        self.assertEqual(newSpecificMon.getStatusAcronym(), 'psn')
     
 if __name__ == '__main__':
     unittest.main()
