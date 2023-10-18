@@ -5,7 +5,7 @@
         "speed": 21,
         "attack": 23,
         "health": 16,
-        "movesText": "6,0"
+        "movesText": "1:6,1:0"
     },
     "1": {
         "name": "Yuki",
@@ -13,7 +13,7 @@
         "speed": 22,
         "attack": 17,
         "health": 21,
-        "movesText": "1,0"
+        "movesText": "1:1,1:0"
     },
     "2": {
         "name": "Néné",
@@ -21,7 +21,7 @@
         "speed": 20,
         "attack": 18,
         "health": 18,
-        "movesText": "2,5"
+        "movesText": "1:2,1:5"
     },
     "3": {
         "name": "Lolo",
@@ -29,7 +29,7 @@
         "speed": 14,
         "attack": 16,
         "health": 26,
-        "movesText": "3,0"
+        "movesText": "1:3,1:0"
     },
     "4": {
         "name": "Pikku",
@@ -37,7 +37,7 @@
         "speed": 25,
         "attack": 18,
         "health": 17,
-        "movesText": "4,14"
+        "movesText": "1:4,1:14"
     },
     "5": {
         "name": "Sevvy",
@@ -45,7 +45,7 @@
         "speed": 26,
         "attack": 18,
         "health": 18,
-        "movesText": "4,0"
+        "movesText": "1:4,1:0"
     },
     "6": {
         "name": "Olive",
@@ -53,6 +53,6 @@
         "speed": 27,
         "attack": 17,
         "health": 15,
-        "movesText": "5,1"
+        "movesText": "1:5,1:1"
     }
 }
