@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from dataObjects.genericMon import GenericMon
 from dataObjects.move import Move
 from dataObjects.type import Type
+from cliObjects.menuFunctions import menuFunctions
 import math
 @dataclass
 class SpecificMon:
@@ -42,6 +43,27 @@ class SpecificMon:
         for (level, move) in reversed(self.genericMon.moveList):
             if level <= self.level and len(self.moves) < 4:
                 self.moves.append(move)
+
+    def learnMovesFromMoveList(self):
+        for (level, move) in self.genericMon.moveList:
+            if level != self.level:
+                continue
+            self.learnMove(move)
+            
+    def learnMove(self, move : Move):
+        if len(self.moves) == 4:
+            print(f"You don't have room to learn {move.name}. Choose a move to remove :")
+            moveToRemove = self.chooseMoveToRemove()
+            self.moves.remove(moveToRemove)
+
+        self.moves.append(move)
+    
+    def chooseMoveToRemove(self) -> Move:
+        moves : list[tuple[str, Move]] = list()
+        for move in self.moves:
+            moves.append((move.name, move))
+
+        return menuFunctions.menuObject(moves)           
             
     def loseMaxHealthPercent(self, hitPointLossPercent : float, minDmg : bool = True) -> int:
         hpLost = math.floor(self.maxHealth * (hitPointLossPercent / 100))
@@ -78,6 +100,7 @@ class SpecificMon:
         self.calculateStats()
         maxHpGain = self.maxHealth - beforeLevelUpMaxHp
         self.currentHealth += maxHpGain
+        self.learnMovesFromMoveList()
     
     def heal(self, amount):
         self.currentHealth = self.maxHealth if amount + self.currentHealth > self.maxHealth else self.currentHealth + amount

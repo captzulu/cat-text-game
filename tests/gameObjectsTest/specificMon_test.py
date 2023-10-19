@@ -39,6 +39,12 @@ class specificMon_Test(unittest.TestCase):
         newPlayer.chooseMon(1)
         self.assertEqual(len(newPlayer.party.mons), 1)
     
+    def testLearnMovesFromMoveList(self):
+        _globals.genericMons['0'].moveList = [(1, _globals.moves['1']), (2, _globals.moves['1'])]
+        newSpecificMon = SpecificMon(_globals.genericMons['0'], 1)
+        newSpecificMon.levelUp()
+        self.assertEqual(2, len(newSpecificMon.moves))
+    
     def testLevelUp(self):
         initialLevel = 25
         newSpecificMon = SpecificMon(_globals.genericMons['0'], initialLevel)
